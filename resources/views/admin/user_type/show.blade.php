@@ -1,4 +1,4 @@
-@empty($level)
+@empty($user_type)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -11,29 +11,29 @@
                 <h5><i class="bi bi-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/level') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/user_type') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/level/' . $level['level_id'] . '/detail_ajax') }}" method="POST" id="form-show">
+<form action="{{ url('/user_type/' . $user_type['user_type_id'] . '/show') }}" method="GET" id="form-show">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Pengguna</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Jenis Pengguna</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
-                        <th class="text-right col-3">Kode Pengguna:</th>
-                        <td class="col-9">{{ $level['level_kode'] }}</td>
+                        <th class="text-right col-3">Kode Jenis Pengguna:</th>
+                        <td class="col-9">{{ $user_type['user_type_code'] }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Nama Pengguna:</th>
-                        <td class="col-9">{{ $level['level_nama'] }}</td>
+                        <th class="text-right col-3">Nama Jenis Pengguna:</th>
+                        <td class="col-9">{{ $user_type['user_type_name'] }}</td>
                     </tr>
                 </table>
             </div>
@@ -62,7 +62,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataUser.ajax.reload(); // Reload datatable
+                            dataUserType.ajax.reload(); // Reload datatable
                         } else {
                             Swal.fire({
                                 icon: 'error',

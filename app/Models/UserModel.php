@@ -11,14 +11,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class UserModel extends Authenticatable
 {
     use HasFactory;
-
+    
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
+
     protected $fillable = ['user_type_id', 'username', 'password'];
 
     protected $hidden = ['password'];
 
-    protected $casts = ['password' => 'hashed']; //casting password agar otomatis dihash
+    protected $casts = [ 'user_id' => 'string','password' => 'hashed']; //casting password agar otomatis dihash
 
     public function user_type(): BelongsTo {
         return $this->belongsTo(UserTypeModel::class, 'user_type_id', 'user_type_id');

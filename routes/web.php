@@ -29,12 +29,13 @@ Route::group(['prefix' => 'user'], function() {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/list', [UserController::class, 'list']);
     Route::get('/create', [UserController::class, 'create']);
-    Route::post('/ajax', [UserController::class, 'store']);
+    Route::post('/store', [UserController::class, 'store']);
     Route::get('/{id}/show', [UserController::class, 'show']);
     Route::get('/{id}/edit', [UserController::class, 'edit']);
     Route::put('/{id}/update', [UserController::class, 'update']);
     Route::get('/{id}/delete', [UserController::class, 'confirm']);
     Route::delete('/{id}/delete', [UserController::class, 'delete']);
+    Route::get('/import', [UserController::class, 'import']);
     Route::post('/import_excel', [UserController::class, 'import_excel']);
     Route::get('/export_excel', [UserController::class, 'export_excel']);
     Route::get('/export_pdf', [UserController::class, 'export_pdf']);

@@ -17,7 +17,7 @@
     </div>
 </div>
 @else
-<form action="{{ url('/user/' . $user['user_id'] . '/update_ajax') }}" method="POST" id="form-edit">
+<form action="{{ url('/user/' . $user['user_id'] . '/update') }}" method="POST" id="form-edit">
     @csrf
     @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -30,28 +30,22 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="level_id">Level Pengguna</label>
-                    <select name="level_id" id="level_id" class="form-control" required>
-                        <option value="">- Pilih Level -</option>
-                        @foreach ($level as $l)
-                        <option value="{{ $l['level_id'] }}" {{ $l['level_id']==$user['level_id'] ? 'selected' : '' }}>
-                            {{ $l['level_nama'] }}
+                    <label for="user_type_id">Jenis Pengguna</label>
+                    <select name="user_type_id" id="user_type_id" class="form-control" required>
+                        <option value="">- Pilih Jenis Pengguna -</option>
+                        @foreach ($user_type as $l)
+                        <option value="{{ $l['user_type_id'] }}" {{ $l['user_type_id']==$user['user_type_id'] ? 'selected' : '' }}>
+                            {{ $l['user_type_name'] }}
                         </option>
                         @endforeach
                     </select>
-                    <small id="error-level_id" class="error-text form-text text-danger"></small>
+                    <small id="error-user_type_id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input value="{{ old('username', $user['username']) }}" type="text" name="username" id="username"
                         class="form-control" required>
                     <small id="error-username" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input value="{{ old('nama', $user['nama']) }}" type="text" name="nama" id="nama"
-                        class="form-control" required>
-                    <small id="error-nama" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -73,9 +67,8 @@
     $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    level_id: { required: true, number: true },
+                    user_type_id: { required: true },
                     username: { required: true, minlength: 3, maxlength: 20 },
-                    nama: { required: true, minlength: 3, maxlength: 100 },
                     password: { minlength: 6, maxlength: 20 }
                 },
                 submitHandler: function(form) {

@@ -1,8 +1,14 @@
 <?php
 
+use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\TypeCertification;
+use App\Http\Controllers\TypeTraining;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VendorCertification;
+use App\Http\Controllers\VendorTraining;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,3 +62,97 @@ Route::group(['prefix' => 'level'], function() {
     Route::get('/export_pdf', [LevelController::class, 'export_pdf']);
 });
 
+// Route Data Sertifikasi
+Route::group(['prefix' => 'certification'], function() {
+    Route::get('/', [CertificationController::class, 'index']);
+    Route::post('/list', [CertificationController::class, 'list']);
+    Route::get('/create_ajax', [CertificationController::class, 'create_ajax']);
+    Route::post('/ajax', [CertificationController::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [CertificationController::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [CertificationController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [CertificationController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [CertificationController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [CertificationController::class, 'delete_ajax']);
+    Route::post('/import_ajax', [CertificationController::class, 'import_ajax']);
+    Route::get('/export_excel', [CertificationController::class, 'export_excel']);
+    Route::get('/export_pdf', [CertificationController::class, 'export_pdf']);
+});
+
+// Route Vendor Sertifikasi
+Route::group(['prefix' => 'certificationVendor'], function() {
+    Route::get('/', [VendorCertification::class, 'index']);
+    Route::post('/list', [VendorCertification::class, 'list']);
+    Route::get('/create_ajax', [VendorCertification::class, 'create_ajax']);
+    Route::post('/ajax', [VendorCertification::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [VendorCertification::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [VendorCertification::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [VendorCertification::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [VendorCertification::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [VendorCertification::class, 'delete_ajax']);
+    Route::post('/import_ajax', [VendorCertification::class, 'import_ajax']);
+    Route::get('/export_excel', [VendorCertification::class, 'export_excel']);
+    Route::get('/export_pdf', [VendorCertification::class, 'export_pdf']);
+});
+
+// Route Jenis Sertifikasi
+Route::group(['prefix' => 'certificationType'], function() {
+    Route::get('/', [TypeCertification::class, 'index']);
+    Route::post('/list', [TypeCertification::class, 'list']);
+    Route::get('/create_ajax', [TypeCertification::class, 'create_ajax']);
+    Route::post('/ajax', [TypeCertification::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [TypeCertification::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [TypeCertification::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [TypeCertification::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [TypeCertification::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [TypeCertification::class, 'delete_ajax']);
+    Route::post('/import_ajax', [TypeCertification::class, 'import_ajax']);
+    Route::get('/export_excel', [TypeCertification::class, 'export_excel']);
+    Route::get('/export_pdf', [TypeCertification::class, 'export_pdf']);
+});
+
+// Route Data Pelatihan
+Route::group(['prefix' => 'training'], function() {
+    Route::get('/', [TrainingController::class, 'index']);
+    Route::post('/list', [TrainingController::class, 'list']);
+    Route::get('/create_ajax', [TrainingController::class, 'create_ajax']);
+    Route::post('/ajax', [TrainingController::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [TrainingController::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [TrainingController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [TrainingController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [TrainingController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [TrainingController::class, 'delete_ajax']);
+    Route::post('/import_ajax', [TrainingController::class, 'import_ajax']);
+    Route::get('/export_excel', [TrainingController::class, 'export_excel']);
+    Route::get('/export_pdf', [TrainingController::class, 'export_pdf']);
+});
+// Route Vendor Pelatihan
+Route::group(['prefix' => 'trainingVendor'], function(){
+    Route::get('/', [VendorTraining::class, 'index']);
+    Route::post('/list', [VendorTraining::class, 'list']);
+    Route::get('/create_ajax', [VendorTraining::class, 'create_ajax']);
+    Route::post('/ajax', [VendorTraining::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [VendorTraining::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [VendorTraining::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [VendorTraining::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [VendorTraining::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [VendorTraining::class, 'delete_ajax']);
+    Route::post('/import_ajax', [VendorTraining::class, 'import_ajax']);
+    Route::get('/export_excel', [VendorTraining::class, 'export_excel']);
+    Route::get('/export_pdf', [VendorTraining::class, 'export_pdf']);
+});
+
+// Route Jenis Pelatihan
+Route::group(['prefix' => 'trainingType'], function() {
+    Route::get('/', [TypeTraining::class, 'index']);
+    Route::post('/list', [TypeTraining::class, 'list']);
+    Route::get('/create_ajax', [TypeTraining::class, 'create_ajax']);
+    Route::post('/ajax', [TypeTraining::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [TypeTraining::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [TypeTraining::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [TypeTraining::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [TypeTraining::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [TypeTraining::class, 'delete_ajax']);
+    Route::post('/import_ajax', [TypeTraining::class, 'import_ajax']);
+    Route::get('/export_excel', [TypeTraining::class, 'export_excel']);
+    Route::get('/export_pdf', [TypeTraining::class, 'export_pdf']);
+});

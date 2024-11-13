@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\InterestController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\TrainingController;
@@ -30,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index']);
 
+// Admin
 // Route Pengguna
 Route::group(['prefix' => 'user'], function() {
     Route::get('/', [UserController::class, 'index']);
@@ -156,3 +158,38 @@ Route::group(['prefix' => 'trainingType'], function() {
     Route::get('/export_excel', [TypeTraining::class, 'export_excel']);
     Route::get('/export_pdf', [TypeTraining::class, 'export_pdf']);
 });
+
+// Route Bidang Minat
+Route::group(['prefix' => 'interest'], function() {
+    Route::get('/', [InterestController::class, 'index']);
+    Route::post('/list', [InterestController::class, 'list']);
+    Route::get('/create_ajax', [InterestController::class, 'create_ajax']);
+    Route::post('/ajax', [InterestController::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [InterestController::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [InterestController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [InterestController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [InterestController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [InterestController::class, 'delete_ajax']);
+    Route::post('/import_ajax', [InterestController::class, 'import_ajax']);
+    Route::get('/export_excel', [InterestController::class, 'export_excel']);
+    Route::get('/export_pdf', [InterestController::class, 'export_pdf']);
+});
+
+// Route Mata Kuliah
+// Route Permintaan Surat Tugas
+// Route Profile
+
+// Dosen
+// Route Pengajuan Sertifikasi
+// Route Riwayat Sertifikasi
+// Route Pengajuan Pelatihan
+// Route Status Pengajuan Pelatihan
+// Route Riwayat Pelatihan
+// Route Pengajuan Surat Tugas
+
+// Pimpinan
+// Route Statistik Dosen
+// Route Pemetaan Sertifikasi Dosen
+// Route Pemetaan Pelatihan Dosen
+// Route Pemberian Tugas Pelatihan & Sertifikasi Dosen
+

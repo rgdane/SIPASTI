@@ -9,16 +9,10 @@
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button>
             <a href="{{ url('/user_type/export_excel') }}" class="btn btn-primary">
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
-<<<<<<< HEAD
-            <a href="{{ url('/user/export_pdf') }}" class="btn btn-warning">
-                <i class="bi bi-file-earmark-pdf"></i> Export PDF</a>
-            <button onclick="modalAction('{{ url('/level/create_ajax') }}')" class="btn btn-success">
-                <i class="bi bi-person-plus"></i> Tambah Data</button>
-=======
             <a href="{{ url('/user_type/export_pdf') }}" class="btn btn-warning">
-                <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
-            <button onclick="modalAction('{{ url('/user_type/create') }}')" class="btn btn-success"><i class="bi bi-person-plus"></i> Tambah Data</button>
->>>>>>> 3fa3b4cb54bb0ea3bef77bbce5a74c02fcc99eeb
+                <i class="bi bi-file-earmark-pdf"></i> Export PDF</a>
+            <button onclick="modalAction('{{ url('/user_type/create') }}')" class="btn btn-success">
+                <i class="bi bi-person-plus"></i> Tambah Data</button>
         </div>
     </div>
     <div class="card-body">
@@ -29,13 +23,8 @@
                 <thead>
                     <tr>
                         <th>No</th>
-<<<<<<< HEAD
                         <th>Kode Pengguna</th>
                         <th>Jenis Pengguna</th>
-=======
-                        <th>Kode Jenis Pengguna</th>
-                        <th>Nama Jenis Pengguna</th>
->>>>>>> 3fa3b4cb54bb0ea3bef77bbce5a74c02fcc99eeb
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -76,14 +65,14 @@
     }
 
     /* CSS untuk memperkecil teks header tabel */
-    #table_level th {
+    #table_user_type th {
         font-size: 0.875rem; /* Sesuaikan ukuran teks */
         padding: 0.5rem;
     }
 
     /* Responsivitas tabel di layar kecil */
     @media (max-width: 768px) {
-        #table_level th, #table_level td {
+        #table_user_type th, #table_user_type td {
             font-size: 0.75rem;
             padding: 0.3rem;
         }

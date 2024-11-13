@@ -37,7 +37,7 @@
             rules: {
                 user_type_id: {
                     required: true,
-                    number: true
+                    number:true
                 },
                 user_type_code: {
                     required: true,
@@ -63,7 +63,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataUserType.ajax.reload();
+                            dataLevel.ajax.reload();
                         } else {
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {

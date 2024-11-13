@@ -6,6 +6,7 @@ use App\Http\Controllers\InterestController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TypeCertification;
 use App\Http\Controllers\TypeTraining;
+use App\Http\Controllers\CertificationTypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\VendorCertification;
@@ -99,18 +100,18 @@ Route::group(['prefix' => 'certificationVendor'], function() {
 
 // Route Jenis Sertifikasi
 Route::group(['prefix' => 'certificationType'], function() {
-    Route::get('/', [TypeCertification::class, 'index']);
-    Route::post('/list', [TypeCertification::class, 'list']);
-    Route::get('/create_ajax', [TypeCertification::class, 'create_ajax']);
-    Route::post('/ajax', [TypeCertification::class, 'store_ajax']);
-    Route::get('/{id}/show_ajax', [TypeCertification::class, 'show_ajax']);
-    Route::get('/{id}/edit_ajax', [TypeCertification::class, 'edit_ajax']);
-    Route::put('/{id}/update_ajax', [TypeCertification::class, 'update_ajax']);
-    Route::get('/{id}/delete_ajax', [TypeCertification::class, 'confirm_ajax']);
-    Route::delete('/{id}/delete_ajax', [TypeCertification::class, 'delete_ajax']);
-    Route::post('/import_ajax', [TypeCertification::class, 'import_ajax']);
-    Route::get('/export_excel', [TypeCertification::class, 'export_excel']);
-    Route::get('/export_pdf', [TypeCertification::class, 'export_pdf']);
+    Route::get('/', [CertificationTypeController::class, 'index']);
+    Route::post('/list', [CertificationTypeController::class, 'list']);
+    Route::get('/create_ajax', [CertificationTypeController::class, 'create_ajax']);
+    Route::post('/ajax', [CertificationTypeController::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [CertificationTypeController::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [CertificationTypeController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [CertificationTypeController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [CertificationTypeController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [CertificationTypeController::class, 'delete_ajax']);
+    Route::post('/import_ajax', [CertificationTypeController::class, 'import_ajax']);
+    Route::get('/export_excel', [CertificationTypeController::class, 'export_excel']);
+    Route::get('/export_pdf', [CertificationTypeController::class, 'export_pdf']);
 });
 
 // Route Data Pelatihan
@@ -209,3 +210,19 @@ Route::group(['prefix' => 'course'], function() {
 // Route Pemetaan Pelatihan Dosen
 // Route Pemberian Tugas Pelatihan & Sertifikasi Dosen
 
+// Route Jenis Sertifikasi
+Route::group(['prefix' => 'certification_type'], function() {
+    Route::get('/', [CertificationTypeController::class, 'index']);
+    Route::post('/list', [CertificationTypeController::class, 'list']);
+    Route::get('/create', [CertificationTypeController::class, 'create']);
+    Route::post('/store', [CertificationTypeController::class, 'store']);
+    Route::get('/{id}/show', [CertificationTypeController::class, 'show']);
+    Route::get('/{id}/edit', [CertificationTypeController::class, 'edit']);
+    Route::put('/{id}/update', [CertificationTypeController::class, 'update']);
+    Route::get('/{id}/delete', [CertificationTypeController::class, 'confirm']);
+    Route::delete('/{id}/delete', [CertificationTypeController::class, 'delete']);
+    Route::get('/import', [CertificationTypeController::class, 'import']);
+    Route::post('/import_excel', [CertificationTypeController::class, 'import_excel']);
+    Route::get('/export_excel', [CertificationTypeController::class, 'export_excel']);
+    Route::get('/export_pdf', [CertificationTypeController::class, 'export_pdf']);
+});

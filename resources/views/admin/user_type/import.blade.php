@@ -1,24 +1,24 @@
-<form action="{{ url('/user/import_excel') }}" method="POST" id="form-import">
+<form action="{{ url('/user_type/import_excel') }}" method="POST" id="form-import">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Import Data User</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Import Data Jenis Pengguna</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label>Download Template</label>
-                    <a href="{{ asset('template_pengguna.xlsx') }}" class="btn btn-info btn-sm" download><i
+                    <a href="{{ asset('template_jenis_pengguna.xlsx') }}" class="btn btn-info btn-sm" download><i
                             class="fa fa-file-excel"></i>Download</a>
-                    <small id="error-level_id" class="error-text form-text text-danger"></small>
+                    <small id="error-user_type_id" class="error-text form-text text-danger"></small>
                 </div>
                 <p>Anda dapat mengimpor data pengguna dengan mengklik tombol di bawah ini.</p>
                 <div class="form-group">
                     <label>Pilih File</label>
-                    <input type="file" name="file_user" id="file_user" class="form-control" required>
-                    <small id="error-file_user" class="error-text form-text text-danger"></small>
+                    <input type="file" name="file_user_type" id="file_user_type" class="form-control" required>
+                    <small id="error-file_user_type" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -28,12 +28,11 @@
         </div>
     </div>
 </form>
-
 <script>
     $(document).ready(function() {
         $("#form-import").validate({
             rules: {
-                file_user: {
+                file_user_type: {  // Mengubah dari file_level ke file_user_type
                     required: true,
                     extension: "xlsx"
                 }
@@ -54,7 +53,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataUser.ajax.reload(); // Reload DataTables
+                            dataUserType.ajax.reload(); // Reload DataTables
                         } else { // Jika terjadi error
                             Swal.fire({
                                 icon: 'error',

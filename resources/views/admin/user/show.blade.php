@@ -16,7 +16,7 @@
     </div>
 </div>
 @else
-<form action="{{ url('/user/' . $user['user_id'] . '/detail_ajax') }}" method="POST" id="form-show">
+<form action="{{ url('/user/' . $user['user_id'] . '/detail') }}" method="POST" id="form-show">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -28,30 +28,12 @@
             <div class="modal-body">
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
-                        <th class="text-right col-3">Level Pengguna:</th>
-                        <td class="col-9">{{ $user['level']['level_nama'] }}</td>
+                        <th class="text-right col-3">Jenis Pengguna:</th>
+                        <td class="col-9">{{ $user['user_type']['user_type_name'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Username:</th>
                         <td class="col-9">{{ $user['username'] }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right col-3">Nama:</th>
-                        <td class="col-9">{{ $user['nama'] }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right col-3">Password:</th>
-                        <td class="col-9">
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="password"
-                                    value="{{ $user['password'] ?? '********' }}" readonly>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                        <i id="icon-eye" class="bi bi-eye-slash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
                     </tr>
                 </table>
             </div>

@@ -5,26 +5,37 @@
     <div class="card-header">
         <h3 class="card-title">Manajemen Jenis Pengguna</h3>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('/user/import') }}')" class="btn btn-info">
+            <button onclick="modalAction('{{ url('/user_type/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button>
-            <a href="{{ url('/user/export_excel') }}" class="btn btn-primary">
+            <a href="{{ url('/user_type/export_excel') }}" class="btn btn-primary">
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
+<<<<<<< HEAD
             <a href="{{ url('/user/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i> Export PDF</a>
             <button onclick="modalAction('{{ url('/level/create_ajax') }}')" class="btn btn-success">
                 <i class="bi bi-person-plus"></i> Tambah Data</button>
+=======
+            <a href="{{ url('/user_type/export_pdf') }}" class="btn btn-warning">
+                <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
+            <button onclick="modalAction('{{ url('/user_type/create') }}')" class="btn btn-success"><i class="bi bi-person-plus"></i> Tambah Data</button>
+>>>>>>> 3fa3b4cb54bb0ea3bef77bbce5a74c02fcc99eeb
         </div>
     </div>
     <div class="card-body">
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
         <div class="table-responsive">
-            <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center" id="table_level">
+            <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center" id="table_user_type">
                 <thead>
                     <tr>
                         <th>No</th>
+<<<<<<< HEAD
                         <th>Kode Pengguna</th>
                         <th>Jenis Pengguna</th>
+=======
+                        <th>Kode Jenis Pengguna</th>
+                        <th>Nama Jenis Pengguna</th>
+>>>>>>> 3fa3b4cb54bb0ea3bef77bbce5a74c02fcc99eeb
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -88,20 +99,17 @@
         });
     }
     
-    var dataLevel;
+    var dataUserType;
     $(document).ready(function(){
-        dataLevel = $('#table_level').DataTable({
+        dataUserType = $('#table_user_type').DataTable({
             serverSide: true,
             paging: false, // Disable pagination
             lengthChange: false, // Disable the "Show entries" dropdown
             info: false, // Disable the "Showing X of Y entries" info
             ajax:{
-                "url": "{{ url('level/list') }}",
+                "url": "{{ url('user_type/list') }}",
                 "dataType": "json",
-                "type": "POST",
-                "data": function (d){
-                    d.level_id = $('#level_id').val();
-                }
+                "type": "POST"
             },
             columns:[
                 {
@@ -110,12 +118,12 @@
                     orderable: false,
                     searchable: false
                 },{
-                    data: "level_kode",
+                    data: "user_type_code",
                     className: "",
                     orderable: true,
                     searchable: true
                 },{
-                    data: "level_nama",
+                    data: "user_type_name",
                     className: "",
                     orderable: true,
                     searchable: true
@@ -126,10 +134,6 @@
                     searchable: false
                 }
             ]
-        });
-
-        $('#level_id').on('change', function(){
-            dataLevel.ajax.reload();
         });
     });
 </script>

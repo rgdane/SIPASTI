@@ -11,7 +11,7 @@
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
             <a href="{{ url('/user/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
-            <button onclick="modalAction('{{ url('/user/create_ajax') }}')" class="btn btn-success"><i class="bi bi-person-plus"></i> Tambah Data</button>
+            <button onclick="modalAction('{{ url('/user/create') }}')" class="btn btn-success"><i class="bi bi-person-plus"></i> Tambah Data</button>
         </div>
     </div>
     <div class="card-body">
@@ -22,13 +22,13 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Filter:</label>
                     <div class="col-3">
-                        <select name="level_id" id="level_id" class="form-control" required>
+                        <select class="form-control" name="user_type_id" id="user_type_id" required>
                             <option value="">- Semua -</option>
-                            <option value="1">Administrator</option>
-                            <option value="2">Dosen </option>
-                            <option value="3">Pimpinan</option>
+                            @foreach ($user_type as $item )
+                            <option value="{{$item->user_type_id}}">{{ $item->user_type_name}}</option>
+                            @endforeach
                         </select>
-                        <small class="form-text text-muted">Level Pengguna</small>
+                        <small class="form-text text-muted">Jenis Pengguna</small>
                     </div>
                 </div>
             </div>
@@ -39,8 +39,7 @@
                     <tr>
                         <th>No</th>
                         <th>Username</th>
-                        <th>Nama</th>
-                        <th>Level Pengguna</th>
+                        <th>Jenis Pengguna</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -102,7 +101,7 @@
                 "dataType": "json",
                 "type": "POST",
                 "data": function (d){
-                    d.level_id = $('#level_id').val();
+                    d.user_type_id = $('#user_type_id').val();
                 }
             },
             columns:[
@@ -117,12 +116,7 @@
                     orderable: true,
                     searchable: true
                 },{
-                    data: "nama",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },{
-                    data: "level.level_nama",
+                    data: "user_type.user_type_name",
                     className: "",
                     orderable: false,
                     searchable: false
@@ -135,7 +129,7 @@
             ]
         });
 
-        $('#level_id').on('change', function(){
+        $('#user_type_id').on('change', function(){
             dataUser.ajax.reload();
         });
     });

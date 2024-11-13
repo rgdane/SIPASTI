@@ -94,15 +94,14 @@
                 </a>
             </li>
 
-            <li
-                class="nav-item has-treeview {{ ($activeMenu == 'userType' || $activeMenu == 'user') ? 'menu-open' : '' }}">
+            <li class="nav-item has-treeview {{ ($activeMenu == 'level' || $activeMenu == 'user') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-people"></i>
                     <p> Pengguna <i class="right bi bi-caret-left-fill"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/userType') }}" class="nav-link {{ ($activeMenu == 'userType') ? 'active' : '' }}">
+                        <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu == 'level') ? 'active' : '' }}">
                             <i class="bi bi-person"></i>
                             <p>Jenis Pengguna</p>
                         </a>

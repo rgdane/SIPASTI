@@ -1,4 +1,4 @@
-<form action="{{ url('/user/ajax') }}" method="POST" id="form-tambah">
+<form action="{{ url('/user_type/store') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -11,16 +11,16 @@
             <div class="modal-body">
                 <!-- Kode Level -->
                 <div class="form-group">
-                    <label for="level_kode">Kode Pengguna</label>
-                    <input value="" type="text" name="level_kode" id="level_kode" class="form-control" required>
-                    <small id="error-level_kode" class="error-text form-text text-danger"></small>
+                    <label for="user_type_code">Kode Jenis Pengguna</label>
+                    <input value="" type="text" name="user_type_code" id="user_type_code" class="form-control" required>
+                    <small id="error-user_type_code" class="error-text form-text text-danger"></small>
                 </div>
 
                 <!-- Nama Pengguna -->
                 <div class="form-group">
-                    <label for="level_nama">Nama Pengguna</label>
-                    <input value="" type="text" name="level_nama" id="level_nama" class="form-control" required>
-                    <small id="error-level_nama" class="error-text form-text text-danger"></small>
+                    <label for="user_type_name">Jenis Pengguna</label>
+                    <input value="" type="text" name="user_type_name" id="user_type_name" class="form-control" required>
+                    <small id="error-user_type_name" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -35,16 +35,16 @@
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
-                level_id: {
+                user_type_id: {
                     required: true,
                     number: true
                 },
-                level_kode: {
+                user_type_code: {
                     required: true,
                     minlength: 3,
                     maxlength: 20
                 },
-                level_nama: {
+                user_type_name: {
                     required: true,
                     minlength: 3,
                     maxlength: 100
@@ -63,7 +63,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataUser.ajax.reload();
+                            dataUserType.ajax.reload();
                         } else {
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {

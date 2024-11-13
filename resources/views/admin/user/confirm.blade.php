@@ -1,4 +1,4 @@
-@empty($user_type)
+@empty($user)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,18 +12,18 @@
                 <h5><i class="bi bi-x-circle-fill"></i> Kesalahan!!!</h5> <!-- Updated icon -->
                 Data yang anda cari tidak ditemukan
             </div>
-            <a href="{{ url('/user_type') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/user') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/user_type/' . $user_type['user_type_id'] . '/delete') }}" method="POST" id="form-delete">
+<form action="{{ url('/user/' . $user['user_id'] . '/delete') }}" method="POST" id="form-delete">
     @csrf
     @method('DELETE')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Jenis Pengguna</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Data User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -35,12 +35,12 @@
                 </div>
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
-                        <th class="text-right col-3">Kode Pengguna:</th>
-                        <td class="col-9">{{ $user_type['user_type_code'] }}</td>
+                        <th class="text-right col-3">Jenis Pengguna:</th>
+                        <td class="col-9">{{ $user['user_type']['user_type_name'] }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Nama Pengguna:</th>
-                        <td class="col-9">{{ $user_type['user_type_name'] }}</td>
+                        <th class="text-right col-3">Username:</th>
+                        <td class="col-9">{{ $user['username'] }}</td>
                     </tr>
                 </table>
             </div>
@@ -68,7 +68,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataUserType.ajax.reload();
+                                dataUser.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

@@ -4,24 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserModel extends Model
+class UserModel extends Authenticatable
 {
     use HasFactory;
-
-    // Jika nama tabel tidak mengikuti konvensi, tentukan nama tabel
-    protected $table = 'users'; // Ganti dengan nama tabel yang sesuai
-
-    // Jika primary key bukan 'id', tentukan nama primary key
-    protected $primaryKey = 'user_id'; // Ganti dengan nama primary key yang sesuai
-
-    // Tentukan atribut yang dapat diisi secara massal
-    protected $fillable = [
-        'level_id',
-        'username',
-        'nama',
-        'password',
-        'created_at',
-    ];
     
+    protected $table = 'm_user';
+    protected $primaryKey = 'user_id';
+
+    protected $fillable = ['user_type_id', 'username', 'password'];
+
+    protected $hidden = ['password'];
+
+    protected $casts = [ 'user_id' => 'string','password' => 'hashed']; //casting password agar otomatis dihash
+
+    public function user_type(): BelongsTo {
+        return $this->belongsTo(UserTypeModel::class, 'user_type_id', 'user_type_id');
+    }
+
+    public function getRoleName(): string{
+        return $this->user_type->user_type_name;
+    }
+
+    public function hasRole($role): bool{
+        return $this->user_type->user_type_code == $role;
+    }
+
+    public function getRole(){
+        return $this->user_type->user_type_code;
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\CourseController;
@@ -8,9 +9,10 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TypeCertification;
 use App\Http\Controllers\TypeTraining;
+=======
+use App\Http\Controllers\UserTypeController;
+>>>>>>> 3fa3b4cb54bb0ea3bef77bbce5a74c02fcc99eeb
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VendorCertification;
-use App\Http\Controllers\VendorTraining;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,18 +39,20 @@ Route::get('/', [WelcomeController::class, 'index']);
 Route::group(['prefix' => 'user'], function() {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/list', [UserController::class, 'list']);
-    Route::get('/create_ajax', [UserController::class, 'create_ajax']);
-    Route::post('/ajax', [UserController::class, 'store_ajax']);
-    Route::get('/{id}/show_ajax', [UserController::class, 'show_ajax']);
-    Route::get('/{id}/edit_ajax', [UserController::class, 'edit_ajax']);
-    Route::put('/{id}/update_ajax', [UserController::class, 'update_ajax']);
-    Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);
-    Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']);
-    Route::post('/import_ajax', [UserController::class, 'import_ajax']);
+    Route::get('/create', [UserController::class, 'create']);
+    Route::post('/store', [UserController::class, 'store']);
+    Route::get('/{id}/show', [UserController::class, 'show']);
+    Route::get('/{id}/edit', [UserController::class, 'edit']);
+    Route::put('/{id}/update', [UserController::class, 'update']);
+    Route::get('/{id}/delete', [UserController::class, 'confirm']);
+    Route::delete('/{id}/delete', [UserController::class, 'delete']);
+    Route::get('/import', [UserController::class, 'import']);
+    Route::post('/import_excel', [UserController::class, 'import_excel']);
     Route::get('/export_excel', [UserController::class, 'export_excel']);
     Route::get('/export_pdf', [UserController::class, 'export_pdf']);
 });
 
+<<<<<<< HEAD
 // Route Level Pengguna
 Route::group(['prefix' => 'level'], function() {
     Route::get('/', [LevelController::class, 'index']);
@@ -208,3 +212,21 @@ Route::group(['prefix' => 'course'], function() {
 // Route Pemetaan Pelatihan Dosen
 // Route Pemberian Tugas Pelatihan & Sertifikasi Dosen
 
+=======
+// Route Jenis Pengguna
+Route::group(['prefix' => 'user_type'], function() {
+    Route::get('/', [UserTypeController::class, 'index']);
+    Route::post('/list', [UserTypeController::class, 'list']);
+    Route::get('/create', [UserTypeController::class, 'create']);
+    Route::post('/store', [UserTypeController::class, 'store']);
+    Route::get('/{id}/show', [UserTypeController::class, 'show']);
+    Route::get('/{id}/edit', [UserTypeController::class, 'edit']);
+    Route::put('/{id}/update', [UserTypeController::class, 'update']);
+    Route::get('/{id}/delete', [UserTypeController::class, 'confirm']);
+    Route::delete('/{id}/delete', [UserTypeController::class, 'delete']);
+    Route::get('/import', [UserTypeController::class, 'import']);
+    Route::post('/import_excel', [UserTypeController::class, 'import_excel']);
+    Route::get('/export_excel', [UserTypeController::class, 'export_excel']);
+    Route::get('/export_pdf', [UserTypeController::class, 'export_pdf']);
+});
+>>>>>>> 3fa3b4cb54bb0ea3bef77bbce5a74c02fcc99eeb

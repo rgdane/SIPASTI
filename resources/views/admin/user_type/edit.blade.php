@@ -1,4 +1,4 @@
-@empty($user)
+@empty($user_type)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,53 +12,32 @@
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                 Data yang anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/user') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/user_type') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/user/' . $user['user_id'] . '/update_ajax') }}" method="POST" id="form-edit">
+<form action="{{ url('/user_type/' . $user_type['user_type_id'] . '/update') }}" method="POST" id="form-edit">
     @csrf
     @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Data Pengguna</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Jenis Pengguna</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="level_id">Level Pengguna</label>
-                    <select name="level_id" id="level_id" class="form-control" required>
-                        <option value="">- Pilih Level -</option>
-                        @foreach ($level as $l)
-                        <option value="{{ $l['level_id'] }}" {{ $l['level_id']==$user['level_id'] ? 'selected' : '' }}>
-                            {{ $l['level_nama'] }}
-                        </option>
-                        @endforeach
-                    </select>
-                    <small id="error-level_id" class="error-text form-text text-danger"></small>
+                    <label for="levek_kode">Kode Jenis Pengguna</label>
+                    <input value="{{ old('user_type_code', $user_type['user_type_code']) }}" type="text" name="user_type_code" id="user_type_code" class="form-control" required>
+                    <small id="error-user_type_code" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input value="{{ old('username', $user['username']) }}" type="text" name="username" id="username"
-                        class="form-control" required>
-                    <small id="error-username" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input value="{{ old('nama', $user['nama']) }}" type="text" name="nama" id="nama"
-                        class="form-control" required>
-                    <small id="error-nama" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="form-control"
-                        placeholder="Abaikan jika tidak ingin ubah password">
-                    <small class="form-text text-muted">Abaikan jika tidak ingin ubah password</small>
-                    <small id="error-password" class="error-text form-text text-danger"></small>
+                    <label for="user_type_name">Nama Jenis Pengguna</label>
+                    <input value="{{ old('user_type_name', $user_type['user_type_name']) }}" type="text" name="user_type_name" id="user_type_name" class="form-control" required>
+                    <small id="error-user_type_name" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -73,10 +52,9 @@
     $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    level_id: { required: true, number: true },
-                    username: { required: true, minlength: 3, maxlength: 20 },
-                    nama: { required: true, minlength: 3, maxlength: 100 },
-                    password: { minlength: 6, maxlength: 20 }
+                    user_type_id: { required: true, number: true },
+                    user_type_code: { required: true, minlength: 3, maxlength: 20 },
+                    user_type_name: { required: true, minlength: 3, maxlength: 100 },
                 },
                 submitHandler: function(form) {
                     $.ajax({
@@ -91,7 +69,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataUser.ajax.reload();
+                                dataUserType.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

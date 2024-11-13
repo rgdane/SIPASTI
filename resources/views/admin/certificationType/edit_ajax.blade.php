@@ -30,7 +30,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="levek_kode">Kode Jenis Sertifikasi</label>
+                    <label for="certification_type_code">Kode Jenis Sertifikasi</label>
                     <input value="{{ old('certification_type_code', $certificationType['certification_type_code']) }}" type="text" name="certification_type_code" id="certification_type_code" class="form-control" required>
                     <small id="error-certification_type_code" class="error-text form-text text-danger"></small>
                 </div>

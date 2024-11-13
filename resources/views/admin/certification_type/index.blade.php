@@ -5,13 +5,13 @@
     <div class="card-header">
         <h3 class="card-title">Manajemen Vendor Sertifikasi</h3>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('/certificationType/import') }}')" class="btn btn-info">
+            <button onclick="modalAction('{{ url('/certification_type/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button>
-            <a href="{{ url('/certificationType/export_excel') }}" class="btn btn-primary">
+            <a href="{{ url('/certification_type/export_excel') }}" class="btn btn-primary">
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
-            <a href="{{ url('/certificationType/export_pdf') }}" class="btn btn-warning">
+            <a href="{{ url('/certification_type/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
-            <button onclick="modalAction('{{ url('/certificationType/create_ajax') }}')" class="btn btn-success"><i
+            <button onclick="modalAction('{{ url('/certification_type/create') }}')" class="btn btn-success"><i
                     class="bi bi-plus-circle"></i> Tambah Data</button>
         </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
         <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
-            id="table_certificationType" style="width: 100%;">
+            id="table_certification_type" style="width: 100%;">
             <thead>
                 <tr>
                     <th>No</th>
@@ -91,14 +91,14 @@
 
     var dataCertificationType;
     $(document).ready(function() {
-        dataCertificationType = $('#table_certificationType').DataTable({
+        dataCertificationType = $('#table_certification_type').DataTable({
             serverSide: true,
             responsive: true,
             paging: false, // Disable pagination if you want to use custom pagination
             lengthChange: false,
             info: false,
             ajax: {
-                url: "{{ url('certificationType/list') }}",
+                url: "{{ url('certification_type/list') }}",
                 dataType: "json",
                 type: "POST",
                 data: function(d) {

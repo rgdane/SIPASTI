@@ -1,4 +1,4 @@
-@empty($certificationType)
+@empty($certification_type)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -11,12 +11,12 @@
                 <h5><i class="bi bi-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/certificationType') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/certification_type') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/certificationType/' . $certificationType['certification_type_id'] . '/detail_ajax') }}"
+<form action="{{ url('/certification_type/' . $certification_type['certification_type_id'] . '/detail') }}"
     method="POST" id="form-show">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -33,11 +33,11 @@
                     </div>
                     <tr>
                         <th class="text-right col-3">Kode Jenis Seritifikasi:</th>
-                        <td class="col-9">{{ $certificationType['certification_type_code'] }}</td>
+                        <td class="col-9">{{ $certification_type['certification_type_code'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Nama Pengguna:</th>
-                        <td class="col-9">{{ $certificationType['certification_type_name'] }}</td>
+                        <td class="col-9">{{ $certification_type['certification_type_name'] }}</td>
                     </tr>
                 </table>
             </div>

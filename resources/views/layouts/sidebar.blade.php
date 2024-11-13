@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/typeCtfn') }}" class="nav-link {{ ($activeMenu == 'typeCtfn') ? 'active' : '' }}">
+                        <a href="{{ url('/certification_type') }}" class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
                             <i class="bi bi-list-nested"></i>
                             <p>Jenis Sertifikasi</p>
                         </a>

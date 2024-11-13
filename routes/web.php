@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\CertificationTypeController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -54,4 +56,21 @@ Route::group(['prefix' => 'user_type'], function() {
     Route::post('/import_excel', [UserTypeController::class, 'import_excel']);
     Route::get('/export_excel', [UserTypeController::class, 'export_excel']);
     Route::get('/export_pdf', [UserTypeController::class, 'export_pdf']);
+});
+
+// Route Jenis Sertifikasi
+Route::group(['prefix' => 'certification_type'], function() {
+    Route::get('/', [CertificationTypeController::class, 'index']);
+    Route::post('/list', [CertificationTypeController::class, 'list']);
+    Route::get('/create', [CertificationTypeController::class, 'create']);
+    Route::post('/store', [CertificationTypeController::class, 'store']);
+    Route::get('/{id}/show', [CertificationTypeController::class, 'show']);
+    Route::get('/{id}/edit', [CertificationTypeController::class, 'edit']);
+    Route::put('/{id}/update', [CertificationTypeController::class, 'update']);
+    Route::get('/{id}/delete', [CertificationTypeController::class, 'confirm']);
+    Route::delete('/{id}/delete', [CertificationTypeController::class, 'delete']);
+    Route::get('/import', [CertificationTypeController::class, 'import']);
+    Route::post('/import_excel', [CertificationTypeController::class, 'import_excel']);
+    Route::get('/export_excel', [CertificationTypeController::class, 'export_excel']);
+    Route::get('/export_pdf', [CertificationTypeController::class, 'export_pdf']);
 });

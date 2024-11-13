@@ -1,4 +1,4 @@
-@empty($certificationType)
+@empty($certification_type)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,12 +12,12 @@
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                 Data yang anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/certificationType') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/certification_type') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/certificationType/' . $certificationType['certification_type_id'] . '/update_ajax') }}" method="POST" id="form-edit">
+<form action="{{ url('/certification_type/' . $certification_type['certification_type_id'] . '/update') }}" method="POST" id="form-edit">
     @csrf
     @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -31,12 +31,12 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="levek_kode">Kode Jenis Sertifikasi</label>
-                    <input value="{{ old('certification_type_code', $certificationType['certification_type_code']) }}" type="text" name="certification_type_code" id="certification_type_code" class="form-control" required>
+                    <input value="{{ old('certification_type_code', $certification_type['certification_type_code']) }}" type="text" name="certification_type_code" id="certification_type_code" class="form-control" required>
                     <small id="error-certification_type_code" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="certification_type_name">Nama Jenis Sertifikasi</label>
-                    <input value="{{ old('certification_type_name', $certificationType['certification_type_name']) }}" type="text" name="certification_type_name" id="certification_type_name" class="form-control" required>
+                    <input value="{{ old('certification_type_name', $certification_type['certification_type_name']) }}" type="text" name="certification_type_name" id="certification_type_name" class="form-control" required>
                     <small id="error-certification_type_name" class="error-text form-text text-danger"></small>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-@empty($certificationType)
+@empty($certification_type)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,18 +12,18 @@
                 <h5><i class="bi bi-x-circle-fill"></i> Kesalahan!!!</h5> <!-- Updated icon -->
                 Data yang anda cari tidak ditemukan
             </div>
-            <a href="{{ url('/certificationType') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/certification_type') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/certificationType/' . $certificationType['certification_type_id'] . '/delete_ajax') }}" method="POST" id="form-delete">
+<form action="{{ url('/certification_type/' . $certification_type['certification_type_id'] . '/delete') }}" method="POST" id="form-delete">
     @csrf
     @method('DELETE')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Level Pengguna</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Jenis Sertifikasi</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -36,11 +36,11 @@
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
                         <th class="text-right col-3">Kode Jenis Seritifikasi:</th>
-                        <td class="col-9">{{ $certificationType['certification_type_code'] }}</td>
+                        <td class="col-9">{{ $certification_type['certification_type_code'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Nama Pengguna:</th>
-                        <td class="col-9">{{ $certificationType['certification_type_name'] }}</td>
+                        <td class="col-9">{{ $certification_type['certification_type_name'] }}</td>
                     </tr>
                 </table>
             </div>

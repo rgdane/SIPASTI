@@ -1,4 +1,4 @@
-@empty($level)
+@empty($user)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -9,53 +9,52 @@
         </div>
         <div class="modal-body">
             <div class="alert alert-danger">
-                <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
-                Data yang anda cari tidak ditemukan.
+                <h5><i class="bi bi-x-circle-fill"></i> Kesalahan!!!</h5> <!-- Updated icon -->
+                Data yang anda cari tidak ditemukan
             </div>
-            <a href="{{ url('/level') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/user') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/level/' . $level['level_id'] . '/update_ajax') }}" method="POST" id="form-edit">
+<form action="{{ url('/user/' . $user['user_id'] . '/delete') }}" method="POST" id="form-delete">
     @csrf
-    @method('PUT')
+    @method('DELETE')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Data Level Pengguna</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Data User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="levek_kode">Kode Pengguna</label>
-                    <input value="{{ old('level_kode', $level['level_kode']) }}" type="text" name="level_kode" id="level_kode" class="form-control" required>
-                    <small id="error-level_kode" class="error-text form-text text-danger"></small>
+                <div class="alert alert-warning">
+                    <h5><i class="bi bi-exclamation-triangle-fill"></i> Konfirmasi !!!</h5> <!-- Updated icon -->
+                    Apakah Anda ingin menghapus data seperti dibawah ini?
                 </div>
-                <div class="form-group">
-                    <label for="level_nama">Nama Pengguna</label>
-                    <input value="{{ old('level_nama', $level['level_nama']) }}" type="text" name="level_nama" id="level_nama" class="form-control" required>
-                    <small id="error-level_nama" class="error-text form-text text-danger"></small>
-                </div>
+                <table class="table table-sm table-bordered table-striped">
+                    <tr>
+                        <th class="text-right col-3">Jenis Pengguna:</th>
+                        <td class="col-9">{{ $user['user_type']['user_type_name'] }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Username:</th>
+                        <td class="col-9">{{ $user['username'] }}</td>
+                    </tr>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">Ya, Hapus</button>
             </div>
         </div>
     </div>
 </form>
-
 <script>
-   $(document).ready(function() {
-            $("#form-edit").validate({
-                rules: {
-                    level_id: { required: true, number: true },
-                    level_kode: { required: true, minlength: 3, maxlength: 20 },
-                    level_nama: { required: true, minlength: 3, maxlength: 100 },
-                },
+    $(document).ready(function() {
+            $("#form-delete").validate({
+                rules: {},
                 submitHandler: function(form) {
                     $.ajax({
                         url: form.action,
@@ -73,7 +72,7 @@
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
-                                    $('#error-' + prefix).text(val[0]);
+                                    $('#error-'+prefix).text(val[0]);
                                 });
                                 Swal.fire({
                                     icon: 'error',
@@ -86,17 +85,18 @@
                     return false;
                 },
                 errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
+                errorPlacement: function (error, element) {
+                    error.addClass("invalid-feedback");
+                    elemtnt.closest('.form-group').append(error);
                 },
-                highlight: function(element, errorClass, validClass) {
+                highlight: function (element, errorClass, validClass) {
                     $(element).addClass('is-invalid');
                 },
-                unhighlight: function(element, errorClass, validClass) {
+                unhighlight: function (element, errorClass, validClass) {
                     $(element).removeClass('is-invalid');
                 }
             });
         });
+    </script>
 </script>
 @endempty

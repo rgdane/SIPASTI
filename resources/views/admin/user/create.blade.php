@@ -1,4 +1,4 @@
-<form action="{{ url('/user/ajax') }}" method="POST" id="form-tambah">
+<form action="{{ url('/user/store') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -9,16 +9,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Level Pengguna -->
+                <!-- Jenis Pengguna -->
                 <div class="form-group">
-                    <label for="level_id">Level Pengguna</label>
-                    <select name="level_id" id="level_id" class="form-control" required>
-                        <option value="">- Pilih Level -</option>
-                        <option value="1">Administrator</option>
-                        <option value="2">Dosen</option>
-                        <option value="3">Pimpinan</option>
+                    <label for="user_type_id">Jenis Pengguna</label>
+                    <select name="user_type_id" id="user_type_id" class="form-control" required>
+                        <option value="">- Pilih Jenis Pengguna -</option> @foreach($user_type as $l) <option value="{{ $l->user_type_id }}">{{ $l->user_type_name }}</option> @endforeach
                     </select>
-                    <small id="error-level_id" class="error-text form-text text-danger"></small>
+                    <small id="error-user_type_id" class="error-text form-text text-danger"></small>
                 </div>
 
                 <!-- Username -->
@@ -26,13 +23,6 @@
                     <label for="username">Username</label>
                     <input value="" type="text" name="username" id="username" class="form-control" required>
                     <small id="error-username" class="error-text form-text text-danger"></small>
-                </div>
-
-                <!-- Nama -->
-                <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input value="" type="text" name="nama" id="nama" class="form-control" required>
-                    <small id="error-nama" class="error-text form-text text-danger"></small>
                 </div>
 
                 <!-- Password -->
@@ -54,19 +44,13 @@
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
-                level_id: {
+                user_type_id: {
                     required: true,
-                    number: true
                 },
                 username: {
                     required: true,
                     minlength: 3,
                     maxlength: 20
-                },
-                nama: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 100
                 },
                 password: {
                     required: true,

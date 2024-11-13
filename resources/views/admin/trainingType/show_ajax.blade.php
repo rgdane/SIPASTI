@@ -36,7 +36,7 @@
                         <td class="col-9">{{ $trainingType['training_type_code'] }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Nama Pengguna:</th>
+                        <th class="text-right col-3">Nama Jenis Sertifikasi:</th>
                         <td class="col-9">{{ $trainingType['training_type_name'] }}</td>
                     </tr>
                 </table>

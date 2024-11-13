@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InterestController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LevelController;
@@ -176,6 +177,20 @@ Route::group(['prefix' => 'interest'], function() {
 });
 
 // Route Mata Kuliah
+Route::group(['prefix' => 'course'], function() {
+    Route::get('/', [CourseController::class, 'index']);
+    Route::post('/list', [CourseController::class, 'list']);
+    Route::get('/create_ajax', [CourseController::class, 'create_ajax']);
+    Route::post('/ajax', [CourseController::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [CourseController::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [CourseController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [CourseController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [CourseController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [CourseController::class, 'delete_ajax']);
+    Route::post('/import_ajax', [CourseController::class, 'import_ajax']);
+    Route::get('/export_excel', [CourseController::class, 'export_excel']);
+    Route::get('/export_pdf', [CourseController::class, 'export_pdf']);
+});
 // Route Permintaan Surat Tugas
 // Route Profile
 

@@ -10,18 +10,18 @@ class LevelController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Level Pengguna',
-            'list' => ['Home', 'Level']
+            'title' => 'Daftar Jenis Pengguna',
+            'list' => ['Home', 'Jenis']
         ];
 
         $page = (object) [
-            'title' => 'Manajemen Level Pengguna'
+            'title' => 'Manajemen Jenis Pengguna'
         ];
 
 
-        $activeMenu = 'level';
+        $activeMenu = 'userType';
 
-        return view('admin.level.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.user_type.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     // Ambil data user dalam bentuk json untuk datatables 
@@ -61,7 +61,7 @@ class LevelController extends Controller
 
     public function create_ajax()
     {
-        return view('admin.level.create');
+        return view('admin.user_type.create');
     }
 
     public function store_ajax(Request $request)
@@ -69,7 +69,7 @@ class LevelController extends Controller
         // Simulasi respons sukses tanpa menyimpan data
         return response()->json([
             'status' => true,
-            'message' => 'Data Level Pengguna Berhasil Ditambahkan (Simulasi)',
+            'message' => 'Data Jenis Pengguna Berhasil Ditambahkan (Simulasi)',
             'redirect' => url('/user') // URL tujuan redirect
         ]);
     }
@@ -98,7 +98,7 @@ class LevelController extends Controller
         $level = $levels->firstWhere('level_id', (int)$id);
 
         // Return the view with either the found user or null if not found
-        return view('admin.level.show_ajax', ['level' => $level]);
+        return view('admin.user_type.show_ajax', ['level' => $level]);
     }
 
     public function edit_ajax(string $id)
@@ -126,7 +126,7 @@ class LevelController extends Controller
         $level = $levels->firstWhere('level_id', (int)$id);
 
         // Mengembalikan view penguna dan level
-        return view('admin.level.edit_ajax', ['level' => $level]);
+        return view('admin.user_type.edit_ajax', ['level' => $level]);
     }
 
     public function update_ajax(Request $request, $id)
@@ -134,7 +134,7 @@ class LevelController extends Controller
         // Update data level disini
         return response()->json([
             'status' => true,
-            'message' => 'Data Level Pengguna Berhasil Diupdate (Simulasi)',
+            'message' => 'Data Jenis Pengguna Berhasil Diupdate (Simulasi)',
             'redirect' => url('/level') // URL tujuan redirect
         ]);
     }
@@ -163,7 +163,7 @@ class LevelController extends Controller
         // Find user by ID
         $level = $levels->firstWhere('level_id', $id);
 
-        return view('admin.level.confirm_ajax', ['level' => $level]);
+        return view('admin.user_type.confirm_ajax', ['level' => $level]);
     }
 
     public function delete_ajax(Request $request, $id)
@@ -171,7 +171,7 @@ class LevelController extends Controller
         // Hapus data pengguna disini
         return response()->json([
             'status' => true,
-            'message' => 'Data Level Pengguna Berhasil Dihapus (Simulasi)',
+            'message' => 'Data Jenis Pengguna Berhasil Dihapus (Simulasi)',
             'redirect' => url('/user') // URL tujuan redirect
         ]);
 

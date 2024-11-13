@@ -1,7 +1,5 @@
 <?php
-
 use App\Http\Controllers\UserTypeController;
-use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -57,4 +55,3 @@ Route::group(['prefix' => 'user_type'], function() {
     Route::get('/export_excel', [UserTypeController::class, 'export_excel']);
     Route::get('/export_pdf', [UserTypeController::class, 'export_pdf']);
 });
-

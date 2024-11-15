@@ -3,8 +3,8 @@
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
-        <h3 class="card-title">Manajemen Jenis Pengguna</h3>
-        <div class="card-tools">
+        {{-- <h3 class="card-title">Manajemen Jenis Pengguna</h3> --}}
+        {{-- <div class="card-tools">
             <button onclick="modalAction('{{ url('/user_type/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button>
             <a href="{{ url('/user_type/export_excel') }}" class="btn btn-primary">
@@ -12,7 +12,7 @@
             <a href="{{ url('/user_type/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
             <button onclick="modalAction('{{ url('/user_type/create') }}')" class="btn btn-success"><i class="bi bi-person-plus"></i> Tambah Data</button>
-        </div>
+        </div> --}}
     </div>
     <div class="card-body">
         <div class="alert alert-success" style="display: none;">Success message</div>
@@ -24,7 +24,7 @@
                         <th>No</th>
                         <th>Kode Jenis Pengguna</th>
                         <th>Nama Jenis Pengguna</th>
-                        <th>Aksi</th>
+                        {{-- <th>Aksi</th> --}}
                     </tr>
                 </thead>
             </table>
@@ -101,12 +101,13 @@
                     className: "",
                     orderable: true,
                     searchable: true
-                },{
-                    data: "aksi",
-                    className: "",
-                    orderable: false,
-                    searchable: false
                 }
+                // ,{
+                //     data: "aksi",
+                //     className: "",
+                //     orderable: false,
+                //     searchable: false
+                // }
             ]
         });
     });

@@ -116,7 +116,7 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'certification' || $activeMenu == 'certificationVendor' || ($activeMenu == 'certificationType')) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'certification' || $activeMenu == 'certification_vendor' || ($activeMenu == 'certificationType')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-award"></i>
                     <p> Sertifikasi <i class="right bi bi-caret-left-fill"></i></p>
@@ -130,19 +130,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/certificationVendor') }}"
-                            class="nav-link {{ ($activeMenu == 'certificationVendor') ? 'active' : '' }}">
+                        <a href="{{ url('/certification_vendor') }}"
+                            class="nav-link {{ ($activeMenu == 'certification_vendor') ? 'active' : '' }}">
                             <i class="bi bi-building-gear"></i>
                             <p>Vendor Sertifikasi</p>
                         </a>
                     </li>
                     <li class="nav-item">
-<<<<<<< HEAD
-                        <a href="{{ url('/certificationType') }}"
-                            class="nav-link {{ ($activeMenu == 'certificationType') ? 'active' : '' }}">
-=======
                         <a href="{{ url('/certification_type') }}" class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
->>>>>>> 84daa01169309ad22bc49758573bac8cb625fca1
                             <i class="bi bi-list-nested"></i>
                             <p>Jenis Sertifikasi</p>
                         </a>

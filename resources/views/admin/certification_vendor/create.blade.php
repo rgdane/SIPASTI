@@ -1,4 +1,4 @@
-<form action="{{ url('/certificationVendor/ajax') }}" method="POST" id="form-tambah">
+<form action="{{ url('/certification_vendor/store') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -62,28 +62,22 @@
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
-                certification_vendor_id: {
-                    required: true,
-                    number: true
-                },
                 certification_vendor_name: {
                     required: true,
-                    minlength: 10,
-                    maxlength: 100
+                    maxlength: 255
                 },
                 certification_vendor_address: {
                     required: true,
                     minlength: 10,
-                    maxlength: 100
                 },
                 certification_vendor_city: {
                     required: true,
                     minlength: 5,
-                    maxlength: 50
+                    maxlength: 255
                 },
                 certification_vendor_phone: {
                     required: true,
-                    minlength: 12,
+                    minlength: 11,
                     maxlength: 20
                 },
                 certification_vendor_web: {

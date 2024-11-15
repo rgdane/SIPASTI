@@ -1,15 +1,13 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class AddGenerateIdUserFunction extends Migration
+class AddGenerateIdCertificationVendorFunction extends Migration
 {
     public function up()
     {
         DB::unprepared('
-            DROP FUNCTION IF EXISTS generate_id_user;
-            CREATE DEFINER = `root`@`localhost` FUNCTION `generate_id_user`()
+            CREATE DEFINER = `root`@`localhost` FUNCTION `generate_id_certification_vendor`()
             RETURNS VARCHAR(20) CHARACTER SET utf8mb4
             DETERMINISTIC
             CONTAINS SQL
@@ -29,15 +27,15 @@ class AddGenerateIdUserFunction extends Migration
                 SET var_day = LPAD(DAY(NOW()), 2, "0");     -- Menambahkan padding nol di depan hari jika hanya satu digit
 
                 -- Membuat query untuk mengambil nilai ID terakhir
-                SELECT COALESCE(MAX(CAST(SUBSTRING(user_id, 12, 4) AS UNSIGNED)), 0) INTO last_sequence
-                FROM m_user
-                WHERE user_id LIKE CONCAT("USR", var_year, var_month, var_day, "%");
+                SELECT COALESCE(MAX(CAST(SUBSTRING(certification_vendor_id, 12, 4) AS UNSIGNED)), 0) INTO last_sequence
+                FROM m_certification_vendor
+                WHERE certification_vendor_id LIKE CONCAT("CVD", var_year, var_month, var_day, "%");
 
                 -- Menambah 1 ke last_sequence dan mengonversi menjadi string dengan panjang 4 karakter
                 SET new_sequence = LPAD(last_sequence + 1, 4, "0");
 
                 -- Menggabungkan semua bagian menjadi new_id
-                SET new_id = CONCAT("USR", var_year, var_month, var_day, new_sequence);
+                SET new_id = CONCAT("CVD", var_year, var_month, var_day, new_sequence);
 
                 RETURN new_id;
             END
@@ -46,6 +44,6 @@ class AddGenerateIdUserFunction extends Migration
 
     public function down()
     {
-        DB::unprepared('DROP FUNCTION IF EXISTS generate_id_user');
+        DB::unprepared('DROP FUNCTION IF EXISTS `generate_id_certification_vendor`');
     }
 }

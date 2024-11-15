@@ -1,4 +1,4 @@
-@empty($trainingType)
+@empty($course)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -9,52 +9,53 @@
         </div>
         <div class="modal-body">
             <div class="alert alert-danger">
-                <h5><i class="bi bi-x-circle-fill"></i> Kesalahan!!!</h5> <!-- Updated icon -->
-                Data yang anda cari tidak ditemukan
+                <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
+                Data yang anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/trainingType') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/course') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/trainingType/' . $trainingType['training_type_id'] . '/delete_ajax') }}" method="POST" id="form-delete">
+<form action="{{ url('/course/' . $course['course_id'] . '/update') }}" method="POST" id="form-edit">
     @csrf
-    @method('DELETE')
+    @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Jenis Pelatihan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Mata Kuliah</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="alert alert-warning">
-                    <h5><i class="bi bi-exclamation-triangle-fill"></i> Konfirmasi !!!</h5> <!-- Updated icon -->
-                    Apakah Anda ingin menghapus data seperti dibawah ini?
+                <div class="form-group">
+                    <label for="course_code">Kode Mata Kuliah</label>
+                    <input value="{{ old('course_code', $course['course_code']) }}" type="text" name="course_code" id="course_code" class="form-control" required>
+                    <small id="error-course_code" class="error-text form-text text-danger"></small>
                 </div>
-                <table class="table table-sm table-bordered table-striped">
-                    <tr>
-                        <th class="text-right col-3">Kode Jenis Seritifikasi:</th>
-                        <td class="col-9">{{ $trainingType['training_type_code'] }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right col-3">Nama Jenis Sertifikasi:</th>
-                        <td class="col-9">{{ $trainingType['training_type_name'] }}</td>
-                    </tr>
-                </table>
+                <div class="form-group">
+                    <label for="course_name">Nama Mata Kuliah</label>
+                    <input value="{{ old('course_name', $course['course_name']) }}" type="text" name="course_name" id="course_name" class="form-control" required>
+                    <small id="error-course_name" class="error-text form-text text-danger"></small>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </div>
     </div>
 </form>
+
 <script>
-    $(document).ready(function() {
-            $("#form-delete").validate({
-                rules: {},
+   $(document).ready(function() {
+            $("#form-edit").validate({
+                rules: {
+                    course_id: { required: true, number: true },
+                    course_code: { required: true, minlength: 3, maxlength: 20 },
+                    course_name: { required: true, minlength: 3, maxlength: 100 },
+                },
                 submitHandler: function(form) {
                     $.ajax({
                         url: form.action,
@@ -68,11 +69,11 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataTrainingType.ajax.reload();
+                                dataCourse.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
-                                    $('#error-'+prefix).text(val[0]);
+                                    $('#error-' + prefix).text(val[0]);
                                 });
                                 Swal.fire({
                                     icon: 'error',
@@ -85,18 +86,17 @@
                     return false;
                 },
                 errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass("invalid-feedback");
-                    elemtnt.closest('.form-group').append(error);
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
                 },
-                highlight: function (element, errorClass, validClass) {
+                highlight: function(element, errorClass, validClass) {
                     $(element).addClass('is-invalid');
                 },
-                unhighlight: function (element, errorClass, validClass) {
+                unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass('is-invalid');
                 }
             });
         });
-    </script>
 </script>
 @endempty

@@ -50,8 +50,7 @@
         </div>
     </div>
 </div>
-<div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static"
-    data-keyboard="false" data-width="75%" aria-hidden="true"></div>
+<div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
 
 @push('css')
@@ -63,8 +62,23 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
+    /* CSS untuk memperkecil teks header tabel */
+    #table_user_type th {
+        font-size: 0.875rem; /* Sesuaikan ukuran teks */
+        padding: 0.5rem;
+    }
+
+    /* Responsivitas tabel di layar kecil */
+    @media (max-width: 768px) {
+        #table_user_type th, #table_user_type td {
+            font-size: 0.75rem;
+            padding: 0.3rem;
+        }
+    }
 </style>
 @endpush
+
 @push('js')
 <script>
     function modalAction(url = ''){

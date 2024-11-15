@@ -30,8 +30,13 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
+<<<<<<< HEAD:resources/views/admin/certificationType/edit_ajax.blade.php
+                    <label for="certification_type_code">Kode Jenis Sertifikasi</label>
+                    <input value="{{ old('certification_type_code', $certificationType['certification_type_code']) }}" type="text" name="certification_type_code" id="certification_type_code" class="form-control" required>
+=======
                     <label for="levek_kode">Kode Jenis Sertifikasi</label>
                     <input value="{{ old('certification_type_code', $certification_type['certification_type_code']) }}" type="text" name="certification_type_code" id="certification_type_code" class="form-control" required>
+>>>>>>> 84daa01169309ad22bc49758573bac8cb625fca1:resources/views/admin/certification_type/edit.blade.php
                     <small id="error-certification_type_code" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">

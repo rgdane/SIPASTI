@@ -1,26 +1,26 @@
-<form action="{{ url('/user_type/store') }}" method="POST" id="form-tambah">
+<form action="{{ url('/course/ajax') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Jenis Pengguna</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Minat Kuliah</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Kode Level -->
+                <!-- Kode Mata Kuliah -->
                 <div class="form-group">
-                    <label for="user_type_code">Kode Jenis Pengguna</label>
-                    <input value="" type="text" name="user_type_code" id="user_type_code" class="form-control" required>
-                    <small id="error-user_type_code" class="error-text form-text text-danger"></small>
+                    <label for="course_code">Kode Mata Kuliah</label>
+                    <input value="" type="text" name="course_code" id="course_code" class="form-control" required>
+                    <small id="error-course_code" class="error-text form-text text-danger"></small>
                 </div>
 
-                <!-- Nama Pengguna -->
+                <!-- Nama Mata Kuliah -->
                 <div class="form-group">
-                    <label for="user_type_name">Jenis Pengguna</label>
-                    <input value="" type="text" name="user_type_name" id="user_type_name" class="form-control" required>
-                    <small id="error-user_type_name" class="error-text form-text text-danger"></small>
+                    <label for="course_name">Nama Mata Kuliah</label>
+                    <input value="" type="text" name="course_name" id="course_name" class="form-control" required>
+                    <small id="error-course_name" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -35,16 +35,16 @@
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
-                user_type_id: {
+                course_id: {
                     required: true,
-                    number:true
+                    number: true
                 },
-                user_type_code: {
+                course_code: {
                     required: true,
                     minlength: 3,
                     maxlength: 20
                 },
-                user_type_name: {
+                course_name: {
                     required: true,
                     minlength: 3,
                     maxlength: 100
@@ -63,7 +63,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataLevel.ajax.reload();
+                            dataCourse.ajax.reload();
                         } else {
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {

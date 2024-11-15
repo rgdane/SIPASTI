@@ -48,27 +48,30 @@ class UserTypeController extends Controller
     }
 
     public function store(Request $request){
-        if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'user_type_code' => 'required|string|min:3|max:10|unique:m_user_type,user_type_code',
-                'user_type_name' => 'required|string|max:100',
-            ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validasi Gagal',
-                    'msgField' => $validator->errors(),
-                ]);
-            }
-            UserTypeModel::create($request->all());
+        $rules = [
+            'user_type_code' => 'required|string|min:3|max:10|unique:m_user_type,user_type_code',
+            'user_type_name' => 'required|string|max:100',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+    
+        if ($validator->fails()) {
             return response()->json([
-                'status' => true,
-                'message' => 'Data jenis pengguna berhasil disimpan'
+                'status' => false,
+                'message' => 'Validasi Gagal',
+                'msgField' => $validator->errors(),
             ]);
         }
+    
+        UserTypeModel::create($request->all());
+    
+        return response()->json([
+            'status' => true,
+            'message' => 'Data jenis pengguna berhasil disimpan',
+        ]);
+
         redirect('/');
     }
+    
 
         public function show(string $id){
             $user_type = UserTypeModel::find($id);

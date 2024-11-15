@@ -1,4 +1,4 @@
-@empty($trainingType)
+@empty($course)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -11,18 +11,18 @@
                 <h5><i class="bi bi-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/trainingType') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/course') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/trainingType/' . $trainingType['training_type_id'] . '/detail_ajax') }}"
+<form action="{{ url('/course/' . $course['course_id'] . '/show') }}"
     method="POST" id="form-show">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Jenis Pelatihan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Mata Kuliah</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
@@ -32,12 +32,12 @@
                         <h5><i class="bi bi-info-circle"></i> Detail Data </h5>
                     </div>
                     <tr>
-                        <th class="text-right col-3">Kode Jenis Seritifikasi:</th>
-                        <td class="col-9">{{ $trainingType['training_type_code'] }}</td>
+                        <th class="text-right col-3">Kode Mata Kuliah:</th>
+                        <td class="col-9">{{ $course['course_code'] }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Nama Jenis Sertifikasi:</th>
-                        <td class="col-9">{{ $trainingType['training_type_name'] }}</td>
+                        <th class="text-right col-3">Nama Mata Kuliah:</th>
+                        <td class="col-9">{{ $course['course_name'] }}</td>
                     </tr>
                 </table>
             </div>
@@ -66,7 +66,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataTrainingType.ajax.reload(); // Reload datatable
+                            dataCourse.ajax.reload(); // Reload datatable
                         } else {
                             Swal.fire({
                                 icon: 'error',

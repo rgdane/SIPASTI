@@ -1,4 +1,4 @@
-@empty($trainingType)
+@empty($course)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,18 +12,18 @@
                 <h5><i class="bi bi-x-circle-fill"></i> Kesalahan!!!</h5> <!-- Updated icon -->
                 Data yang anda cari tidak ditemukan
             </div>
-            <a href="{{ url('/trainingType') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/course') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/trainingType/' . $trainingType['training_type_id'] . '/delete_ajax') }}" method="POST" id="form-delete">
+<form action="{{ url('/course/' . $course['course_id'] . '/delete') }}" method="POST" id="form-delete">
     @csrf
     @method('DELETE')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Jenis Pelatihan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Bidang Minat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -35,12 +35,12 @@
                 </div>
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
-                        <th class="text-right col-3">Kode Jenis Seritifikasi:</th>
-                        <td class="col-9">{{ $trainingType['training_type_code'] }}</td>
+                        <th class="text-right col-3">Kode Bidang Minat:</th>
+                        <td class="col-9">{{ $course['course_code'] }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Nama Jenis Sertifikasi:</th>
-                        <td class="col-9">{{ $trainingType['training_type_name'] }}</td>
+                        <th class="text-right col-3">Nama Bidang Minat:</th>
+                        <td class="col-9">{{ $course['course_name'] }}</td>
                     </tr>
                 </table>
             </div>
@@ -68,7 +68,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataTrainingType.ajax.reload();
+                                dataCourse.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
@@ -97,6 +97,5 @@
                 }
             });
         });
-    </script>
 </script>
 @endempty

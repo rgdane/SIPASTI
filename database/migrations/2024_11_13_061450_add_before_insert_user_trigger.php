@@ -8,6 +8,7 @@ class AddBeforeInsertUserTrigger extends Migration
     public function up()
     {
         DB::unprepared('
+            DROP TRIGGER IF EXISTS `_before_ins_user`;
             CREATE DEFINER = `root`@`localhost` TRIGGER `_before_ins_user`
             BEFORE INSERT ON `m_user`
             FOR EACH ROW

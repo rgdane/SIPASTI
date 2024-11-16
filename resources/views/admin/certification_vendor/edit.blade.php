@@ -1,4 +1,4 @@
-@empty($certificationVendor)
+@empty($certification_vendor)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,12 +12,12 @@
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                 Data yang anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/certificationVendor') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/certification_vendor') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/certificationVendor/' . $certificationVendor['certification_vendor_id'] . '/update_ajax') }}" method="POST" id="form-edit">
+<form action="{{ url('/certification_vendor/' . $certification_vendor['certification_vendor_id'] . '/update') }}" method="POST" id="form-edit">
     @csrf
     @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -31,31 +31,31 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="certification_vendor_name">Nama Vendor Sertifikasi</label>
-                    <input value="{{ old('certification_vendor_name', $certificationVendor['certification_vendor_name']) }}" type="text" name="certification_vendor_name" id="certification_vendor_name"
+                    <input value="{{ old('certification_vendor_name', $certification_vendor['certification_vendor_name']) }}" type="text" name="certification_vendor_name" id="certification_vendor_name"
                         class="form-control" required>
                     <small id="error-certification_vendor_name" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="certification_vendor_address">Alamat</label>
-                    <input value="{{ old('certification_vendor_address', $certificationVendor['certification_vendor_address']) }}" type="text" name="certification_vendor_address" id="certification_vendor_address"
+                    <input value="{{ old('certification_vendor_address', $certification_vendor['certification_vendor_address']) }}" type="text" name="certification_vendor_address" id="certification_vendor_address"
                         class="form-control" required>
                     <small id="error-certification_vendor_address" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="certification_vendor_city">Kota</label>
-                    <input value="{{ old('certification_vendor_city', $certificationVendor['certification_vendor_city']) }}" type="text" name="certification_vendor_city" id="certification_vendor_city"
+                    <input value="{{ old('certification_vendor_city', $certification_vendor['certification_vendor_city']) }}" type="text" name="certification_vendor_city" id="certification_vendor_city"
                         class="form-control" required>
                     <small id="error-certification_vendor_city" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="certification_vendor_phone">PIC Vendor</label>
-                    <input value="{{ old('certification_vendor_phone', $certificationVendor['certification_vendor_phone']) }}" type="text" name="certification_vendor_phone" id="certification_vendor_phone"
+                    <input value="{{ old('certification_vendor_phone', $certification_vendor['certification_vendor_phone']) }}" type="text" name="certification_vendor_phone" id="certification_vendor_phone"
                         class="form-control" required>
                     <small id="error-certification_vendor_phone" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="certification_vendor_web">Webiste</label>
-                    <input value="{{ old('certification_vendor_web', $certificationVendor['certification_vendor_web']) }}" type="url" name="certification_vendor_web" id="certification_vendor_web"
+                    <input value="{{ old('certification_vendor_web', $certification_vendor['certification_vendor_web']) }}" type="url" name="certification_vendor_web" id="certification_vendor_web"
                         class="form-control" required>
                     <small id="error-certification_vendor_web" class="error-text form-text text-danger"></small>
                 </div>
@@ -90,7 +90,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataCertification.ajax.reload();
+                                dataCertificationVendor.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

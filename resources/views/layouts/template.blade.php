@@ -9,6 +9,9 @@
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- CSRF token for AJAX requests -->
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <!-- Google Font: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +32,12 @@
   <!-- SweetAlert2 -->
   <!-- SweetAlert2 CSS dari CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<<<<<<< HEAD
+=======
+
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+>>>>>>> 1f14f2f01ed9d7af3b7d7e65dc39005a571fe40f
 
 
   <!-- AdminLTE CSS -->
@@ -68,6 +77,10 @@
   <!-- jQuery -->
   <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 
+  <!-- jQuery Validation Plugin -->
+  <script src="{{ asset('adminlte\plugins\jquery-validation\jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('adminlte\plugins\jquery-validation\additional-methods.min.js') }}"></script>
+  
   <!-- Bootstrap 4 -->
   <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -84,9 +97,21 @@
   <!-- FullCalendar -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 
+<<<<<<< HEAD
   <!-- SweetAlert2 dari CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+=======
+  <!-- InputMask -->
+  <script src="{{ asset('adminlte/plugins/moment/moment.min.js') }}"></script>
+
+  <!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+
+<!-- SweetAlert2 dari CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+>>>>>>> 1f14f2f01ed9d7af3b7d7e65dc39005a571fe40f
 
   <!-- AdminLTE App -->
   <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>

@@ -1,4 +1,4 @@
-@empty($certificationVendor)
+@empty($certification_vendor)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,12 +12,12 @@
                 <h5><i class="bi bi-x-circle-fill"></i> Kesalahan!!!</h5> <!-- Updated icon -->
                 Data yang anda cari tidak ditemukan
             </div>
-            <a href="{{ url('/certificationVendor') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/certification_vendor') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/certificationVendor/' . $certificationVendor['certification_vendor_id'] . '/delete_ajax') }}" method="POST" id="form-delete">
+<form action="{{ url('/certification_vendor/' . $certification_vendor['certification_vendor_id'] . '/delete') }}" method="POST" id="form-delete">
     @csrf
     @method('DELETE')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -36,23 +36,23 @@
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
                         <th class="text-right col-3">Nama Vendor Sertifikasi:</th>
-                        <td class="col-9">{{ $certificationVendor['certification_vendor_name'] }}</td>
+                        <td class="col-9">{{ $certification_vendor['certification_vendor_name'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Alamat:</th>
-                        <td class="col-9">{{ $certificationVendor['certification_vendor_address'] }}</td>
+                        <td class="col-9">{{ $certification_vendor['certification_vendor_address'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Kota:</th>
-                        <td class="col-9">{{ $certificationVendor['certification_vendor_city'] }}</td>
+                        <td class="col-9">{{ $certification_vendor['certification_vendor_city'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">PIC Vendor:</th>
-                        <td class="col-9">{{ $certificationVendor['certification_vendor_phone'] }}</td>
+                        <td class="col-9">{{ $certification_vendor['certification_vendor_phone'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Website:</th>
-                        <td class="col-9">{{ $certificationVendor['certification_vendor_web'] }}</td>
+                        <td class="col-9">{{ $certification_vendor['certification_vendor_web'] }}</td>
                     </tr>
                 </table>
                 </table>

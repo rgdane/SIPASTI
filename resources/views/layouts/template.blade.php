@@ -32,12 +32,9 @@
   <!-- SweetAlert2 -->
   <!-- SweetAlert2 CSS dari CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<<<<<<< HEAD
-=======
 
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
->>>>>>> 1f14f2f01ed9d7af3b7d7e65dc39005a571fe40f
 
 
   <!-- AdminLTE CSS -->
@@ -97,11 +94,6 @@
   <!-- FullCalendar -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 
-<<<<<<< HEAD
-  <!-- SweetAlert2 dari CDN -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-=======
   <!-- InputMask -->
   <script src="{{ asset('adminlte/plugins/moment/moment.min.js') }}"></script>
 
@@ -111,7 +103,6 @@
 <!-- SweetAlert2 dari CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
->>>>>>> 1f14f2f01ed9d7af3b7d7e65dc39005a571fe40f
 
   <!-- AdminLTE App -->
   <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>

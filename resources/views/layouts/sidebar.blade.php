@@ -120,11 +120,7 @@
             </li>
 
             <li
-<<<<<<< HEAD
-                class="nav-item has-treeview {{ ($activeMenu == 'certification' || $activeMenu == 'certificationVendor' || ($activeMenu == 'certification_type')) ? 'menu-open' : '' }}">
-=======
                 class="nav-item has-treeview {{ ($activeMenu == 'certification' || $activeMenu == 'certification_vendor' || ($activeMenu == 'certificationType')) ? 'menu-open' : '' }}">
->>>>>>> 1f14f2f01ed9d7af3b7d7e65dc39005a571fe40f
                 <a href="#" class="nav-link">
                     <i class="bi bi-award"></i>
                     <p> Sertifikasi <i class="right bi bi-caret-left-fill"></i></p>
@@ -152,12 +148,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-<<<<<<< HEAD
-                        <a href="{{ url('/certification_type') }}"
-                            class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
-=======
                         <a href="{{ url('/certification_type') }}" class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
->>>>>>> 1f14f2f01ed9d7af3b7d7e65dc39005a571fe40f
                             <i class="bi bi-list-nested"></i>
                             <p>Jenis Sertifikasi</p>
                         </a>

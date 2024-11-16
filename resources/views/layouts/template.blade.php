@@ -13,7 +13,8 @@
   <!-- Google Font: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
@@ -26,8 +27,8 @@
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 
   <!-- SweetAlert2 -->
-<!-- SweetAlert2 CSS dari CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <!-- SweetAlert2 CSS dari CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 
   <!-- AdminLTE CSS -->
@@ -42,7 +43,8 @@
     @include('layouts.header')
 
     <!-- Sidebar -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #2C3941; border-top-right-radius: 24px; border-bottom-right-radius: 24px;">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4"
+      style="background-color: #2C3941; border-top-right-radius: 24px; border-bottom-right-radius: 24px;">
       <a href="{{ url('/') }}" class="brand-link">
         <img src="polinema_logo.png" class="brand-image img-circle elevation-4" style="opacity: 8">
         <span class="brand-text font-weight-bold">SIPASTI</span>
@@ -82,9 +84,9 @@
   <!-- FullCalendar -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 
-<!-- SweetAlert2 dari CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- SweetAlert2 dari CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- AdminLTE App -->
   <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>

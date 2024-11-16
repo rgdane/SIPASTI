@@ -85,6 +85,69 @@
         background-color: #4f83cc;
     }
 
+    .certification-card {
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-image {
+        width: 100%;
+        height: auto;
+        /* Change this to 'auto' to maintain aspect ratio */
+        object-fit: cover;
+        border-radius: 24px;
+        aspect-ratio: 16 / 9;
+        /* Set the desired aspect ratio */
+    }
+
+    /* Menyesuaikan gambar potret agar menjadi landscape */
+    .card-image {
+        aspect-ratio: 16 / 9;
+        /* Menetapkan rasio aspek landscape */
+        object-fit: cover;
+        /* Menutup seluruh area card */
+    }
+
+    .hover-gradient {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 24px;
+        background: linear-gradient(to bottom, rgba(196, 196, 196, 0.75) 0%, rgba(1, 86, 158, 0.3) 50%, rgba(1, 86, 158, 0.75) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Efek hover */
+    .certification-card:hover .hover-gradient {
+        opacity: 1;
+    }
+
+    .card-custom {
+        float: right;
+        background-color: #2C3941;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        width: 46px;
+        /* Ukuran card menjadi 46px */
+        height: 46px;
+        /* Ukuran card menjadi 46px */
+    }
+
+    .icon {
+        font-size: 1.5rem;
+        /* Ukuran ikon menjadi lebih kecil */
+        cursor: pointer;
+        line-height: 46px;
+        /* Menjaga posisi ikon tetap di tengah */
+    }
+
     #barChart {
         width: 100%;
         height: auto;
@@ -281,7 +344,7 @@
         <div class="col-lg-8 col-md-6">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h6>Total Sertifikasi dan Pelatihan Kurun Waktu 1 Bulan</h6>
+                    <h6>Total Sertifikasi dan Pelatihan Kurun Waktu 1 Tahun</h6>
                     <br>
                     <div id="barChart" style="height: 300px; width: 100%;"></div> <!-- Posisikan di dalam card-body -->
                 </div>
@@ -310,7 +373,103 @@
             </div>
         </div>
     </div>
+
+    <hr>
+    <br>
+
+    <div class="row" style="display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: flex-start;">
+        <div class="col-lg-2">
+            <div class="card card-custom">
+                <i class="bi bi-filter icon" title="Filter" onclick="filterFunction()"></i>
+                <p>Filter</p>
+            </div>
+        </div>
+        <div class="col-mt-2">
+            <div class="card card-custom">
+                <i class="bi bi-calendar3 icon" title="Kalender" onclick="calendarFunction()"></i>
+                <p>Kalender</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="filterModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Filter options -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="calendarModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Kalender</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Calendar UI -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- Gambar -->
+        <div class="col-lg-4">
+            <h4 style="color: #2C3941;">Rekomendasi Pelatihan & Sertifikasi</h4><br>
+            <div class="card shadow-sm certification-card">
+                <div class="card-body" style="padding: 0; overflow: hidden; border-radius: 24px; position: relative;">
+                    <img src="{{ asset('vokasi.png') }}" alt="Deskripsi Gambar" class="card-image">
+                    <div class="hover-gradient"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deskripsi -->
+        <div class="col-lg-6">
+            <br><br>
+            <div class="card-body">
+                <h5>Program Non-Degree Peningkatan Kompetensi Dosen Vokasi 2024</h5>
+                <p style="font-size: 14px; color: #666;">
+                    Program Non-Degree Peningkatan Kompetensi Dosen (Program-NDPKD) merupakan program yang mendorong dan
+                    memfasilitasi pendidikan tinggi vokasi membangun ekosistem dalam menyiapkan SDM menyongsong
+                    Indonesia Emas 2045, melalui pelatihan dan sertifikasi kompetensi, profesi dan industri serta
+                    peningkatan tata kelola pendidikan tinggi melalui pelatihan industri (magang) pada industri dan
+                    perguruan tinggi luar negeri yang berpotensi global...
+                </p>
+                <button
+                    style="background-color: #007bff; color: #fff; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer;">
+                    Lihat selengkapnya
+                </button>
+            </div>
+        </div>
+        <br>
+
+        <div class="col-lg-4">
+            <h4>Informasi Sertifikasi</h4>
+        </div>
+
+
+    </div>
+
+
 </div>
+
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
      // Data untuk chart
@@ -434,5 +593,16 @@
             button.textContent = "Lihat Semua";
         }
     });
+</script>
+<script>
+    function filterFunction() {
+    $('#filterModal').modal('show');
+    // Add your filter logic here
+}
+
+function calendarFunction() {
+    $('#calendarModal').modal('show');
+    // Add your calendar logic here
+}
 </script>
 @endsection

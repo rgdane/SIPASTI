@@ -60,11 +60,11 @@ class UserController extends Controller
             UserModel::create($request->all());
             return response()->json([
                 'status' => true,
-                'message' => 'Data user berhasil disimpan'
+                'message' => 'Data pengguna berhasil disimpan'
             ]);
         }
         
-        return redirect('/');
+        return redirect('/user');
     }
 
     // Ambil data user dalam bentuk json untuk datatables

@@ -19,7 +19,7 @@ class UserModel extends Authenticatable
 
     protected $hidden = ['password'];
 
-    protected $casts = [ 'user_id' => 'string','password' => 'hashed']; //casting password agar otomatis dihash
+    protected $casts = ['password' => 'hashed']; //casting password agar otomatis dihash
 
     public function user_type(): BelongsTo {
         return $this->belongsTo(UserTypeModel::class, 'user_type_id', 'user_type_id');

@@ -84,6 +84,8 @@
     <br>
     <!-- Sidebar Menu -->
     <nav class="mt-2">
+
+        {{-- Sidebar Untuk Admin --}}
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
                 <a href="{{ url('/') }}" class="nav-link {{ ($activeMenu == 'dashboard') ? 'active' : ''}}">
@@ -94,14 +96,16 @@
                 </a>
             </li>
 
-            <li class="nav-item has-treeview {{ ($activeMenu == 'user_type' || $activeMenu == 'user') ? 'menu-open' : '' }}">
+            <li
+                class="nav-item has-treeview {{ ($activeMenu == 'user_type' || $activeMenu == 'user') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-people"></i>
                     <p> Pengguna <i class="right bi bi-caret-left-fill"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/user_type') }}" class="nav-link {{ ($activeMenu == 'user_type') ? 'active' : '' }}">
+                        <a href="{{ url('/user_type') }}"
+                            class="nav-link {{ ($activeMenu == 'user_type') ? 'active' : '' }}">
                             <i class="bi bi-person"></i>
                             <p>Jenis Pengguna</p>
                         </a>
@@ -116,7 +120,7 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'certification' || $activeMenu == 'certificationVendor' || ($activeMenu == 'certificationType')) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'certification' || $activeMenu == 'certificationVendor' || ($activeMenu == 'certification_type')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-award"></i>
                     <p> Sertifikasi <i class="right bi bi-caret-left-fill"></i></p>
@@ -137,12 +141,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-<<<<<<< HEAD
-                        <a href="{{ url('/certificationType') }}"
-                            class="nav-link {{ ($activeMenu == 'certificationType') ? 'active' : '' }}">
-=======
-                        <a href="{{ url('/certification_type') }}" class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
->>>>>>> 84daa01169309ad22bc49758573bac8cb625fca1
+                        <a href="{{ url('/certification_type') }}"
+                            class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
                             <i class="bi bi-list-nested"></i>
                             <p>Jenis Sertifikasi</p>
                         </a>
@@ -202,6 +202,80 @@
                     <i class="bi bi-envelope"></i>
                     <p>Surat Tugas</p>
                 </a>
+            </li>
+
+            {{-- Sidebar Untuk Dosen --}}
+
+            <li
+                class="nav-item has-treeview {{ ($activeMenu == 'input_certification' || $activeMenu == 'history_certification') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-award"></i>
+                    <p> Sertifikasi <i class="right bi bi-caret-left-fill"></i></p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/input_certification') }}"
+                            class="nav-link {{ ($activeMenu == 'input_certification') ? 'active' : '' }}">
+                            <i class="bi bi-upload"></i>
+                            <p>Input & Upload Sertifikasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/history_certification') }}"
+                            class="nav-link {{ ($activeMenu == 'history_certification') ? 'active' : '' }}">
+                            <i class="bi bi-clock"></i>
+                            <p>Riwayat Sertifikasi</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li
+                class="nav-item has-treeview {{ ($activeMenu == 'input_training' || $activeMenu == 'history_training') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-journal-text"></i>
+                    <p> Pelatihan <i class="right bi bi-caret-left-fill"></i></p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/input_training') }}"
+                            class="nav-link {{ ($activeMenu == 'input_training') ? 'active' : '' }}">
+                            <i class="bi bi-upload"></i>
+                            <p>Input & Upload Pelatihan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/history_training') }}"
+                            class="nav-link {{ ($activeMenu == 'history_training') ? 'active' : '' }}">
+                            <i class="bi bi-clock"></i>
+                            <p>Riwayat Pelatihan</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li
+                class="nav-item has-treeview {{ ($activeMenu == 'envelope_submission' || $activeMenu == 'history_envelope') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-envelope"></i>
+                    <p> Surat <i class="right bi bi-caret-left-fill"></i></p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/envelope_submission') }}"
+                            class="nav-link {{ ($activeMenu == 'envelope_submission') ? 'active' : '' }}">
+                            <i class="bi bi-envelope-paper"></i>
+                            <p>Permintaan Surat</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/history_envelope') }}"
+                            class="nav-link {{ ($activeMenu == 'history_envelope') ? 'active' : '' }}">
+                            <i class="bi bi-clock"></i>
+                            <p>Riwayat Permintaan Surat</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </nav>

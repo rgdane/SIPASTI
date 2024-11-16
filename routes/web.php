@@ -8,6 +8,7 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TypeCertification;
 use App\Http\Controllers\TypeTraining;
 use App\Http\Controllers\CertificationTypeController;
+use App\Http\Controllers\CertificationUploadController;
 use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
@@ -87,6 +88,11 @@ Route::group(['prefix' => 'certification'], function() {
 Route::group(['prefix' => 'certification_input'], function() {
     Route::get('/', [CertificationInputController::class, 'index']);
     Route::post('/{id}/store', [CertificationInputController::class, 'store']);
+});
+
+Route::group(['prefix' => 'certification_upload'], function() {
+    Route::get('/', [CertificationUploadController::class, 'index']);
+    Route::post('/store', [CertificationUploadController::class, 'store']);
 });
 
 // Route Vendor Sertifikasi

@@ -25,6 +25,10 @@ class UserModel extends Authenticatable
         return $this->belongsTo(UserTypeModel::class, 'user_type_id', 'user_type_id');
     }
 
+    public function certification(): BelongsTo{
+        return $this->belongsTo(CertificationModel :: class);
+    }
+
     public function getRoleName(): string{
         return $this->user_type->user_type_name;
     }

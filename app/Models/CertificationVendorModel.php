@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CertificationVendorModel extends Model
 {
@@ -21,4 +22,8 @@ class CertificationVendorModel extends Model
         'certification_vendor_phone',
         'certification_vendor_web'
     ];
+
+    public function certification(): BelongsTo{
+        return $this->belongsTo(CertificationModel :: class);
+    }
 }

@@ -7,6 +7,7 @@ class AddBeforeInsertCertificationVendorTrigger extends Migration
     public function up()
     {
         DB::unprepared('
+            DROP TRIGGER IF EXISTS `_before_ins_certification_vendor`;
             CREATE DEFINER = `root`@`localhost` TRIGGER `_before_ins_certification_vendor`
             BEFORE INSERT ON `m_certification_vendor`
             FOR EACH ROW

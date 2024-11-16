@@ -130,6 +130,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ url('/certification_input') }}"
+                            class="nav-link {{ ($activeMenu == 'certification_input') ? 'active' : '' }}">
+                            <i class="bi bi-card-list"></i>
+                            <p>Input Sertifikasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ url('/certification_vendor') }}"
                             class="nav-link {{ ($activeMenu == 'certification_vendor') ? 'active' : '' }}">
                             <i class="bi bi-building-gear"></i>

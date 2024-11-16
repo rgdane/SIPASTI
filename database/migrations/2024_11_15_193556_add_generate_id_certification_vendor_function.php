@@ -7,6 +7,7 @@ class AddGenerateIdCertificationVendorFunction extends Migration
     public function up()
     {
         DB::unprepared('
+            DROP FUNCTION IF EXISTS `generate_id_certification_vendor`;
             CREATE DEFINER = `root`@`localhost` FUNCTION `generate_id_certification_vendor`()
             RETURNS VARCHAR(20) CHARACTER SET utf8mb4
             DETERMINISTIC

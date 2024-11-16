@@ -85,17 +85,7 @@ Route::group(['prefix' => 'certification'], function() {
 
 Route::group(['prefix' => 'certification_input'], function() {
     Route::get('/', [CertificationInputController::class, 'index']);
-    Route::post('/list', [CertificationInputController::class, 'list']);
-    Route::get('/create', [CertificationInputController::class, 'create']);
     Route::post('/{id}/store', [CertificationInputController::class, 'store']);
-    Route::get('/{id}/show', [CertificationInputController::class, 'show']);
-    Route::get('/{id}/edit', [CertificationInputController::class, 'edit']);
-    Route::put('/{id}/update', [CertificationInputController::class, 'update']);
-    Route::get('/{id}/delete', [CertificationInputController::class, 'confirm']);
-    Route::delete('/{id}/delete', [CertificationInputController::class, 'delete']);
-    Route::post('/import', [CertificationInputController::class, 'import']);
-    Route::get('/export_excel', [CertificationInputController::class, 'export_excel']);
-    Route::get('/export_pdf', [CertificationInputController::class, 'export_pdf']);
 });
 
 // Route Vendor Sertifikasi

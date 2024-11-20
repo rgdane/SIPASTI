@@ -36,12 +36,6 @@
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
-  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet">
-
-  <!-- Tambahkan Select2 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
-
-
   <!-- AdminLTE CSS -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.css') }}">
 

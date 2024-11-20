@@ -83,11 +83,11 @@
       <div class="dropdown-divider"></div>
 
       <!-- Profile option -->
-      <a href="/profile" class="dropdown-item">
+      <a href="{{ url('/profile')}}" class="dropdown-item">
           <i class="bi bi-person-fill mr-2"></i> Profile
       </a>
       <!-- Logout option -->
-      <a href="/logout" class="dropdown-item">
+      <a href="{{ url('/logout') }}" class="dropdown-item">
           <i class="bi bi-box-arrow-right mr-2"></i> Logout
       </a>
   </div>

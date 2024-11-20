@@ -13,6 +13,7 @@ use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\CertificationVendorController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorTraining;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,9 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/training/{id}', [WelcomeController::class, 'show'])->name('training.show');
 Route::get('/training-details/{id}', [WelcomeController::class, 'getTrainingDetails'])->name('training.details');
 
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
 
 // Admin
 // Route Pengguna

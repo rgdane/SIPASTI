@@ -150,7 +150,7 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'trainingVendor' || ($activeMenu == 'trainingType')) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'trainingVendor' || ($activeMenu == 'training_input')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-journal-text"></i>
                     <p> Pelatihan
@@ -166,9 +166,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/certification_input') }}" class="nav-link {{ ($activeMenu == 'certification_input') ? 'active' : '' }}">
+                        <a href="{{ url('/training_input') }}" class="nav-link {{ ($activeMenu == 'training_input') ? 'active' : '' }}">
                             <i class="bi bi-box-arrow-in-right"></i>
-                            <p>Input Sertifikasi</p>
+                            <p>Input Pelatihan</p>
                         </a>
                     </li>
                     <li class="nav-item">

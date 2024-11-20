@@ -11,7 +11,7 @@
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
             <a href="{{ url('/training/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i> Export PDF</a>
-            <button onclick="modalAction('{{ url('/training/create_ajax') }}')" class="btn btn-success">
+            <button onclick="modalAction('{{ url('/training/create') }}')" class="btn btn-success">
                 <i class="bi bi-plus"></i> Tambah Data
             </button>
         </div>

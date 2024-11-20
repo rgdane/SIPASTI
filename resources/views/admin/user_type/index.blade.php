@@ -3,14 +3,7 @@
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
-<<<<<<< HEAD
         <h3 class="card-title">Manajemen Jenis Pengguna</h3>
-        <div class="card-tools">
-            <button onclick="modalAction('{{ url('/user_type/create') }}')" class="btn btn-success">
-                <i class="bi bi-person-plus"></i> Tambah Data</button>
-        </div>
-=======
-        {{-- <h3 class="card-title">Manajemen Jenis Pengguna</h3> --}}
         {{-- <div class="card-tools">
             <button onclick="modalAction('{{ url('/user_type/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button>
@@ -20,7 +13,6 @@
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
             <button onclick="modalAction('{{ url('/user_type/create') }}')" class="btn btn-success"><i class="bi bi-person-plus"></i> Tambah Data</button>
         </div> --}}
->>>>>>> 1f14f2f01ed9d7af3b7d7e65dc39005a571fe40f
     </div>
     <div class="card-body">
         <div class="alert alert-success" style="display: none;">Success message</div>

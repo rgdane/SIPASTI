@@ -36,7 +36,6 @@
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
-
   <!-- AdminLTE CSS -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.css') }}">
 
@@ -106,6 +105,11 @@
 
   <!-- AdminLTE App -->
   <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
 
   <!-- Laravel CSRF Token Setup for AJAX -->
   <script>

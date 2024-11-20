@@ -17,7 +17,7 @@
     </div>
 </div>
 @else
-<form action="{{ url('/training/' . $training['training_id'] . '/update_ajax') }}" method="POST" id="form-edit">
+<form action="{{ url('/training/' . $training['training_id'] . '/update') }}" method="POST" id="form-edit">
     @csrf
     @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">

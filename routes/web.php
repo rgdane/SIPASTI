@@ -79,7 +79,10 @@ Route::group(['prefix' => 'certification'], function() {
     Route::get('/', [CertificationController::class, 'index']);
     Route::post('/list', [CertificationController::class, 'list']);
     Route::get('/create', [CertificationController::class, 'create']);
-    Route::post('/ajax', [CertificationController::class, 'store']);
+    Route::post('/store', [CertificationController::class, 'store']);
+    Route::get('/{id}/course', [CertificationController::class, 'course']);
+    Route::get('/{id}/interest', [CertificationController::class, 'interest']);
+    Route::get('/{id}/file', [CertificationController::class, 'file']);
     Route::get('/{id}/show', [CertificationController::class, 'show']);
     Route::get('/{id}/edit', [CertificationController::class, 'edit']);
     Route::put('/{id}/update', [CertificationController::class, 'update']);

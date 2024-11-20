@@ -10,67 +10,91 @@
             <a href="{{ url('/certification/export_excel') }}" class="btn btn-primary">
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
             <a href="{{ url('/certification/export_pdf') }}" class="btn btn-warning">
-                <i class="bi bi-file-earmark-pdf"></i> Export PDF</a>
-            <button onclick="modalAction('{{ url('/certification/create_ajax') }}')" class="btn btn-success">
-                <i class="bi bi-plus"></i> Tambah Data
-            </button>
+                <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
+            <button onclick="modalAction('{{ url('/certification/create_ajax') }}')" class="btn btn-success"><i
+                    class="bi bi-plus"></i> Tambah Data</button>
         </div>
     </div>
     <div class="card-body">
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
-
-        <!-- Filter and Search Section -->
-        <div class="row mb-3">
-            <div class="col-md-3">
-                <input type="text" id="search" class="form-control" placeholder="Search...">
-            </div>
-            <div class="col-md-3">
-                <select id="filter_vendor" class="form-control">
-                    <option value="">All Vendors</option>
-                    <option value="1">Google</option>
-                    <option value="2">IBM</option>
-                    <option value="3">The University Of Sydney</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select id="filter_type" class="form-control">
-                    <option value="">All Types</option>
-                    <option value="1">Sertifikasi Profesi</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <button id="reset_filters" class="btn btn-secondary w-100">Reset Filters</button>
-            </div>
+        <!-- Tambahkan div dengan class table-responsive -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
+                id="table_certification" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Sertifikasi</th>
+                        <th>Nomor Sertifikasi</th>
+                        <th>Tanggal Sertifikasi</th>
+                        <th>Tenggat Sertifikasi</th>
+                        <th>Vendor Sertifikasi</th>
+                        <th>Jenis Sertifikasi</th>
+                        <th>Level Sertifikasi</th>
+                        <th>Nama Peserta</th>
+                        <th>Mata Kuliah</th>
+                        <th>Bidang Minat</th>
+                        <th>Dokumen Pendukung</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data from AJAX will populate here -->
+                </tbody>
+            </table>
         </div>
-
-        <!-- Certification Cards Container -->
-        <div class="row" id="certification_cards">
-            <!-- Data from AJAX will populate here -->
+        <!-- Pagination -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>Show
+                <select class="custom-select custom-select-sm form-control form-control-sm w-auto">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select> entries
+            </div>
+            <div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
-
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 @endsection
 
 @push('css')
 <style>
-    .certification-card {
+    .table-rounded {
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 15px;
     }
-    .certification-header {
-        font-size: 1rem;
-        font-weight: bold;
-    }
-    .certification-details {
+
+    #table_certification th,
+    tbody {
         font-size: 0.875rem;
+        padding: 0.5rem;
     }
-    .menu-dots {
-        cursor: pointer;
-        font-size: 1.5rem;
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 768px) {
+        #table_certification th,
+        #table_certification td {
+            font-size: 0.75rem;
+            padding: 0.3rem;
+        }
     }
 </style>
 @endpush
@@ -83,73 +107,54 @@
         });
     }
 
-    function loadCertifications() {
-        $.ajax({
-            url: "{{ url('certification/list') }}",
-            method: "POST",
-            dataType: "json",
-            data: {
-                search: $('#search').val(),
-                certification_vendor_id: $('#filter_vendor').val(),
-                certification_type_id: $('#filter_type').val()
-            },
-            success: function(response) {
-                var cardsContainer = $('#certification_cards');
-                cardsContainer.empty();
-
-                response.data.forEach(function(certification) {
-                    var card = `
-                        <div class="col-md-4">
-                            <div class="card certification-card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <div class="certification-header">${certification.certification_name}</div>
-                                            <div class="certification-details">${certification.certification_number}</div>
-                                            <div class="certification-details">${certification.vendor.certification_vendor_name}</div>
-                                            <div class="certification-details">${certification.course.course_name}</div>
-                                        </div>
-                                        <div class="dropdown">
-                                            <span class="menu-dots" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">⋮</span>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="javascript:void(0)" onclick="modalAction('${certification.show_url}')">Detail</a>
-                                                <a class="dropdown-item" href="javascript:void(0)" onclick="modalAction('${certification.edit_url}')">Edit</a>
-                                                <a class="dropdown-item text-danger" href="javascript:void(0)" onclick="modalAction('${certification.delete_url}')">Hapus</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="certification-details mt-2">
-                                        Tanggal: ${certification.certification_date} <br>
-                                        Tenggat: ${certification.certification_expired}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                    cardsContainer.append(card);
-                });
-            }
-        });
-    }
-
+    var dataCertification;
     $(document).ready(function() {
-        // Initial load
-        loadCertifications();
+        dataCertification = $('#table_certification').DataTable({
+            serverSide: true,
+            responsive: true,
+            paging: false, // Disable pagination if you want to use custom pagination
+            lengthChange: false,
+            info: false,
+            ajax: {
+                url: "{{ url('certification/list') }}",
+                dataType: "json",
+                type: "POST",
+                data: function(d) {
+                    d.certification_vendor_id = $('#certification_vendor_id').val();
+                }
+            },
+            columns: [
+                { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
+                { data: "certification_name", className: "", orderable: true, searchable: true },
+                { data: "certification_number", className: "", orderable: true, searchable: true },
+                { data: "certification_date_start", className: "", orderable: true, searchable: true },
+                { data: "certification_date_expired", className: "", orderable: true, searchable: true },
+                { data: "certification_vendor_name", className: "", orderable: false, searchable: false },
+                { data: "certification_type", className: "", orderable: false, searchable: false },
+                { data: "certification_level", className: "", orderable: false, searchable: false },
+                { data: "username", className: "", orderable: false, searchable: false },
+                { data: "course", className: "", orderable: false, searchable: false },
+                { data: "interest", className: "", orderable: false, searchable: false },
+                { data: "file", className: "", orderable: false, searchable: false },
+                // { data: "course.course_name", className: "", orderable: false, searchable: true },
+                // { data: "interest.interest_name", className: "", orderable: false, searchable: false },
+                { data: "aksi", className: "", orderable: false, searchable: false }
+            ]
+        });
 
-        // Filter and Search Event Listeners
-        $('#search').on('input', function() {
-            loadCertifications();
+        $('#certification_vendor_id').on('change', function() {
+            dataCertification.ajax.reload();
         });
-        $('#filter_vendor').on('change', function() {
-            loadCertifications();
+
+        // Adjust DataTables on window resize and when sidebar toggle is clicked
+        $(window).on('resize', function() {
+            dataCertification.columns.adjust().responsive.recalc();
         });
-        $('#filter_type').on('change', function() {
-            loadCertifications();
-        });
-        $('#reset_filters').on('click', function() {
-            $('#search').val('');
-            $('#filter_vendor').val('');
-            $('#filter_type').val('');
-            loadCertifications();
+
+        $('.sidebar-toggle').on('click', function() {
+            setTimeout(function() {
+                dataCertification.columns.adjust().responsive.recalc();
+            }, 300); // Timeout to wait for sidebar animation
         });
     });
 </script>

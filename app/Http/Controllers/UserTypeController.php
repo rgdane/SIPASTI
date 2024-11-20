@@ -32,16 +32,6 @@ class UserTypeController extends Controller
     {
         $user_types = UserTypeModel::select('user_type_id', 'user_type_code', 'user_type_name');
         return DataTables::of($user_types)
-<<<<<<< HEAD
-            // menambahkan kolom index / no urut (default user_type_name kolom: DT_RowIndex)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($user_types) { // menambahkan kolom aksi
-                $btn  = '<button onclick="modalAction(\'' . url('/user_type/' . $user_types->user_type_id . '/show') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                return $btn;
-            })
-            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
-            ->make(true);
-=======
         // menambahkan kolom index / no urut (default user_type_name kolom: DT_RowIndex)
         ->addIndexColumn()
         // ->addColumn('aksi', function ($user_types) { // menambahkan kolom aksi
@@ -52,7 +42,6 @@ class UserTypeController extends Controller
         // })
         // ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
         ->make(true);
->>>>>>> 1f14f2f01ed9d7af3b7d7e65dc39005a571fe40f
     }
 
     public function create()

@@ -107,23 +107,23 @@ class TrainingController extends Controller
         return DataTables::of($trainings)
             ->addIndexColumn()
             ->addColumn('show_url', function ($training) {
-                return url('/training/' . $training['training_id'] . '/show_ajax');
+                return url('/training/' . $training['training_id'] . '/show');
             })
             ->addColumn('edit_url', function ($training) {
-                return url('/training/' . $training['training_id'] . '/edit_ajax');
+                return url('/training/' . $training['training_id'] . '/edit');
             })
             ->addColumn('delete_url', function ($training) {
-                return url('/training/' . $training['training_id'] . '/delete_ajax');
+                return url('/training/' . $training['training_id'] . '/delete');
             })
             ->make(true);
     }
 
-    public function create_ajax()
+    public function create()
     {
         return view('admin.training.create');
     }
 
-    public function store_ajax(Request $request)
+    public function store(Request $request)
     {
         return response()->json([
             'status' => true,
@@ -134,7 +134,7 @@ class TrainingController extends Controller
     }
 
 
-    public function show_ajax(string $id)
+    public function show(string $id)
     {
         $trainings = collect([
             [
@@ -213,10 +213,10 @@ class TrainingController extends Controller
 
         $training = $trainings->firstWhere('training_id', (int)$id);
 
-        return view('admin.training.show_ajax', ['training' => $training]);
+        return view('admin.training.show', ['training' => $training]);
     }
 
-    public function edit_ajax(string $id)
+    public function edit(string $id)
     {
         $trainings = collect([
             [
@@ -315,11 +315,11 @@ class TrainingController extends Controller
 
         $training = $trainings->firstWhere('training_id', (int)$id);
 
-        return view('admin.training.edit_ajax', ['training' => $training, 'vendor' => $vendor, 'type' => $type, 'course' => $course, 'interest' => $interest]);
+        return view('admin.training.edit', ['training' => $training, 'vendor' => $vendor, 'type' => $type, 'course' => $course, 'interest' => $interest]);
     }
 
 
-    public function update_ajax(Request $request, $id)
+    public function update(Request $request, $id)
     {
         return response()->json([
             'status' => true,
@@ -328,7 +328,7 @@ class TrainingController extends Controller
         ]);
     }
 
-    public function confirm_ajax(string $id)
+    public function confirm(string $id)
     {
         $trainings = collect([
             [
@@ -407,10 +407,10 @@ class TrainingController extends Controller
 
         $training = $trainings->firstWhere('training_id', (int)$id);
 
-        return view('admin.training.confirm_ajax', ['training' => $training]);
+        return view('admin.training.confirm', ['training' => $training]);
     }
 
-    public function delete_ajax(Request $request, $id)
+    public function delete(Request $request, $id)
     {
         return response()->json([
             'status' => true,

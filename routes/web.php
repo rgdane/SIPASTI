@@ -33,7 +33,12 @@ use Illuminate\Support\Facades\Route;
 // });
 // Route::get('/', [LandingPageController::class, 'index']);
 
-Route::get('/', [WelcomeController::class, 'index']);
+// Route::get('/', [WelcomeController::class, 'index']);
+// Route::get('/training/{id}', [WelcomeController::class, 'show']);
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/training/{id}', [WelcomeController::class, 'show'])->name('training.show');
+Route::get('/training-details/{id}', [WelcomeController::class, 'getTrainingDetails'])->name('training.details');
+
 
 // Admin
 // Route Pengguna

@@ -16,7 +16,7 @@
     </div>
 </div>
 @else
-<form action="{{ url('/certification/' . $certification['certification_id'] . '/show_ajax') }}" method="POST" id="form-show">
+<form id="form-show">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -31,39 +31,67 @@
                     </div>
                     <tr>
                         <th class="text-right col-3">Nama Sertifikasi:</th>
-                        <td class="col-9">{{ $certification['certification_name'] }}</td>
+                        <td class="col-9">{{ $certification->certification_name }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Nomor Sertifikasi:</th>
-                        <td class="col-9">{{ $certification['certification_number'] }}</td>
+                        <td class="col-9">{{ $certification->certification_number }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Tanggal Sertifikasi:</th>
-                        <td class="col-9">{{ $certification['certification_date'] }}</td>
+                        <td class="col-9">{{ $certification->certification_date_start }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Tenggat Sertifikasi:</th>
-                        <td class="col-9">{{ $certification['certification_expired'] }}</td>
+                        <td class="col-9">{{ $certification->certification_date_expired }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Vendor Sertifikasi:</th>
-                        <td class="col-9">{{ $certification['vendor']['certification_vendor_name'] }}</td>
+                        <td class="col-9">{{ $certification->certification_vendor_name }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Tipe Sertifikasi:</th>
-                        <td class="col-9">{{ $certification['type']['certification_type_name'] }}</td>
+                        <td class="col-9">{{ $certification->certification_type }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Level Sertifikasi:</th>
-                        <td class="col-9">{{ $certification['level']['certification_level_name'] }}</td>
+                        <td class="col-9">{{ $certification->certification_level }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Mata Kuliah:</th>
-                        <td class="col-9">{{ $certification['course']['course_name'] }}</td>
+                        <th class="text-right col-3">Dokumen Pendukung:</th>
+                        <td class="col-9">
+                            {{ basename($certification->certification_file) }}
+                            <br>
+                            <button type="button" onclick="window.open('{{ url('/certification/' . $certification->certification_id . '/file') }}', '_blank')" class="btn btn-info btn-sm">Lihat Dokumen</button>
+                        </td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Bidang Minat:</th>
-                        <td class="col-9">{{ $certification['interest']['interest_name'] }}</td>
+                        <td class="col-9">
+                            @php $interestCount = is_countable($interest) ? count($interest) : 0; @endphp
+
+                            @if (is_iterable($interest))
+                            @foreach ($interest as $index => $item)
+                                {{ $item->interest_name }}@if ($index < count($interest) - 1), @endif
+                            @endforeach
+                            @else
+                                Tidak ada data minat.
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Mata Kuliah:</th>
+                        <td class="col-9">
+                            @php $courseCount = is_countable($course) ? count($course) : 0; @endphp
+
+                            @if (is_iterable($course))
+                            @foreach ($course as $index => $item)
+                                {{ $item->course_name }}@if ($index < count($course) - 1), @endif
+                            @endforeach
+                            @else
+                                Tidak ada data minat.
+                            @endif
+                        </td>
                     </tr>
                 </table>
             </div>

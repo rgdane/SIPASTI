@@ -57,25 +57,13 @@ class CertificationController extends Controller
         return DataTables::of($certifications)
         // menambahkan kolom index / no urut (default certification_name kolom: DT_RowIndex)
         ->addIndexColumn()
-        ->addColumn('course', function ($course){
-            $btn = '<button onclick="modalAction(\''.url('/certification/' . $course->certification_id . '/course').'\')" class="btn btn-info btn-sm">Lihat</button> ';
-            return $btn;
-        })
-        ->addColumn('interest', function ($interest){
-            $btn = '<button onclick="modalAction(\''.url('/certification/' . $interest->certification_id . '/interest').'\')" class="btn btn-info btn-sm">Lihat</button> ';
-            return $btn;
-        })
-        ->addColumn('file', function ($file){
-            $btn = '<button onclick="window.open(\''.url('/certification/' . $file->certification_id . '/file').'\', \'_blank\')" class="btn btn-info btn-sm">Lihat</button>';
-            return $btn;
-        })
         ->addColumn('aksi', function ($certifications) { // menambahkan kolom aksi
-            // $btn = '<button onclick="modalAction(\''.url('/certification/' . $certifications->certification_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
-            $btn = '<button onclick="modalAction(\''.url('/certification/' . $certifications->certification_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
+            $btn = '<button onclick="modalAction(\''.url('/certification/' . $certifications->certification_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
+            $btn .= '<button onclick="modalAction(\''.url('/certification/' . $certifications->certification_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
             $btn .= '<button onclick="modalAction(\''.url('/certification/' . $certifications->certification_id . '/delete').'\')"  class="btn btn-danger btn-sm">Hapus</button> ';
             return $btn;
         })
-        ->rawColumns(['course','interest','file','aksi']) // memberitahu bahwa kolom aksi adalah html
+        ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
         ->make(true);
     }
 
@@ -150,99 +138,56 @@ class CertificationController extends Controller
         ]);
     }
 
-    public function show_ajax(string $id)
+    public function show(string $id)
     {
-        // Static data for simulation
-        $certifications = collect([
-            [
-                'certification_id' => 1,
-                'certification_name' => 'Google Data Analytics',
-                'certification_number' => '001/GOOGLE/DATA-ANALYTICS/2024',
-                'certification_date' => '2024-11-04',
-                'certification_expired' => '2027-11-04',
-                'certification_vendor_id' => 1,
-                'vendor' => [
-                    'certification_vendor_name' => 'Google'
-                ],
-                'certification_type_id' => 1,
-                'type' => [
-                    'certification_type_name' => 'Sertifikasi Profesi'
-                ],
-                'certification_level_id' => 1,
-                'level' => [
-                    'certification_level_name' => 'Internasional',
-                ],
-                'course_id' => 1,
-                'course' => [
-                    'course_name' => 'Data Analytics'
-                ],
-                'interest_id' => 1,
-                'interest' => [
-                    'interest_name' => 'Big Data'
-                ],
-            ],
-            [
-                'certification_id' => 2,
-                'certification_name' => 'IBM Data Science',
-                'certification_number' => '001/IBM/DATA-SCIENCE/2024',
-                'certification_date' => '2024-11-05',
-                'certification_expired' => '2027-11-05',
-                'certification_vendor_id' => 2,
-                'vendor' => [
-                    'certification_vendor_name' => 'IBM'
-                ],
-                'certification_type_id' => 1,
-                'type' => [
-                    'certification_type_name' => 'Sertifikasi Profesi'
-                ],
-                'certification_level_id' => 1,
-                'level' => [
-                    'certification_level_name' => 'Internasional',
-                ],
-                'course_id' => 2,
-                'course' => [
-                    'course_name' => 'Data Science'
-                ],
-                'interest_id' => 1,
-                'interest' => [
-                    'interest_name' => 'Big Data'
-                ],
-            ],
-            [
-                'certification_id' => 3,
-                'certification_name' => 'Program Improvement Business',
-                'certification_number' => '001/UNIVERSITYOFSYDNEY/BUSINESS/2024',
-                'certification_date' => '2024-11-06',
-                'certification_expired' => '2027-11-06',
-                'certification_vendor_id' => 3,
-                'vendor' => [
-                    'certification_vendor_name' => 'The University Of Sydney'
-                ],
-                'certification_type_id' => 1,
-                'type' => [
-                    'certification_type_name' => 'Sertifikasi Profesi'
-                ],
-                'certification_level_id' => 1,
-                'level' => [
-                    'certification_level_name' => 'Internasional',
-                ],
-                'course_id' => 3,
-                'course' => [
-                    'course_name' => 'Business Intellegent'
-                ],
-                'interest_id' => 2,
-                'interest' => [
-                    'interest_name' => 'Business'
-                ],
-            ]
-        ]);
+        // Gunakan parameter binding untuk mencegah SQL Injection
+        $certification = DB::selectOne(
+            "SELECT
+                a.certification_id,
+                a.certification_name,
+                a.certification_number,
+                a.certification_date_start,
+                a.certification_date_expired,
+                b.certification_vendor_name,
+                a.certification_file,
+                CASE
+                    WHEN certification_level = 0 THEN 'Nasional'
+                    ELSE 'Internasional'
+                END AS certification_level,
+                CASE
+                    WHEN certification_type = 0 THEN 'Profesi'
+                    ELSE 'Keahlian'
+                END AS certification_type,
+                c.username
+            FROM
+                m_certification a
+                INNER JOIN m_certification_vendor b ON a.certification_vendor_id = b.certification_vendor_id
+                INNER JOIN m_user c ON a.user_id = c.user_id
+            WHERE
+                a.certification_id = :id", ['id' => $id]
+        );
 
-        // Find the user by ID
-        $certification = $certifications->firstWhere('certification_id', (int)$id);
+        $interest = DB::select(
+            "SELECT
+        b.`interest_name`
+        FROM
+        `t_interest_certification` a
+        INNER JOIN `m_interest` b ON a.`interest_id` = b.`interest_id`
+        WHERE a.`certification_id` = '$id';"
+        );
 
-        // Return the view with either the found user or null if not found
-        return view('admin.certification.show_ajax', ['certification' => $certification]);
+        $course = DB::select(
+            "SELECT
+        b.`course_name`
+        FROM
+        `t_course_certification` a
+        INNER JOIN `m_course` b ON a.`course_id` = b.`course_id`
+        WHERE a.`certification_id` = '$id';"
+        );
+        // Kembalikan view dengan data
+        return view('admin.certification.show', ['certification' => $certification, 'interest' => $interest, 'course' => $course]);
     }
+
 
     public function edit_ajax(string $id)
     {

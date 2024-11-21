@@ -33,9 +33,6 @@
                         <th>Jenis Sertifikasi</th>
                         <th>Level Sertifikasi</th>
                         <th>Nama Peserta</th>
-                        <th>Mata Kuliah</th>
-                        <th>Bidang Minat</th>
-                        <th>Dokumen Pendukung</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -133,11 +130,6 @@
                 { data: "certification_type", className: "", orderable: false, searchable: false },
                 { data: "certification_level", className: "", orderable: false, searchable: false },
                 { data: "username", className: "", orderable: false, searchable: false },
-                { data: "course", className: "", orderable: false, searchable: false },
-                { data: "interest", className: "", orderable: false, searchable: false },
-                { data: "file", className: "", orderable: false, searchable: false },
-                // { data: "course.course_name", className: "", orderable: false, searchable: true },
-                // { data: "interest.interest_name", className: "", orderable: false, searchable: false },
                 { data: "aksi", className: "", orderable: false, searchable: false }
             ]
         });

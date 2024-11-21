@@ -78,7 +78,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    #table_certification th,
+    /* #table_certification th,
     tbody {
         font-size: 0.875rem;
         padding: 0.5rem;
@@ -95,7 +95,7 @@
             font-size: 0.75rem;
             padding: 0.3rem;
         }
-    }
+    } */
 </style>
 @endpush
 
@@ -111,8 +111,8 @@
     $(document).ready(function() {
         dataCertification = $('#table_certification').DataTable({
             serverSide: true,
-            responsive: true,
-            paging: false, // Disable pagination if you want to use custom pagination
+            responsive: false,
+            paging: true, // Disable pagination if you want to use custom pagination
             lengthChange: false,
             info: false,
             ajax: {
@@ -147,15 +147,15 @@
         });
 
         // Adjust DataTables on window resize and when sidebar toggle is clicked
-        $(window).on('resize', function() {
-            dataCertification.columns.adjust().responsive.recalc();
-        });
+        // $(window).on('resize', function() {
+        //     dataCertification.columns.adjust().responsive.recalc();
+        // });
 
-        $('.sidebar-toggle').on('click', function() {
-            setTimeout(function() {
-                dataCertification.columns.adjust().responsive.recalc();
-            }, 300); // Timeout to wait for sidebar animation
-        });
+        // $('.sidebar-toggle').on('click', function() {
+        //     setTimeout(function() {
+        //         dataCertification.columns.adjust().responsive.recalc();
+        //     }, 300); // Timeout to wait for sidebar animation
+        // });
     });
 </script>
 @endpush

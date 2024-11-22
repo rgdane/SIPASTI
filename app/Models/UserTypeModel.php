@@ -12,7 +12,9 @@ class UserTypeModel extends Model
     
     protected $table = 'm_user_type';
     protected $primaryKey = 'user_type_id';
-
+    protected $casts = [
+        'user_type_id' => 'string',
+    ];
     protected $fillable = ['user_type_code', 'user_type_name'];
 
     public function user(): BelongsTo{

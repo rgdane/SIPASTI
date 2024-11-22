@@ -25,7 +25,6 @@ class UserController extends Controller
         $activeMenu = 'user'; //set menu yang sedang aktif
 
         $user_type = UserTypeModel::all(); //ambil data user_type untuk filter user_type
-    
         return view('admin.user.index',['breadcrumb'=>$breadcrumb, 'page' => $page, 'user_type' => $user_type,'activeMenu'=>$activeMenu]);
     }
     

@@ -41,8 +41,9 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     Route::get('/training-details/{id}', [WelcomeController::class, 'getTrainingDetails'])->name('training.details');
     
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+    Route::put('/profile/update', [ProfileController::class, 'update']);
+    Route::put('/profile/update_password', [ProfileController::class, 'update_password']);
+    Route::put('/profile/update_image', [ProfileController::class, 'update_image']);
     
     Route::middleware(['authorize:ADM,CEO'])->group(function(){
     // Admin
@@ -109,11 +110,6 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     Route::group(['prefix' => 'certification_input'], function() {
         Route::get('/', [CertificationInputController::class, 'index']);
         Route::post('/{id}/store', [CertificationInputController::class, 'store']);
-    });
-    
-    Route::group(['prefix' => 'certification_upload'], function() {
-        Route::get('/', [CertificationUploadController::class, 'index']);
-        Route::post('/store', [CertificationUploadController::class, 'store']);
     });
     
     // Route Data Pelatihan

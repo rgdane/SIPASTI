@@ -125,18 +125,23 @@
         }
     }
 </style>
+
 <div class="container">
     <div class="profile-header">
+    <form method="POST" action="{{ url('/profile/update_image') }}" enctype="multipart/form-data" id="profileImageForm">
+        @csrf
+        @method('PUT')
         <div class="profile-image-wrapper">
-            <img src="{{ asset('image/agta.jpg') }}" alt="Profile" class="profile-picture">
+            <img src="{{ asset($profile['user_detail_image']) }}" alt="Profile" class="profile-picture">
             <label for="profile-upload" class="edit-icon">
                 <i class="bi bi-pencil-square"></i>
             </label>
-            <input type="file" id="profile-upload" style="display: none" accept="image/*">
+            <input type="file" id="profile-upload" name="user_detail_image" style="display: none" accept="storage/image/*">
         </div>
-        <h2>{{ $user['name'] }}</h2>
-        <p class="role">{{ $user['role'] }}</p>
-    </div>
+        <h2>{{ $user['user_fullname'] }}</h2>
+        <p class="role">{{ $user_type['user_type_name'] }}</p>
+    </form>
+</div>
 
     <div class="form-section">
         <div class="section-wrapper">
@@ -145,27 +150,37 @@
                 <p class="section-subtitle">Personal informasi profil dan alamat email akan diubah disini</p>
             </div>
             <div class="form-content">
-                <form id="profileForm">
+                <form method="POST" action="{{ url('/profile/update') }}" id="profileForm" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
                     <div class="form-group">
-                        <label for="nidn">NIDN</label>
-                        <input type="text" id="nidn" name="nidn" class="form-control" value="{{ $user['nidn'] }}">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" value="{{ $user['username'] }}">
                     </div>
                     <div class="form-group">
-                        <label for="name">Nama</label>
-                        <input type="text" id="name" name="name" class="form-control" value="{{ $user['name'] }}">
+                        <label for="user_fullname">Nama</label>
+                        <input type="text" id="user_fullname" name="user_fullname" class="form-control" value="{{ $user['user_fullname'] }}">
                     </div>
                     <div class="form-group">
-                        <label for="address">Alamat</label>
-                        <input type="text" id="address" name="address" class="form-control"
-                            value="{{ $user['address'] }}">
+                        <label for="user_detail_nip">NIP</label>
+                        <input type="text" id="user_detail_nip" name="user_detail_nip" class="form-control" value="{{ $profile['user_detail_nip'] }}">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" value="{{ $user['email'] }}">
+                        <label for="user_detail_nidn">NIDN</label>
+                        <input type="text" id="user_detail_nidn" name="user_detail_nidn" class="form-control" value="{{ $profile['user_detail_nidn'] }}" placeholder="Tidak perlu diisi jika tidak ada">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Telepon</label>
-                        <input type="tel" id="phone" name="phone" class="form-control" value="{{ $user['phone'] }}">
+                        <label for="user_detail_address">Alamat</label>
+                        <input type="text" id="user_detail_address" ```blade
+                        name="user_detail_address" class="form-control" value="{{ $profile['user_detail_address'] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_detail_email">Email</label>
+                        <input type="email" id="user_detail_email" name="user_detail_email" class="form-control" value="{{ $profile['user_detail_email'] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_detail_phone">Telepon</label>
+                        <input type="tel" id="user_detail_phone" name="user_detail_phone" class="form-control" value="{{ $profile['user_detail_phone'] }}">
                     </div>
                     <button type="submit" class="btn-submit">Simpan</button>
                 </form>
@@ -177,25 +192,23 @@
         <div class="section-wrapper">
             <div class="section-header">
                 <h2 class="section-title">Updated Password</h2>
-                <p class="section-subtitle">Pastikan data yang dimasukkan valid, serta sesuai dengan yang diminta
-                </p>
+                <p class="section-subtitle">Pastikan data yang dimasukkan valid, serta sesuai dengan yang diminta</p>
             </div>
             <div class="form-content">
-                <form id="passwordForm">
+                <form method="POST" action="{{ url('/profile/update_password') }}" id="passwordForm" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <label for="old-password">Password Lama</label>
-                        <input type="password" id="old-password" class="form-control" name="old_password"
-                            placeholder="Masukkan password lama">
+                        <input type="password" id="old-password" class="form-control" name="old_password" placeholder="Masukkan password lama">
                     </div>
                     <div class="form-group">
                         <label for="new-password">Password Baru</label>
-                        <input type="password" id="new-password" class="form-control" name="new_password"
-                            placeholder="Masukkan password baru">
+                        <input type="password" id="new-password" class="form-control" name="new_password" placeholder="Masukkan password baru">
                     </div>
                     <div class="form-group">
                         <label for="confirm-password">Konfirmasi Password</label>
-                        <input type="password" id="confirm-password" class="form-control" name="confirm_password"
-                            placeholder="Konfirmasi password baru">
+                        <input type="password" id="confirm-password" class="form-control" name="confirm_password" placeholder="Konfirmasi password baru">
                     </div>
                     <button type="submit" class="btn-submit">Simpan</button>
                 </form>
@@ -206,47 +219,163 @@
 
 @push('js')
 <script>
-    document.getElementById('profileForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Add your profile update logic here
-        alert('Profile updated successfully!');
+    $(document).ready(function() {
+        $("#profileForm").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 20
+                },
+                user_fullname: {
+                    required: true,
+                    minlength: 3
+                },
+                user_detail_nip: {
+                    required: true,
+                },
+                user_detail_nidn: {
+                    required: false, // Jika tidak wajib
+                },
+                user_detail_address: {
+                    required: true
+                },
+                user_detail_email: {
+                    required: true,
+                },
+                user_detail_phone: {
+                    required: true,
+                }
+            },
+            submitHandler: function(form) {
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: $(form).serialize(),
+                    success: function(response) {
+                        if (response.status) {
+                            $('#myModal').modal('hide');
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.message
+                            }).then(() => {
+                                location.reload(); // Muat ulang halaman
+                            });
+                        } else {
+                            $('.error-text').text('');
+                            $.each(response.msgField, function(prefix, val) {
+                                $('#error-' + prefix).text(val[0]);
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: response.message
+                            });
+                        }
+                    }
+                });
+                return false;
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
     });
 
-    document.getElementById('passwordForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Add your password update logic here
-        alert('Password updated successfully!');
+    $(document).ready(function() {
+        $("#passwordForm").validate({
+            rules: {
+                old_password: { minlength: 6 },
+                new_password: { minlength: 6 },
+                confirm_password: { minlength: 6, equalTo: "#new-password" }
+            },
+            submitHandler: function(form) {
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: $(form).serialize(),
+                    success: function(response){
+                    if (response.status) {
+                        $('#myModal').modal('hide');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.message
+                        }).then(() => {
+                            location.reload(); // Muat ulang halaman
+                        });
+                    } else {
+                        $('.error-text').text('');
+                        $.each(response.msgField, function(prefix, val) {
+                            $('#error-' + prefix).text(val[0]);
+                        });
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi Kesalahan',
+                            text: response.message
+                        });
+                    }
+                }
+                });
+                return false;
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
     });
-</script>
-<script>
-    document.getElementById('profile-upload').addEventListener('change', function(e) {
-        if (e.target.files.length > 0) {
-            // Di sini Anda bisa menambahkan logika untuk mengunggah gambar
-            // Misalnya menggunakan AJAX untuk mengirim file ke server
-            const file = e.target.files[0];
-            const formData = new FormData();
-            formData.append('profile_image', file);
-            
-            // Contoh penggunaan fetch untuk upload
-            /*
-            fetch('/update-profile-image', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+
+    $('#profile-upload').change(function() {
+        var formData = new FormData($('#profileImageForm')[0]);
+        
+        $.ajax({
+            url: '{{ url('/profile/update_image') }}',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.success) {
+                    // Memperbarui gambar profil di halaman
+                    $('.profile-picture').attr('src', response.image_url);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: 'Gambar profil berhasil diperbarui!'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan',
+                        text: response.message
+                    });
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle response
-                if(data.success) {
-                    // Update gambar profil
-                    document.querySelector('.profile-picture').src = data.image_url;
-                }
-            })
-            .catch(error => console.error('Error:', error));
-            */
-        }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: 'Gagal mengupload gambar!'
+                });
+            }
+        });
     });
 </script>
 @endpush

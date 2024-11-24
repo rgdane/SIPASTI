@@ -69,7 +69,7 @@ class UserController extends Controller
     // Ambil data user dalam bentuk json untuk datatables
     public function list(Request $request)
     {
-        $users = UserModel::select('user_id', 'username', 'user_type_id')
+        $users = UserModel::select('user_id','user_fullname', 'username', 'user_type_id')
         ->with('user_type');
         // Filter data user berdasarkan user_type_id
         if ($request->user_type_id){
@@ -113,6 +113,7 @@ class UserController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'user_type_id' => 'required',
+                'user_fullname' => 'required',
                 'username' => 'required|max:20|unique:m_user,username,'.$id.',user_id',
                 'password' => 'nullable|min:6|max:20'
             ];
@@ -216,8 +217,9 @@ class UserController extends Controller
                     if ($baris > 1) {
                         $insert[] = [
                             'user_type_id' => $value['A'],
-                            'username' => $value['B'],
-                            'password' => bcrypt($value['C']),
+                            'user_full_name' => $value['B'],
+                            'username' => $value['C'],
+                            'password' => bcrypt($value['D']),
                             'created_at' => now(),
                         ];
                     }
@@ -245,7 +247,7 @@ class UserController extends Controller
     public function export_excel()
     {
         // ambil data user yang akan di export
-        $user = UserModel::select('user_type_id','username','password')
+        $user = UserModel::select('user_type_id','user_fullname','username','password')
                                     ->orderBy('user_type_id')
                                     ->with('user_type')
                                     ->get();
@@ -253,20 +255,22 @@ class UserController extends Controller
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
         $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Username');
-        $sheet->setCellValue('C1', 'Jenis Pengguna');
-        $sheet->getStyle('A1:C1')->getFont()->setBold(true); //bold header
+        $sheet->setCellValue('B1', 'Nama Pengguna');
+        $sheet->setCellValue('C1', 'Username');
+        $sheet->setCellValue('D1', 'Jenis Pengguna');
+        $sheet->getStyle('A1:D1')->getFont()->setBold(true); //bold header
         
         $no=1; //nomor data dimulai dari 1
         $baris = 2;
         foreach ($user as $key => $value){
             $sheet->setCellValue('A' .$baris, $no);
-            $sheet->setCellValue('B' .$baris, $value->username);
-            $sheet->setCellValue('C' .$baris, $value->user_type->user_type_name); //ambil nama user_type
+            $sheet->setCellValue('B' .$baris, $value->user_fullname);
+            $sheet->setCellValue('C' .$baris, $value->username);
+            $sheet->setCellValue('D' .$baris, $value->user_type->user_type_name); //ambil nama user_type
             $baris++;
             $no++;
         }
-        foreach(range('A','C') as $columnID) {
+        foreach(range('A','D') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true); //set auto size untuk kolom
         }
         
@@ -287,8 +291,9 @@ class UserController extends Controller
     } //end function export_excel
 
     public function export_pdf(){
-        $user = UserModel::select('user_type_id','username')
+        $user = UserModel::select('user_type_id','user_fullname','username')
         ->orderBy('user_type_id')
+        ->orderBy('user_fullname')
         ->orderBy('username')
         ->with('user_type')
         ->get();

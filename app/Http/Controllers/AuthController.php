@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Models\UserTypeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
@@ -7,7 +9,10 @@ class AuthController extends Controller
     public function login()
     {
         if(Auth::check()){ // jika sudah login, maka redirect ke halaman home
-            return redirect('/');
+            $user = Auth::user();
+            $user_type = UserTypeModel::where('user_type_id', $user->user_type_id)->value('user_type_code');
+
+            return view('template', compact('user_type'));
         }
         return view('auth.login');
     }

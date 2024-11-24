@@ -15,7 +15,7 @@ class UserModel extends Authenticatable
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['user_type_id', 'username', 'password'];
+    protected $fillable = ['user_type_id', 'user_fullname', 'username', 'password'];
 
     protected $hidden = ['password'];
 
@@ -23,6 +23,11 @@ class UserModel extends Authenticatable
 
     public function user_type(): BelongsTo {
         return $this->belongsTo(UserTypeModel::class, 'user_type_id', 'user_type_id');
+    }
+
+    public function user_detail()
+    {
+        return $this->hasOne(UserDetailModel::class);
     }
 
     public function certification(): BelongsTo{

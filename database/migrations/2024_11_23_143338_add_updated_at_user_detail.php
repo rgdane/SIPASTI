@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('m_certification', function (Blueprint $table) {
+        Schema::table('m_user_detail', function (Blueprint $table) {
             $table->timestamps();
         });
     }

@@ -54,7 +54,15 @@
         <img src="polinema_logo.png" class="brand-image img-circle elevation-4" style="opacity: 8">
         <span class="brand-text font-weight-bold">SIPASTI</span>
       </a>
-      @include('layouts.sidebar')
+
+      @if ('user_type' == 'ADM')
+        @include('layouts.sidebar_admin')
+      @elseif ('user_type' == 'DSN' || 'user_type' == 'TDK')
+        @include('layouts.sidebar_dosen')
+      @else
+        @include('layouts.sidebar_pimpinan')
+      
+      @endif
     </aside>
 
     <!-- Content Wrapper -->

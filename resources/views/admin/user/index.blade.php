@@ -38,8 +38,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Username</th>
                         <th>Jenis Pengguna</th>
+                        <th>Username</th>
+                        <th>Nama Pengguna</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -111,15 +112,20 @@
                     orderable: false,
                     searchable: false
                 },{
+                    data: "user_type.user_type_name",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                },{
                     data: "username",
                     className: "",
                     orderable: true,
                     searchable: true
                 },{
-                    data: "user_type.user_type_name",
+                    data: "user_fullname",
                     className: "",
-                    orderable: false,
-                    searchable: false
+                    orderable: true,
+                    searchable: true
                 },{
                     data: "aksi",
                     className: "",

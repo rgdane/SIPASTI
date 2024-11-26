@@ -1,143 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Login Pengguna</title>
-		<!-- Google Font: Source Sans Pro -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-		<!-- Font Awesome -->
-		<link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-		<!-- icheck bootstrap -->
-		<link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-		<!-- SweetAlert2 -->
-		<link rel="stylesheet" href="{{ asset('adminlte\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.min.css') }}">
-		<!-- Theme style -->
-		<link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
-	</head>
-	<body class="hold-transition login-page">
-		<div class="login-box">
-			<!-- /.login-logo -->
-			<div class="card card-outline card-primary">
-				<div class="card-header text-center">
-					<a href="{{ url('/') }}" class="h1">
-						<b>Admin</b>LTE </a>
-				</div>
-				<div class="card-body">
-					<p class="login-box-msg">Sign in to start your session</p>
-					<form action="{{ url('login') }}" method="POST" id="form-login"> @csrf <div class="input-group mb-3">
-							<input type="text" id="username" name="username" class="form-control" placeholder="Username">
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fas fa-envelope"></span>
-								</div>
-							</div>
-							<small id="error-username" class="error-text text-danger"></small>
-						</div>
-						<div class="input-group mb-3">
-							<input type="password" id="password" name="password" class="form-control" placeholder="Password">
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fas fa-lock"></span>
-								</div>
-							</div>
-							<small id="error-password" class="error-text text-danger"></small>
-						</div>
-						<div class="row">
-							<div class="col-8">
-								<div class="icheck-primary">
-									<input type="checkbox" id="remember">
-									<label for="remember">Remember Me</label>
-								</div>
-							</div>
-							<!-- /.col -->
-							<div class="col-4">
-								<button type="submit" class="btn btn-primary btn-block">Sign In</button>
-							</div>
-							<!-- /.col -->
-						</div>
-					</form>
-					<br>
-					<p class="login-box-msg">Don't have any account? <a href="create">Register Now</a></p>
-				</div>
-				<!-- /.card-body -->
-			</div>
-			<!-- /.card -->
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login SIPASTI</title>
+	<link rel="icon" href="{{ url('/')}}/image/jti-logo.png" type="image/x-icon">
+	<!-- Bootstrap CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		body {
+			background-color: #ffffff;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.login-container {
+			max-width: 400px;
+			width: 90%;
+		}
+
+		.card {
+			border: none;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			border-radius: 15px;
+			background: white;
+			padding: 30px;
+		}
+
+		.logo-container {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.logo-container img {
+			width: 120px;
+			height: auto;
+			margin-bottom: 20px;
+		}
+
+		.form-control {
+			border-radius: 8px;
+			padding: 10px 15px;
+			border: 1px solid #ddd;
+			margin-bottom: 15px;
+		}
+
+		.btn-login {
+			background-color: #004AAD;
+			border: none;
+			border-radius: 8px;
+			padding: 12px;
+			font-weight: 500;
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.form-label {
+			font-size: 14px;
+			color: #666;
+			margin-bottom: 8px;
+		}
+
+		.password-field {
+			position: relative;
+		}
+
+		.password-toggle {
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			transform: translateY(-50%);
+			cursor: pointer;
+			color: #666;
+		}
+
+		/* Dark mode toggle */
+		.dark-mode-toggle {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			background: transparent;
+			border: none;
+			color: #666;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="login-container">
+		<div class="logo-container">
+			<img src="{{ asset('image/jti-logo.png') }}" alt="Logo">
 		</div>
-		<!-- /.login-box -->
-		<!-- jQuery -->
-		<script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
-		<!-- Bootstrap 4 -->
-		<script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-		<!-- jquery-validation -->
-		<script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-		<script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
-		<!-- SweetAlert2 -->
-		<script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-		<!-- AdminLTE App -->
-		<script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
-		<script>
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		<div class="card">
+			<h4 class="text-center mb-4">LOGIN</h4>
+
+			<form action="{{ url('login') }}" method="POST" id="form-login">
+				@csrf
+				<div class="mb-3">
+					<label class="form-label">NIP</label>
+					<input type="text" id="username" name="username" class="form-control" placeholder="Masukkan NIP">
+					<small id="error-username" class="error-text text-danger"></small>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Password</label>
+					<div class="password-field">
+						<input type="password" id="password" name="password" class="form-control"
+							placeholder="Masukkan Password">
+						<span class="password-toggle" onclick="togglePassword()">
+							<i class="far fa-eye" id="toggleIcon"></i>
+						</span>
+					</div>
+					<small id="error-password" class="error-text text-danger"></small>
+				</div>
+
+				<button type="submit" class="btn btn-primary btn-login">Masuk</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Dark mode toggle button -->
+	<button class="dark-mode-toggle" onclick="toggleDarkMode()">
+		<i class="fas fa-moon"></i>
+	</button>
+
+	<!-- Scripts -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.7.5/sweetalert2.all.min.js"></script>
+
+	<script>
+		// Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Form validation and submission
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).ready(function () {
+			$("#form-login").validate({
+				rules: {
+					username: {
+						required: true,
+						minlength: 4,
+						maxlength: 20
+					},
+					password: {
+						required: true,
+						minlength: 5,
+						maxlength: 20
+					}
+				},
+				messages: {
+					username: {
+						required: "NIP harus diisi",
+						minlength: "NIP minimal 4 karakter",
+						maxlength: "NIP maksimal 20 karakter"
+					},
+					password: {
+						required: "Password harus diisi",
+						minlength: "Password minimal 5 karakter",
+						maxlength: "Password maksimal 20 karakter"
+					}
+				},
+				submitHandler: function (form) {
+					$.ajax({
+						url: form.action,
+						type: form.method,
+						data: $(form).serialize(),
+						success: function (response) {
+							if (response.status) {
+								// Langsung redirect ke dashboard
+								window.location = response.redirect;
+							} else {
+								$('.error-text').text('');
+								$.each(response.msgField, function (prefix, val) {
+									$('#error-' + prefix).text(val[0]);
+								});
+								// Tampilkan pesan warning
+								Swal.fire({
+									icon: 'warning',
+									title: 'Login Gagal',
+									text: response.message,
+								});
+							}
+						},
+					});
+					return false;
+				},
+				errorElement: 'span',
+				errorPlacement: function (error, element) {
+					error.addClass('invalid-feedback');
+					element.closest('.mb-3').append(error);
+				},
+				highlight: function (element, errorClass, validClass) {
+					$(element).addClass('is-invalid');
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$(element).removeClass('is-invalid');
 				}
 			});
-			$(document).ready(function() {
-				$("#form-login").validate({
-					rules: {
-						username: {
-							required: true,
-							minlength: 4,
-							maxlength: 20
-						},
-						password: {
-							required: true,
-							minlength: 5,
-							maxlength: 20
-						}
-					},
-					submitHandler: function(form) { // ketika valid, maka bagian yg akan dijalankan
-						$.ajax({
-							url: form.action,
-							type: form.method,
-							data: $(form).serialize(),
-							success: function(response) {
-								if (response.status) { // jika sukses
-									Swal.fire({
-										icon: 'success',
-										title: 'Berhasil',
-										text: response.message,
-									}).then(function() {
-										window.location = response.redirect;
-									});
-								} else { // jika error
-									$('.error-text').text('');
-									$.each(response.msgField, function(prefix, val) {
-										$('#error-' + prefix).text(val[0]);
-									});
-									Swal.fire({
-										icon: 'error',
-										title: 'Terjadi Kesalahan',
-										text: response.message
-									});
-								}
-							}
-						});
-						return false;
-					},
-					errorElement: 'span',
-					errorPlacement: function(error, element) {
-						error.addClass('invalid-feedback');
-						element.closest('.input-group').append(error);
-					},
-					highlight: function(element, errorClass, validClass) {
-						$(element).addClass('is-invalid');
-					},
-					unhighlight: function(element, errorClass, validClass) {
-						$(element).removeClass('is-invalid');
-					}
-				});
-			});
-		</script>
-	</body>
+		});
+
+	</script>
+</body>
+
 </html>

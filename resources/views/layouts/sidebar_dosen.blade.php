@@ -97,67 +97,30 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'user_type' || $activeMenu == 'user') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link">
-                    <i class="bi bi-people"></i>
-                    <p> Pengguna <i class="right bi bi-caret-left-fill"></i></p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ url('/user_type') }}"
-                            class="nav-link {{ ($activeMenu == 'user_type') ? 'active' : '' }}">
-                            <i class="bi bi-person"></i>
-                            <p>Jenis Pengguna</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/user') }}" class="nav-link {{ ($activeMenu == 'user') ? 'active' : '' }}">
-                            <i class="bi bi-person"></i>
-                            <p>Data Pengguna</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li
-                class="nav-item has-treeview {{ ($activeMenu == 'certification' || $activeMenu == 'certification_vendor' || ($activeMenu == 'certification_type') || ($activeMenu == 'certification_input') || ($activeMenu == 'certification_upload')) ? 'menu-open' : '' }}">
-
+                class="nav-item has-treeview {{ ($activeMenu == 'certification_input' || $activeMenu == 'certification_history') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-award"></i>
                     <p> Sertifikasi <i class="right bi bi-caret-left-fill"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/certification') }}"
-                            class="nav-link {{ ($activeMenu == 'certification') ? 'active' : '' }}">
-                            <i class="bi bi-card-list"></i>
-                            <p>Data Sertifikasi</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{ url('/certification_input') }}" class="nav-link {{ ($activeMenu == 'certification_input') ? 'active' : '' }}">
                             <i class="bi bi-box-arrow-in-right"></i>
                             <p>Input Sertifikasi</p>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a href="{{ url('/certification_vendor') }}"
-                            class="nav-link {{ ($activeMenu == 'certification_vendor') ? 'active' : '' }}">
-                            <i class="bi bi-building-gear"></i>
-                            <p>Vendor Sertifikasi</p>
+                        <a href="{{ url('/certification_history') }}" class="nav-link {{ ($activeMenu == 'certification_history') ? 'active' : '' }}">
+                            <i class="bi bi-clock"></i>
+                            <p>Riwayat Sertifikasi</p>
                         </a>
                     </li>
-                   <li class="nav-item">
-                      <a href="{{ url('/certification_type') }}" class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
-                            <i class="bi bi-list-nested"></i>
-                           <p>Jenis Sertifikasi</p>
-                        </a>
-                   </li>
                 </ul>
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'trainingVendor' || ($activeMenu == 'training_input')) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'training_history') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-journal-text"></i>
                     <p> Pelatihan
@@ -166,47 +129,19 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/training') }}"
-                            class="nav-link {{ ($activeMenu == 'training') ? 'active' : '' }}">
-                            <i class="bi bi-card-list"></i>
-                            <p>Data Pelatihan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{ url('/training_input') }}" class="nav-link {{ ($activeMenu == 'training_input') ? 'active' : '' }}">
                             <i class="bi bi-box-arrow-in-right"></i>
                             <p>Input Pelatihan</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/trainingVendor') }}"
-                            class="nav-link {{ ($activeMenu == 'trainingVendor') ? 'active' : '' }}">
-                            <i class="bi bi-building-gear"></i>
-                            <p>Vendor Pelatihan</p>
+                        <a href="{{ url('/training_history') }}"
+                            class="nav-link {{ ($activeMenu == 'training_history') ? 'active' : '' }}">
+                            <i class="bi bi-clock"></i>
+                            <p>Riwayat Pelatihan</p>
                         </a>
                     </li>
                 </ul>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ url('/interest') }}" class="nav-link {{ ($activeMenu == 'interest') ? 'active' : '' }}">
-                    <i class="bi bi-star"></i>
-                    <p>Bidang Minat</p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ url('/course') }}" class="nav-link {{ ($activeMenu == 'course') ? 'active' : '' }}">
-                    <i class="bi bi-journal-bookmark-fill"></i>
-                    <p>Mata Kuliah</p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ url('/envelope') }}" class="nav-link {{ ($activeMenu == 'envelope') ? 'active' : '' }}">
-                    <i class="bi bi-envelope"></i>
-                    <p>Surat Tugas</p>
-                </a>
             </li>
 
             {{-- Sidebar Untuk Dosen --}}

@@ -10,7 +10,7 @@
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- CSRF token for AJAX requests -->
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <link rel="stylesheet"
+    href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
   <!-- AdminLTE CSS -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.css') }}">
@@ -56,13 +57,12 @@
         <span class="brand-text font-weight-bold">SIPASTI</span>
       </a>
 
-      @if ('user_type' == 'ADM')
+      @if (auth()->user()->user_type->user_type_code === 'ADM')
         @include('layouts.sidebar_admin')
-      @elseif ('user_type' == 'DSN' || 'user_type' == 'TDK')
+      @elseif (auth()->user()->user_type->user_type_code === 'DSN')
         @include('layouts.sidebar_dosen')
-      @else
-        @include('layouts.sidebar_pimpinan')
-      
+      @elseif(auth()->user()->user_type->user_type_code === 'PMP')
+       @include('layouts.sidebar_pimpinan')
       @endif
     </aside>
 
@@ -85,7 +85,7 @@
   <!-- jQuery Validation Plugin -->
   <script src="{{ asset('adminlte\plugins\jquery-validation\jquery.validate.min.js') }}"></script>
   <script src="{{ asset('adminlte\plugins\jquery-validation\additional-methods.min.js') }}"></script>
-  
+
   <!-- Bootstrap 4 -->
   <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -106,16 +106,16 @@
   <script src="{{ asset('adminlte/plugins/moment/moment.min.js') }}"></script>
 
   <!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <script src="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
-<!-- SweetAlert2 dari CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- SweetAlert2 dari CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- AdminLTE App -->
   <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
 
-  
+
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>

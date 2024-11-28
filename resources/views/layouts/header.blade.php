@@ -62,37 +62,35 @@
       </div>
     </li>
 
-<!-- Profile Dropdown Menu -->
-<li class="nav-item dropdown user-menu">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-      <!-- Placeholder for user profile image -->
-      <img id="userImage" src="adminlte/dist/img/avatar.png" class="user-image rounded-circle shadow" alt="User Image"
+    <!-- Profile Dropdown Menu -->
+    <li class="nav-item dropdown user-menu">
+      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+        <!-- Placeholder for user profile image -->
+        <img id="userImage" src="adminlte/dist/img/avatar.png" class="user-image rounded-circle shadow" alt="User Image"
           style="height: 35px; width: 35px;">
 
-      <!-- Placeholder for username -->
-      <span id="username" class="d-none d-md-inline">2241760135</span>
-  </a>
+        <!-- Placeholder for username -->
+        <span id="username" class="d-none d-md-inline">{{ auth()->user()->username }}</span>
+      </a>
 
-  <!-- Dropdown Menu -->
-  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="background-color: #CBD5DC; padding: 10px;">
-      <!-- User Information with custom background and italic role -->
-      <div class="dropdown-item-text text-left pb-2 mb-2">
-          <strong></strong> Agung Nugroho <br>
-          <strong></strong> <em>Administrator</em> <!-- Role in italic -->
-      </div>
-      <div class="dropdown-divider"></div>
+      <!-- Dropdown Menu -->
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="background-color: #CBD5DC; padding: 10px;">
+        <!-- User Information with custom background and italic role -->
+        <div class="dropdown-item-text text-left pb-2 mb-2">
+          <strong></strong> {{ auth()->user()->user_fullname }} <br>
+          <strong></strong> <em>{{ auth()->user()->user_type->user_type_name }}</em> <!-- Role in italic -->
+        </div>
+        <div class="dropdown-divider"></div>
 
-      <!-- Profile option -->
-      <a href="{{ url('/profile')}}" class="dropdown-item">
+        <!-- Profile option -->
+        <a href="{{ url('/profile')}}" class="dropdown-item">
           <i class="bi bi-person-fill mr-2"></i> Profile
-      </a>
-      <!-- Logout option -->
-      <a href="{{ url('/logout') }}" class="dropdown-item">
+        </a>
+        <!-- Logout option -->
+        <a href="{{ url('/logout') }}" class="dropdown-item">
           <i class="bi bi-box-arrow-right mr-2"></i> Logout
-      </a>
-  </div>
-</li>
-
-
+        </a>
+      </div>
+    </li>
   </ul>
 </nav>

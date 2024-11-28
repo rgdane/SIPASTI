@@ -38,12 +38,16 @@
                         <td class="col-9">{{ $certification->certification_number }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Tanggal Sertifikasi:</th>
+                        <th class="text-right col-3">Berlaku Mulai:</th>
                         <td class="col-9">{{ $certification->certification_date_start }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Tenggat Sertifikasi:</th>
+                        <th class="text-right col-3">Berakhir Pada:</th>
                         <td class="col-9">{{ $certification->certification_date_expired }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Periode:</th>
+                        <td class="col-9">{{ $certification->certification_period }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Vendor Sertifikasi:</th>

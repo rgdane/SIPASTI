@@ -25,14 +25,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Nama Peserta</th>
                         <th>Nama Sertifikasi</th>
-                        <th>Nomor Sertifikasi</th>
-                        <th>Tanggal Sertifikasi</th>
-                        <th>Tenggat Sertifikasi</th>
-                        <th>Vendor Sertifikasi</th>
                         <th>Jenis Sertifikasi</th>
                         <th>Level Sertifikasi</th>
-                        <th>Nama Peserta</th>
+                        <th>Periode</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -109,7 +106,7 @@
         dataCertification = $('#table_certification').DataTable({
             serverSide: true,
             responsive: false,
-            paging: true, // Disable pagination if you want to use custom pagination
+            paging: false, // Disable pagination if you want to use custom pagination
             lengthChange: false,
             info: false,
             ajax: {
@@ -122,14 +119,11 @@
             },
             columns: [
                 { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
+                { data: "user_fullname", className: "", orderable: false, searchable: false },
                 { data: "certification_name", className: "", orderable: true, searchable: true },
-                { data: "certification_number", className: "", orderable: true, searchable: true },
-                { data: "certification_date_start", className: "", orderable: true, searchable: true },
-                { data: "certification_date_expired", className: "", orderable: true, searchable: true },
-                { data: "certification_vendor_name", className: "", orderable: false, searchable: false },
                 { data: "certification_type", className: "", orderable: false, searchable: false },
                 { data: "certification_level", className: "", orderable: false, searchable: false },
-                { data: "username", className: "", orderable: false, searchable: false },
+                { data: "certification_period", className: "", orderable: true, searchable: true },
                 { data: "aksi", className: "", orderable: false, searchable: false }
             ]
         });

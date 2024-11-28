@@ -75,6 +75,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/', [CertificationController::class, 'index']);
             Route::post('/list', [CertificationController::class, 'list']);
             Route::get('/create', [CertificationController::class, 'create']);
+            Route::get('/create_ajax', [CertificationController::class, 'create_ajax']);
             Route::post('/store', [CertificationController::class, 'store']);
             Route::get('/{id}/course', [CertificationController::class, 'course']);
             Route::get('/{id}/interest', [CertificationController::class, 'interest']);

@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{config('app.name','SIPASTI')}}</title>
+  {{-- <title>{{config('app.name','SIPASTI')}}</title> --}}
+  <title>SIPASTI</title>
   <link rel="icon" href="{{ url('/')}}/image/jti-logo.png" type="image/x-icon">
 
   <meta name="csrf-token" content="{{ csrf_token() }}">

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CertificationModel;
+use App\Models\CertificationVendorModel;
+use App\Models\UserModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class CertificationController extends Controller
 {
@@ -37,18 +40,16 @@ class CertificationController extends Controller
                 a.certification_id,
                 a.certification_name,
                 a.certification_number,
-                a.certification_date_start,
-                a.certification_date_expired,
-                b.certification_vendor_name,
+                a.certification_period,
                 CASE
-                    WHEN certification_level = 0 THEN 'Nasional'
+                    WHEN a.certification_level = '0' THEN 'Nasional'
                         ELSE 'Internasional'
                 END AS certification_level,
                 CASE
-                    WHEN certification_type = 0 THEN 'Profesi'
+                    WHEN a.certification_type = '0' THEN 'Profesi'
                         ELSE 'Keahlian'
                 END AS certification_type,
-                c.username
+                c.user_fullname
             FROM
                 m_certification a
                 INNER JOIN m_certification_vendor b ON a.certification_vendor_id = b.certification_vendor_id
@@ -125,18 +126,68 @@ class CertificationController extends Controller
 
     public function create_ajax()
     {
-        return view('admin.certification.create');
+        $certification_vendor = CertificationVendorModel::select('certification_vendor_id', 'certification_vendor_name')->get();
+        $user = UserModel::select('user_id','user_fullname')->get();
+        return view('admin.certification.create_ajax', ['certification_vendor' => $certification_vendor, 'user' => $user]);
     }
 
-    public function store_ajax(Request $request)
-    {
-        // Simulasi respons sukses tanpa menyimpan data
-        return response()->json([
-            'status' => true,
-            'message' => 'Data Sertifikasi Berhasil Ditambahkan (Simulasi)',
-            'redirect' => url('/certification') // URL tujuan redirect
-        ]);
-    }
+    public function store(Request $request)
+{   
+    // dd($request);
+        $rules = [
+            'certification_name' => 'required|string|max:100',
+            'certification_number' => 'required|string|max:100',
+            'certification_period' => 'required|integer',
+            'certification_date_start' => 'required|date|before_or_equal:certification_date_expired',
+            'certification_date_expired' => 'required|date|after_or_equal:certification_date_start',
+            'certification_vendor_id' => 'required|string',
+            'certification_level' => 'required|integer',
+            'certification_type' => 'required|integer',
+            'certification_file' => 'required|mimes:pdf|max:2048', // Maksimum 2MB
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi Gagal. Harap periksa input Anda.',
+                'msgField' => $validator->errors(),
+            ]);
+        }
+
+        try {
+            // Proses penyimpanan file
+            $file = $request->file('certification_file');
+            $fileName = time() . '_' . $file->getClientOriginalName(); // Gunakan nama unik
+            $filePath = $file->storeAs('uploads/certification', $fileName, 'public');
+
+            // Simpan data ke database
+            CertificationModel::create([
+                'certification_name' => $request->certification_name,
+                'certification_number' => $request->certification_number,
+                'certification_period' => $request->certification_period,
+                'certification_date_start' => $request->certification_date_start,
+                'certification_date_expired' => $request->certification_date_expired,
+                'certification_vendor_id' => $request->certification_vendor_id,
+                'certification_level' => $request->certification_level,
+                'certification_type' => $request->certification_type,
+                'certification_file' => $filePath,
+                'user_id' => $request->user_id,
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Sertifikasi Berhasil Ditambahkan',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage(),
+            ]);
+        }
+}
+
 
     public function show(string $id)
     {
@@ -146,19 +197,21 @@ class CertificationController extends Controller
                 a.certification_id,
                 a.certification_name,
                 a.certification_number,
+                a.certification_period,
                 a.certification_date_start,
                 a.certification_date_expired,
+                a.certification_period,
                 b.certification_vendor_name,
                 a.certification_file,
                 CASE
-                    WHEN certification_level = 0 THEN 'Nasional'
+                    WHEN certification_level = '0' THEN 'Nasional'
                     ELSE 'Internasional'
                 END AS certification_level,
                 CASE
-                    WHEN certification_type = 0 THEN 'Profesi'
+                    WHEN certification_type = '0' THEN 'Profesi'
                     ELSE 'Keahlian'
                 END AS certification_type,
-                c.username
+                c.user_fullname
             FROM
                 m_certification a
                 INNER JOIN m_certification_vendor b ON a.certification_vendor_id = b.certification_vendor_id

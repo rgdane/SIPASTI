@@ -17,6 +17,7 @@ class CertificationModel extends Model
     protected $fillable = [
         'certification_name',
         'certification_number',
+        'certification_period',
         'certification_date_start',
         'certification_date_expired',
         'certification_vendor_id',

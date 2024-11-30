@@ -103,8 +103,8 @@
 			<form action="{{ url('login') }}" method="POST" id="form-login">
 				@csrf
 				<div class="mb-3">
-					<label class="form-label">NIP</label>
-					<input type="text" id="username" name="username" class="form-control" placeholder="Masukkan NIP">
+					<label class="form-label">Username</label>
+					<input type="text" id="username" name="username" class="form-control" placeholder="Masukkan Username">
 					<small id="error-username" class="error-text text-danger"></small>
 				</div>
 
@@ -181,9 +181,9 @@
 				},
 				messages: {
 					username: {
-						required: "NIP harus diisi",
-						minlength: "NIP minimal 4 karakter",
-						maxlength: "NIP maksimal 20 karakter"
+						required: "Username harus diisi",
+						minlength: "Username minimal 4 karakter",
+						maxlength: "Username maksimal 20 karakter"
 					},
 					password: {
 						required: "Password harus diisi",

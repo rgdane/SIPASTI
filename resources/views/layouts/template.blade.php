@@ -41,6 +41,9 @@
   <!-- AdminLTE CSS -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.css') }}">
 
+  <!-- Select 2 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet">
+
   @stack('css')
 </head>
 
@@ -62,7 +65,7 @@
       @elseif (auth()->user()->user_type->user_type_code === 'DSN')
         @include('layouts.sidebar_dosen')
       @elseif(auth()->user()->user_type->user_type_code === 'PMP')
-       @include('layouts.sidebar_pimpinan')
+        @include('layouts.sidebar_pimpinan')
       @endif
     </aside>
 
@@ -118,7 +121,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+  <!-- Select 2 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
 
   <!-- Laravel CSRF Token Setup for AJAX -->
   <script>

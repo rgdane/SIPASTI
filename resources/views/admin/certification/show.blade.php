@@ -47,7 +47,7 @@
                     </tr>
                     <tr>
                         <th class="text-right col-3">Periode:</th>
-                        <td class="col-9">{{ $certification->certification_period }}</td>
+                        <td class="col-9">{{ $certification->period_year }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Vendor Sertifikasi:</th>

@@ -5,13 +5,13 @@
     <div class="card-header">
         <h3 class="card-title">Manajemen Sertifikasi</h3>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('/certification/import') }}')" class="btn btn-info">
+            {{-- <button onclick="modalAction('{{ url('/certification/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button>
             <a href="{{ url('/certification/export_excel') }}" class="btn btn-primary">
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
             <a href="{{ url('/certification/export_pdf') }}" class="btn btn-warning">
-                <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
-            <button onclick="modalAction('{{ url('/certification/create_ajax') }}')" class="btn btn-success"><i
+                <i class="bi bi-file-earmark-pdf"></i>Export PDF</a> --}}
+            <button onclick="modalAction('{{ url('/certification/create') }}')" class="btn btn-success"><i
                     class="bi bi-plus"></i> Tambah Data</button>
         </div>
     </div>
@@ -29,7 +29,7 @@
                         <th>Nama Sertifikasi</th>
                         <th>Jenis Sertifikasi</th>
                         <th>Level Sertifikasi</th>
-                        <th>Periode</th>
+                        <th>Tahun Periode</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -123,7 +123,7 @@
                 { data: "certification_name", className: "", orderable: true, searchable: true },
                 { data: "certification_type", className: "", orderable: false, searchable: false },
                 { data: "certification_level", className: "", orderable: false, searchable: false },
-                { data: "certification_period", className: "", orderable: true, searchable: true },
+                { data: "period_year", className: "", orderable: true, searchable: true },
                 { data: "aksi", className: "", orderable: false, searchable: false }
             ]
         });

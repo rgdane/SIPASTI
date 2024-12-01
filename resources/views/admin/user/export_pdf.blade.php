@@ -72,16 +72,18 @@
         <thead>
             <tr>
                 <th class="text-center">No</th>
-                <th>Username</th>
                 <th>Jenis Pengguna</th>
+                <th>Username</th>
+                <th>Nama Pengguna</th>
             </tr>
         </thead>
         <tbody>
             @foreach($user as $b)
             <tr>
                 <td class="text-center">{{ $loop->iteration }}</td>
-                <td>{{ $b->username }}</td>
                 <td>{{ $b->user_type->user_type_name }}</td>
+                <td>{{ $b->username }}</td>
+                <td>{{ $b->user_fullname }}</td>
             </tr>
             @endforeach
         </tbody>

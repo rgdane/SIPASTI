@@ -4,12 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{config('app.name','SIPASTI')}}</title>
+  {{-- <title>{{config('app.name','SIPASTI')}}</title> --}}
+  <title>SIPASTI</title>
   <link rel="icon" href="{{ url('/')}}/image/jti-logo.png" type="image/x-icon">
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- CSRF token for AJAX requests -->
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -34,10 +35,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <link rel="stylesheet"
+    href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
   <!-- AdminLTE CSS -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.css') }}">
+
+  <!-- Select 2 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet">
 
   @stack('css')
 </head>
@@ -54,7 +59,14 @@
         <img src="polinema_logo.png" class="brand-image img-circle elevation-4" style="opacity: 8">
         <span class="brand-text font-weight-bold">SIPASTI</span>
       </a>
-      @include('layouts.sidebar')
+
+      @if (auth()->user()->user_type->user_type_code === 'ADM')
+        @include('layouts.sidebar_admin')
+      @elseif (auth()->user()->user_type->user_type_code === 'DSN')
+        @include('layouts.sidebar_dosen')
+      @elseif(auth()->user()->user_type->user_type_code === 'PMP')
+        @include('layouts.sidebar_pimpinan')
+      @endif
     </aside>
 
     <!-- Content Wrapper -->
@@ -76,7 +88,7 @@
   <!-- jQuery Validation Plugin -->
   <script src="{{ asset('adminlte\plugins\jquery-validation\jquery.validate.min.js') }}"></script>
   <script src="{{ asset('adminlte\plugins\jquery-validation\additional-methods.min.js') }}"></script>
-  
+
   <!-- Bootstrap 4 -->
   <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -97,19 +109,20 @@
   <script src="{{ asset('adminlte/plugins/moment/moment.min.js') }}"></script>
 
   <!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <script src="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
-<!-- SweetAlert2 dari CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- SweetAlert2 dari CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- AdminLTE App -->
   <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
 
-  
+
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+  <!-- Select 2 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
 
   <!-- Laravel CSRF Token Setup for AJAX -->
   <script>

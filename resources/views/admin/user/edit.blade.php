@@ -48,6 +48,12 @@
                     <small id="error-username" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
+                    <label for="user_fullname">Nama Pengguna</label>
+                    <input value="{{ old('user_fullname', $user['user_fullname']) }}" type="text" name="user_fullname" id="user_fullname"
+                        class="form-control" required>
+                    <small id="error-username" class="error-text form-text text-danger"></small>
+                </div>
+                <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" class="form-control"
                         placeholder="Abaikan jika tidak ingin ubah password">
@@ -68,7 +74,8 @@
             $("#form-edit").validate({
                 rules: {
                     user_type_id: { required: true },
-                    username: { required: true, minlength: 3, maxlength: 20 },
+                    username: { required: true, minlength: 3, maxlength: 25 },
+                    user_fullname: { required: true, minlength: 3},
                     password: { minlength: 6, maxlength: 20 }
                 },
                 submitHandler: function(form) {

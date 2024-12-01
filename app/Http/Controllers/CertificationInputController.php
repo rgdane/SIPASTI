@@ -73,10 +73,10 @@ class CertificationInputController extends Controller
                 'user_id' => $userId
             ]);
             
-            return response()->json([
-                'status' => true,
-                'message' => 'Data sertifikasi berhasil disimpan'
-            ]);
+            // return response()->json([
+            //     'status' => true,
+            //     'message' => 'Data sertifikasi berhasil disimpan'
+            // ]);
 
             return redirect('/certification_input')->with('success' . "Sertifikasi berhasil ditambahkan");
         }

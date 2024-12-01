@@ -8,6 +8,7 @@ class AddGenerateIdCertificationFunction extends Migration
     public function up()
     {
         DB::unprepared('
+        DROP FUNCTION IF EXISTS `generate_id_certification`;
             CREATE DEFINER = `root`@`localhost` FUNCTION `generate_id_certification`()
             RETURNS VARCHAR(20) CHARACTER SET utf8mb4
             DETERMINISTIC

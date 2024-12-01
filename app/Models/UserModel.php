@@ -15,14 +15,19 @@ class UserModel extends Authenticatable
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['user_type_id', 'username', 'password'];
+    protected $fillable = ['user_type_id', 'user_fullname', 'username', 'password'];
 
     protected $hidden = ['password'];
 
-    protected $casts = ['password' => 'hashed']; //casting password agar otomatis dihash
+    protected $casts = ['password' => 'hashed', 'user_id' => 'string']; //casting password agar otomatis dihash
 
     public function user_type(): BelongsTo {
         return $this->belongsTo(UserTypeModel::class, 'user_type_id', 'user_type_id');
+    }
+
+    public function user_detail()
+    {
+        return $this->hasOne(UserDetailModel::class);
     }
 
     public function certification(): BelongsTo{

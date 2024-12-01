@@ -42,6 +42,10 @@
                         <th class="text-right col-3">Username:</th>
                         <td class="col-9">{{ $user['username'] }}</td>
                     </tr>
+                    <tr>
+                        <th class="text-right col-3">Nama Pengguna:</th>
+                        <td class="col-9">{{ $user['user_fullname'] }}</td>
+                    </tr>
                 </table>
             </div>
             <div class="modal-footer">

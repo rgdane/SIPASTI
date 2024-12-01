@@ -67,23 +67,27 @@
         </tr>
     </table>
     
-    <h3 class="text-center">LAPORAN DATA PENGGUNA</h4>
+    <h3 class="text-center">LAPORAN DATA VENDOR SERTIFIKASI</h4>
     <table class="border-all">
         <thead>
             <tr>
                 <th class="text-center">No</th>
-                <th>Jenis Pengguna</th>
-                <th>Username</th>
-                <th>Nama Pengguna</th>
+                <th>Nama Vendor Pelatihan</th>
+                <th>Alamat Vendor Pelatihan</th>
+                <th>Kota Vendor Pelatihan</th>
+                <th>PIC Vendor Pelatihan</th>
+                <th>Website Vendor Pelatihan</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($user as $b)
+            @foreach($training_vendor as $b)
             <tr>
                 <td class="text-center">{{ $loop->iteration }}</td>
-                <td>{{ $b->user_type->user_type_name }}</td>
-                <td>{{ $b->username }}</td>
-                <td>{{ $b->user_fullname }}</td>
+                <td>{{ $b->training_vendor_name }}</td>
+                <td>{{ $b->training_vendor_address }}</td>
+                <td>{{ $b->training_vendor_city }}</td>
+                <td>{{ $b->training_vendor_phone }}</td>
+                <td>{{ $b->training_vendor_web }}</td>
             </tr>
             @endforeach
         </tbody>

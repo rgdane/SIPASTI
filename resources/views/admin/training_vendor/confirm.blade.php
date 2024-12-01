@@ -1,4 +1,4 @@
-@empty($trainingVendor)
+@empty($training_vendor)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,12 +12,12 @@
                 <h5><i class="bi bi-x-circle-fill"></i> Kesalahan!!!</h5> <!-- Updated icon -->
                 Data yang anda cari tidak ditemukan
             </div>
-            <a href="{{ url('/trainingVendor') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/training_vendor') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/trainingVendor/' . $trainingVendor['training_vendor_id'] . '/delete_ajax') }}" method="POST" id="form-delete">
+<form action="{{ url('/training_vendor/' . $training_vendor['training_vendor_id'] . '/delete') }}" method="POST" id="form-delete">
     @csrf
     @method('DELETE')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -35,24 +35,24 @@
                 </div>
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
-                        <th class="text-right col-3">Nama Vendor:</th>
-                        <td class="col-9">{{ $trainingVendor['training_vendor_name'] }}</td>
+                        <th class="text-right col-3">Nama Vendor Pelatihan:</th>
+                        <td class="col-9">{{ $training_vendor['training_vendor_name'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Alamat:</th>
-                        <td class="col-9">{{ $trainingVendor['training_vendor_address'] }}</td>
+                        <td class="col-9">{{ $training_vendor['training_vendor_address'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Kota:</th>
-                        <td class="col-9">{{ $trainingVendor['training_vendor_city'] }}</td>
+                        <td class="col-9">{{ $training_vendor['training_vendor_city'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">PIC Vendor:</th>
-                        <td class="col-9">{{ $trainingVendor['training_vendor_phone'] }}</td>
+                        <td class="col-9">{{ $training_vendor['training_vendor_phone'] }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Website:</th>
-                        <td class="col-9">{{ $trainingVendor['training_vendor_web'] }}</td>
+                        <td class="col-9">{{ $training_vendor['training_vendor_web'] }}</td>
                     </tr>
                 </table>
                 </table>

@@ -24,6 +24,13 @@
                     <input value="" type="text" name="username" id="username" class="form-control" required>
                     <small id="error-username" class="error-text form-text text-danger"></small>
                 </div>
+                
+                <!-- Nama Pengguna -->
+                <div class="form-group">
+                    <label for="user_fullname">Nama Pengguna</label>
+                    <input value="" type="text" name="user_fullname" id="user_fullname" class="form-control" required>
+                    <small id="error-user_fullname" class="error-text form-text text-danger"></small>
+                </div>
 
                 <!-- Password -->
                 <div class="form-group">
@@ -50,12 +57,15 @@
                 username: {
                     required: true,
                     minlength: 3,
-                    maxlength: 20
+                    maxlength: 25
+                },
+                user_fullname: {
+                    required: true,
+                    minlength: 3
                 },
                 password: {
                     required: true,
-                    minlength: 6,
-                    maxlength: 20
+                    minlength: 6
                 }
             },
             submitHandler: function(form) {

@@ -87,29 +87,29 @@
 
 
     .card-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 1rem;
-}
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 1rem;
+    }
 
-.info-section {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex: 1;
-}
+    .info-section {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex: 1;
+    }
 
-.logo-img {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-}
+    .logo-img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+    }
 
-.btn-action {
-    min-width: 100px;
-}
+    .btn-action {
+        min-width: 100px;
+    }
 
     #barChart {
         width: 100%;
@@ -120,7 +120,7 @@
         display: none;
     }
 </style>
-
+@if (auth()->user()->user_type->user_type_code === "ADM" || auth()->user()->user_type->user_type_code === "PMP")
 <div class="container-fluid">
     <div class="row">
         <!-- Dashboard Cards with Modern Minimalist Style -->
@@ -335,11 +335,8 @@
             </div>
         </div>
     </div>
-    <br>
-    <hr>
 
-    {{-- Dashboard Dosen --}}
-    <h2>Beranda</h2>
+    @elseif (auth()->user()->user_type->user_type_code === "DSN" || auth()->user()->user_type->user_type_code === "TDK")
     <div class="row">
         <div class="col-lg-3 col-md-6">
             <div class="card dashboard-card">
@@ -395,7 +392,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="col-md-6">
             <h5 class="mb-3">Riwayat Sertifikasi</h5>
             <div class="card shadow-sm">
@@ -410,6 +407,8 @@
         </div>
     </div>
 </div>
+@endif
+
 
 
 <script>

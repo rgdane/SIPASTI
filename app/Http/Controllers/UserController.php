@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserDetailModel;
 use App\Models\UserTypeModel;
 use Illuminate\Http\Request;
 use App\Models\UserModel;
@@ -25,7 +26,6 @@ class UserController extends Controller
         $activeMenu = 'user'; //set menu yang sedang aktif
 
         $user_type = UserTypeModel::all(); //ambil data user_type untuk filter user_type
-    
         return view('admin.user.index',['breadcrumb'=>$breadcrumb, 'page' => $page, 'user_type' => $user_type,'activeMenu'=>$activeMenu]);
     }
     
@@ -58,6 +58,7 @@ class UserController extends Controller
             }
             
             UserModel::create($request->all());
+
             return response()->json([
                 'status' => true,
                 'message' => 'Data pengguna berhasil disimpan'
@@ -70,7 +71,7 @@ class UserController extends Controller
     // Ambil data user dalam bentuk json untuk datatables
     public function list(Request $request)
     {
-        $users = UserModel::select('user_id', 'username', 'user_type_id')
+        $users = UserModel::select('user_id','user_fullname', 'username', 'user_type_id')
         ->with('user_type');
         // Filter data user berdasarkan user_type_id
         if ($request->user_type_id){
@@ -96,8 +97,21 @@ class UserController extends Controller
     {
         $user = UserModel::find($id);
         $user_type = UserTypeModel::select('user_type_id', 'user_type_name' ) ->get();
+        $user_detail = UserDetailModel::where('user_id', $id)->first();
+        if (!$user_detail) {
+            UserDetailModel::create([
+                'user_id' => $id,
+                'user_detail_nip' => '',
+                'user_detail_nidn' => '',
+                'user_detail_email' => '',
+                'user_detail_phone' => '',
+                'user_detail_address' => '',
+                'user_detail_image' => 'image/default-profile.jpg',
+            ]);
+            $user_detail = UserDetailModel::where('user_id', $id)->first();
+        }
 
-        return view('admin.user.show', ['user' => $user, 'user_type' => $user_type]);
+        return view('admin.user.show', ['user' => $user, 'user_type' => $user_type, 'user_detail' => $user_detail]);
     }
     
     // Menampilkan halaman form edit user ajax
@@ -114,7 +128,8 @@ class UserController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'user_type_id' => 'required',
-                'username' => 'required|max:20|unique:m_user,username,'.$id.',user_id',
+                'user_fullname' => 'required',
+                'username' => 'required|max:25|unique:m_user,username,'.$id.',user_id',
                 'password' => 'nullable|min:6|max:20'
             ];
             // use Illuminate\Support\Facades\Validator;
@@ -218,7 +233,8 @@ class UserController extends Controller
                         $insert[] = [
                             'user_type_id' => $value['A'],
                             'username' => $value['B'],
-                            'password' => bcrypt($value['C']),
+                            'user_fullname' => $value['C'],
+                            'password' => bcrypt($value['D']),
                             'created_at' => now(),
                         ];
                     }
@@ -246,7 +262,7 @@ class UserController extends Controller
     public function export_excel()
     {
         // ambil data user yang akan di export
-        $user = UserModel::select('user_type_id','username','password')
+        $user = UserModel::select('user_type_id','username','user_fullname','password')
                                     ->orderBy('user_type_id')
                                     ->with('user_type')
                                     ->get();
@@ -254,20 +270,22 @@ class UserController extends Controller
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
         $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Username');
-        $sheet->setCellValue('C1', 'Jenis Pengguna');
-        $sheet->getStyle('A1:C1')->getFont()->setBold(true); //bold header
+        $sheet->setCellValue('B1', 'Jenis Pengguna');
+        $sheet->setCellValue('C1', 'Username');
+        $sheet->setCellValue('D1', 'Nama Pengguna');
+        $sheet->getStyle('A1:D1')->getFont()->setBold(true); //bold header
         
         $no=1; //nomor data dimulai dari 1
         $baris = 2;
         foreach ($user as $key => $value){
             $sheet->setCellValue('A' .$baris, $no);
             $sheet->setCellValue('B' .$baris, $value->username);
-            $sheet->setCellValue('C' .$baris, $value->user_type->user_type_name); //ambil nama user_type
+            $sheet->setCellValue('C' .$baris, $value->user_fullname);
+            $sheet->setCellValue('D' .$baris, $value->user_type->user_type_name); //ambil nama user_type
             $baris++;
             $no++;
         }
-        foreach(range('A','C') as $columnID) {
+        foreach(range('A','D') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true); //set auto size untuk kolom
         }
         
@@ -288,9 +306,10 @@ class UserController extends Controller
     } //end function export_excel
 
     public function export_pdf(){
-        $user = UserModel::select('user_type_id','username')
+        $user = UserModel::select('user_type_id','user_fullname','username')
         ->orderBy('user_type_id')
         ->orderBy('username')
+        ->orderBy('user_fullname')
         ->with('user_type')
         ->get();
         $pdf = Pdf::loadView('admin.user.export_pdf', ['user' => $user]);

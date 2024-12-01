@@ -1,4 +1,4 @@
-@empty($trainingVendor)
+@empty($training_vendor)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,12 +12,12 @@
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                 Data yang anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/trainingVendor') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/training_vendor') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/trainingVendor/' . $trainingVendor['training_vendor_id'] . '/update_ajax') }}" method="POST" id="form-edit">
+<form action="{{ url('/training_vendor/' . $training_vendor['training_vendor_id'] . '/update') }}" method="POST" id="form-edit">
     @csrf
     @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -31,31 +31,31 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="training_vendor_name">Nama Vendor Pelatihan</label>
-                    <input value="{{ old('training_vendor_name', $trainingVendor['training_vendor_name']) }}" type="text" name="training_vendor_name" id="training_vendor_name"
+                    <input value="{{ old('training_vendor_name', $training_vendor['training_vendor_name']) }}" type="text" name="training_vendor_name" id="training_vendor_name"
                         class="form-control" required>
                     <small id="error-training_vendor_name" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="training_vendor_address">Alamat</label>
-                    <input value="{{ old('training_vendor_address', $trainingVendor['training_vendor_address']) }}" type="text" name="training_vendor_address" id="training_vendor_address"
+                    <input value="{{ old('training_vendor_address', $training_vendor['training_vendor_address']) }}" type="text" name="training_vendor_address" id="training_vendor_address"
                         class="form-control" required>
                     <small id="error-training_vendor_address" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="training_vendor_city">Kota</label>
-                    <input value="{{ old('training_vendor_city', $trainingVendor['training_vendor_city']) }}" type="text" name="training_vendor_city" id="training_vendor_city"
+                    <input value="{{ old('training_vendor_city', $training_vendor['training_vendor_city']) }}" type="text" name="training_vendor_city" id="training_vendor_city"
                         class="form-control" required>
                     <small id="error-training_vendor_city" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="training_vendor_phone">PIC Vendor</label>
-                    <input value="{{ old('training_vendor_phone', $trainingVendor['training_vendor_phone']) }}" type="text" name="training_vendor_phone" id="training_vendor_phone"
+                    <input value="{{ old('training_vendor_phone', $training_vendor['training_vendor_phone']) }}" type="text" name="training_vendor_phone" id="training_vendor_phone"
                         class="form-control" required>
                     <small id="error-training_vendor_phone" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label for="training_vendor_web">Webiste</label>
-                    <input value="{{ old('training_vendor_web', $trainingVendor['training_vendor_web']) }}" type="url" name="training_vendor_web" id="training_vendor_web"
+                    <input value="{{ old('training_vendor_web', $training_vendor['training_vendor_web']) }}" type="url" name="training_vendor_web" id="training_vendor_web"
                         class="form-control" required>
                     <small id="error-training_vendor_web" class="error-text form-text text-danger"></small>
                 </div>
@@ -72,12 +72,10 @@
     $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    training_vendor_id: { required: true, number: true },
-                    training_vendor_name: { required: true, minlength: 5, maxlength: 100 },
-                    training_vendor_address: { required: true, minlength: 5, maxlength: 255 },
-                    training_vendor_city: {required: true, minlength: 5, maxlength: 50 },
-                    training_vendor_phone: { required: true, minlength: 10, maxlength: 15 },
-                    training_vendor_web: { required: true, url: true }
+                    level_id: { required: true, number: true },
+                    username: { required: true, minlength: 3, maxlength: 20 },
+                    nama: { required: true, minlength: 3, maxlength: 100 },
+                    password: { minlength: 6, maxlength: 20 }
                 },
                 submitHandler: function(form) {
                     $.ajax({

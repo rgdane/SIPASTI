@@ -15,7 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\CertificationVendorController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\VendorTraining;
+use App\Http\Controllers\TrainingVendorController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -123,24 +123,26 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         Route::put('/{id}/update', [TrainingController::class, 'update']);
         Route::get('/{id}/delete', [TrainingController::class, 'confirm']);
         Route::delete('/{id}/delete', [TrainingController::class, 'delete']);
-        Route::post('/import', [TrainingController::class, 'import']);
+        Route::get('/import', [TrainingController::class, 'import']);
+        Route::post('/import_excel', [TrainingController::class, 'import_excel']);
         Route::get('/export_excel', [TrainingController::class, 'export_excel']);
         Route::get('/export_pdf', [TrainingController::class, 'export_pdf']);
     });
     // Route Vendor Pelatihan
-    Route::group(['prefix' => 'trainingVendor'], function(){
-        Route::get('/', [VendorTraining::class, 'index']);
-        Route::post('/list', [VendorTraining::class, 'list']);
-        Route::get('/create', [VendorTraining::class, 'create']);
-        Route::post('/ajax', [VendorTraining::class, 'store']);
-        Route::get('/{id}/show', [VendorTraining::class, 'show']);
-        Route::get('/{id}/edit', [VendorTraining::class, 'edit']);
-        Route::put('/{id}/update', [VendorTraining::class, 'update']);
-        Route::get('/{id}/delete', [VendorTraining::class, 'confirm']);
-        Route::delete('/{id}/delete', [VendorTraining::class, 'delete']);
-        Route::post('/import', [VendorTraining::class, 'import']);
-        Route::get('/export_excel', [VendorTraining::class, 'export_excel']);
-        Route::get('/export_pdf', [VendorTraining::class, 'export_pdf']);
+    Route::group(['prefix' => 'training_vendor'], function(){
+        Route::get('/', [TrainingVendorController::class, 'index']);
+        Route::post('/list', [TrainingVendorController::class, 'list']);
+        Route::get('/create', [TrainingVendorController::class, 'create']);
+        Route::post('/store', [TrainingVendorController::class, 'store']);
+        Route::get('/{id}/show', [TrainingVendorController::class, 'show']);
+        Route::get('/{id}/edit', [TrainingVendorController::class, 'edit']);
+        Route::put('/{id}/update', [TrainingVendorController::class, 'update']);
+        Route::get('/{id}/delete', [TrainingVendorController::class, 'confirm']);
+        Route::delete('/{id}/delete', [TrainingVendorController::class, 'delete']);
+        Route::get('/import', [TrainingVendorController::class, 'import']);
+        Route::post('/import_excel', [TrainingVendorController::class, 'import_excel']);
+        Route::get('/export_excel', [TrainingVendorController::class, 'export_excel']);
+        Route::get('/export_pdf', [TrainingVendorController::class, 'export_pdf']);
     });
     
     // Route Bidang Minat

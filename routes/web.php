@@ -162,21 +162,22 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         Route::get('/export_pdf', [InterestController::class, 'export_pdf']);
     });
     
-    // Route Mata Kuliah
-    Route::group(['prefix' => 'course'], function() {
-        Route::get('/', [CourseController::class, 'index']);
-        Route::post('/list', [CourseController::class, 'list']);
-        Route::get('/create', [CourseController::class, 'create']);
-        Route::post('/ajax', [CourseController::class, 'store']);
-        Route::get('/{id}/show', [CourseController::class, 'show']);
-        Route::get('/{id}/edit', [CourseController::class, 'edit']);
-        Route::put('/{id}/update', [CourseController::class, 'update']);
-        Route::get('/{id}/delete', [CourseController::class, 'confirm']);
-        Route::delete('/{id}/delete', [CourseController::class, 'delete']);
-        Route::post('/import', [CourseController::class, 'import']);
-        Route::get('/export_excel', [CourseController::class, 'export_excel']);
-        Route::get('/export_pdf', [CourseController::class, 'export_pdf']);
-    });
+   // Route Mata Kuliah
+   Route::group(['prefix' => 'course'], function() {
+    Route::get('/', [CourseController::class, 'index']);
+    Route::post('/list', [CourseController::class, 'list']);
+    Route::get('/create', [CourseController::class, 'create']);
+    Route::post('/store', [CourseController::class, 'store']);
+    Route::get('/{id}/show', [CourseController::class, 'show']);
+    Route::get('/{id}/edit', [CourseController::class, 'edit']);
+    Route::put('/{id}/update', [CourseController::class, 'update']);
+    Route::get('/{id}/delete', [CourseController::class, 'confirm']);
+    Route::delete('/{id}/delete', [CourseController::class, 'delete']);
+    Route::get('/import', [CourseController::class, 'import']);
+    Route::post('/import_excel', [CourseController::class, 'import_excel']);
+    Route::get('/export_excel', [CourseController::class, 'export_excel']);
+    Route::get('/export_pdf', [CourseController::class, 'export_pdf']);
+});
     
     // Route Permintaan Surat Tugas
     Route::group(['prefix' => 'envelope'], function() {

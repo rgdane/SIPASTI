@@ -6,10 +6,6 @@ use App\Http\Controllers\CertificationInputController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InterestController;
 use App\Http\Controllers\TrainingController;
-use App\Http\Controllers\TypeCertification;
-use App\Http\Controllers\TypeTraining;
-use App\Http\Controllers\CertificationTypeController;
-use App\Http\Controllers\CertificationUploadController;
 use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
@@ -45,7 +41,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     Route::put('/profile/update_password', [ProfileController::class, 'update_password']);
     Route::put('/profile/update_image', [ProfileController::class, 'update_image']);
     
-    Route::middleware(['authorize:ADM,CEO'])->group(function(){
+    Route::middleware(['authorize:ADM'])->group(function(){
     // Admin
     // Route Pengguna
         Route::group(['prefix' => 'user'], function() {
@@ -75,6 +71,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/', [CertificationController::class, 'index']);
             Route::post('/list', [CertificationController::class, 'list']);
             Route::get('/create', [CertificationController::class, 'create']);
+            Route::get('/create_training', [CertificationController::class, 'create_training']);
             Route::post('/store', [CertificationController::class, 'store']);
             Route::get('/{id}/course', [CertificationController::class, 'course']);
             Route::get('/{id}/interest', [CertificationController::class, 'interest']);
@@ -105,44 +102,48 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/export_excel', [CertificationVendorController::class, 'export_excel']);
             Route::get('/export_pdf', [CertificationVendorController::class, 'export_pdf']);
         });
+
+        Route::group(['prefix' => 'training'], function() {
+            Route::get('/', [TrainingController::class, 'index']);
+            Route::post('/list', [TrainingController::class, 'list']);
+            Route::get('/create/true', [TrainingController::class, 'create']);
+            Route::get('/create', [TrainingController::class, 'create']);
+            Route::post('/store', [TrainingController::class, 'store']);
+            Route::get('/{id}/course', [TrainingController::class, 'course']);
+            Route::get('/{id}/interest', [TrainingController::class, 'interest']);
+            Route::get('/{id}/file', [TrainingController::class, 'file']);
+            Route::get('/{id}/show', [TrainingController::class, 'show']);
+            Route::post('/{id}/show_member', [TrainingController::class, 'show_member']);
+            Route::get('/{id}/edit', [TrainingController::class, 'edit']);
+            Route::put('/{id}/update', [TrainingController::class, 'update']);
+            Route::get('/{id}/delete', [TrainingController::class, 'confirm']);
+            Route::delete('/{id}/delete', [TrainingController::class, 'delete']);
+            Route::post('/import', [TrainingController::class, 'import']);
+            Route::get('/export_excel', [TrainingController::class, 'export_excel']);
+            Route::get('/export_pdf', [TrainingController::class, 'export_pdf']);
+        });
+        
+        // Route Vendor Pelatihan
+        Route::group(['prefix' => 'training_vendor'], function(){
+            Route::get('/', [TrainingVendorController::class, 'index']);
+            Route::post('/list', [TrainingVendorController::class, 'list']);
+            Route::get('/create', [TrainingVendorController::class, 'create']);
+            Route::post('/store', [TrainingVendorController::class, 'store']);
+            Route::get('/{id}/show', [TrainingVendorController::class, 'show']);
+            Route::get('/{id}/edit', [TrainingVendorController::class, 'edit']);
+            Route::put('/{id}/update', [TrainingVendorController::class, 'update']);
+            Route::get('/{id}/delete', [TrainingVendorController::class, 'confirm']);
+            Route::delete('/{id}/delete', [TrainingVendorController::class, 'delete']);
+            Route::get('/import', [TrainingVendorController::class, 'import']);
+            Route::post('/import_excel', [TrainingVendorController::class, 'import_excel']);
+            Route::get('/export_excel', [TrainingVendorController::class, 'export_excel']);
+            Route::get('/export_pdf', [TrainingVendorController::class, 'export_pdf']);
+        });
     }); //middleware admin
     
     Route::group(['prefix' => 'certification_input'], function() {
         Route::get('/', [CertificationInputController::class, 'index']);
         Route::post('/{id}/store', [CertificationInputController::class, 'store']);
-    });
-    
-    // Route Data Pelatihan
-    Route::group(['prefix' => 'training'], function() {
-        Route::get('/', [TrainingController::class, 'index']);
-        Route::post('/list', [TrainingController::class, 'list']);
-        Route::get('/create', [TrainingController::class, 'create']);
-        Route::post('/ajax', [TrainingController::class, 'store']);
-        Route::get('/{id}/show', [TrainingController::class, 'show']);
-        Route::get('/{id}/edit', [TrainingController::class, 'edit']);
-        Route::put('/{id}/update', [TrainingController::class, 'update']);
-        Route::get('/{id}/delete', [TrainingController::class, 'confirm']);
-        Route::delete('/{id}/delete', [TrainingController::class, 'delete']);
-        Route::get('/import', [TrainingController::class, 'import']);
-        Route::post('/import_excel', [TrainingController::class, 'import_excel']);
-        Route::get('/export_excel', [TrainingController::class, 'export_excel']);
-        Route::get('/export_pdf', [TrainingController::class, 'export_pdf']);
-    });
-    // Route Vendor Pelatihan
-    Route::group(['prefix' => 'training_vendor'], function(){
-        Route::get('/', [TrainingVendorController::class, 'index']);
-        Route::post('/list', [TrainingVendorController::class, 'list']);
-        Route::get('/create', [TrainingVendorController::class, 'create']);
-        Route::post('/store', [TrainingVendorController::class, 'store']);
-        Route::get('/{id}/show', [TrainingVendorController::class, 'show']);
-        Route::get('/{id}/edit', [TrainingVendorController::class, 'edit']);
-        Route::put('/{id}/update', [TrainingVendorController::class, 'update']);
-        Route::get('/{id}/delete', [TrainingVendorController::class, 'confirm']);
-        Route::delete('/{id}/delete', [TrainingVendorController::class, 'delete']);
-        Route::get('/import', [TrainingVendorController::class, 'import']);
-        Route::post('/import_excel', [TrainingVendorController::class, 'import_excel']);
-        Route::get('/export_excel', [TrainingVendorController::class, 'export_excel']);
-        Route::get('/export_pdf', [TrainingVendorController::class, 'export_pdf']);
     });
     
     // Route Bidang Minat

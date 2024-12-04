@@ -126,7 +126,7 @@
                 <!-- Mata Kuliah -->
                 <div class="form-group">
                     <label for="course_id">Mata Kuliah</label><br>
-                    <select name="course_id[]" id="course_id" class="form-control" multiple required>
+                    <select name="course_id[]" id="course_id" class="form-control select2-multiple" multiple required>
                         @foreach($course as $l)
                             <option value="{{ $l->course_id }}"
                                 @foreach ($courseCertification as $c)
@@ -143,7 +143,7 @@
                 <!-- Bidang Minat -->
                 <div class="form-group">
                     <label for="interest_id">Bidang Minat</label><br>
-                    <select name="interest_id[]" id="interest_id" class="form-control" multiple required>
+                    <select name="interest_id[]" id="interest_id" class="form-control select2-multiple" multiple required>
                         @foreach($interest as $l)
                             <option value="{{ $l->interest_id }}"
                                 @foreach ($interestCertification as $c)
@@ -175,15 +175,49 @@
     </div>
 </form>
 
+<style>
+    /* Ensure selected items have black text */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #2C3941;
+        border: 1px solid #ddd;
+        color: #000 !important; /* Force black text color */
+    }
+    
+    /* Ensure the selection text is black */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+        color: #ffffff !important; /* Force black text color */
+    }
+</style>
+
 <script>
     $(document).ready(function() {
         $('#course_id').select2({
-            placeholder: "- Pilih Mata Kuliah -",
-            allowClear: true
-        });
+        placeholder: "Pilih Bidang Minat",
+        allowClear: true,
+        minimumResultsForSearch: 5, // Only show search box if more than 5 options
+        width: '100%', // Ensure full width
+        templateResult: function(state) {
+            if (!state.id) { return state.text; }
+            return $('<span>' + state.text + '</span>');
+        },
+        templateSelection: function(state) {
+            if (!state.id) { return state.text; }
+            return $('<span>' + state.text + '</span>');
+        }
+    });
         $('#interest_id').select2({
-            placeholder: "- Pilih Bidang Minat -",
-            allowClear: true
+            placeholder: "Pilih Bidang Minat",
+            allowClear: true,
+            minimumResultsForSearch: 5, // Only show search box if more than 5 options
+            width: '100%', // Ensure full width
+            templateResult: function(state) {
+                if (!state.id) { return state.text; }
+                return $('<span>' + state.text + '</span>');
+            },
+            templateSelection: function(state) {
+                if (!state.id) { return state.text; }
+                return $('<span>' + state.text + '</span>');
+            }
         });
     });
     // Form submission handling

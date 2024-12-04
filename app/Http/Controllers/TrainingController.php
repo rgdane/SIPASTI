@@ -51,8 +51,8 @@ class TrainingController extends Controller
                     WHEN a.training_status = '0' THEN 'Pending'
                     WHEN a.training_status = '1' THEN 'Pengajuan'
                     WHEN a.training_status = '2' THEN 'Ditolak'
-                    WHEN a.training_status = '2' THEN 'Disetujui'
-                    WHEN a.training_status = '2' THEN 'Selesai'
+                    WHEN a.training_status = '3' THEN 'Disetujui'
+                    WHEN a.training_status = '4' THEN 'Selesai'
                 END AS training_status
             FROM
                 m_training a
@@ -207,8 +207,8 @@ class TrainingController extends Controller
                     WHEN a.training_status = '0' THEN 'Pending'
                     WHEN a.training_status = '1' THEN 'Pengajuan'
                     WHEN a.training_status = '2' THEN 'Ditolak'
-                    WHEN a.training_status = '2' THEN 'Disetujui'
-                    WHEN a.training_status = '2' THEN 'Selesai'
+                    WHEN a.training_status = '3' THEN 'Disetujui'
+                    WHEN a.training_status = '4' THEN 'Selesai'
                 END AS training_status
             FROM
                 m_training a
@@ -353,7 +353,8 @@ class TrainingController extends Controller
             $check->training_level = $request->training_level;
             $check->training_quota = $request->training_quota;
             $check->training_status = $request->training_status;
-            $check->save(); // Simpan perubahan ke database            CourseTrainingModel::where('training_id', $id)->delete();
+            $check->save(); // Simpan perubahan ke database
+            CourseTrainingModel::where('training_id', $id)->delete();
             interestTrainingModel::where('training_id', $id)->delete();
             TrainingMemberModel::where('training_id', $id)->delete();
             
@@ -416,8 +417,8 @@ class TrainingController extends Controller
                     WHEN a.training_status = '0' THEN 'Pending'
                     WHEN a.training_status = '1' THEN 'Pengajuan'
                     WHEN a.training_status = '2' THEN 'Ditolak'
-                    WHEN a.training_status = '2' THEN 'Disetujui'
-                    WHEN a.training_status = '2' THEN 'Selesai'
+                    WHEN a.training_status = '3' THEN 'Disetujui'
+                    WHEN a.training_status = '4' THEN 'Selesai'
                 END AS training_status
             FROM
                 m_training a

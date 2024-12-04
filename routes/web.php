@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\CertificationVendorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrainingApprovalController;
 use App\Http\Controllers\TrainingVendorController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -139,14 +140,8 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/export_excel', [TrainingVendorController::class, 'export_excel']);
             Route::get('/export_pdf', [TrainingVendorController::class, 'export_pdf']);
         });
-    }); //middleware admin
-    
-    Route::group(['prefix' => 'certification_input'], function() {
-        Route::get('/', [CertificationInputController::class, 'index']);
-        Route::post('/{id}/store', [CertificationInputController::class, 'store']);
-    });
-    
-    // Route Bidang Minat
+
+        // Route Bidang Minat
     Route::group(['prefix' => 'interest'], function() {
         Route::get('/', [InterestController::class, 'index']);
         Route::post('/list', [InterestController::class, 'list']);
@@ -162,22 +157,42 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         Route::get('/export_pdf', [InterestController::class, 'export_pdf']);
     });
     
-   // Route Mata Kuliah
-   Route::group(['prefix' => 'course'], function() {
-    Route::get('/', [CourseController::class, 'index']);
-    Route::post('/list', [CourseController::class, 'list']);
-    Route::get('/create', [CourseController::class, 'create']);
-    Route::post('/store', [CourseController::class, 'store']);
-    Route::get('/{id}/show', [CourseController::class, 'show']);
-    Route::get('/{id}/edit', [CourseController::class, 'edit']);
-    Route::put('/{id}/update', [CourseController::class, 'update']);
-    Route::get('/{id}/delete', [CourseController::class, 'confirm']);
-    Route::delete('/{id}/delete', [CourseController::class, 'delete']);
-    Route::get('/import', [CourseController::class, 'import']);
-    Route::post('/import_excel', [CourseController::class, 'import_excel']);
-    Route::get('/export_excel', [CourseController::class, 'export_excel']);
-    Route::get('/export_pdf', [CourseController::class, 'export_pdf']);
-});
+        // Route Mata Kuliah
+        Route::group(['prefix' => 'course'], function() {
+        Route::get('/', [CourseController::class, 'index']);
+        Route::post('/list', [CourseController::class, 'list']);
+        Route::get('/create', [CourseController::class, 'create']);
+        Route::post('/store', [CourseController::class, 'store']);
+        Route::get('/{id}/show', [CourseController::class, 'show']);
+        Route::get('/{id}/edit', [CourseController::class, 'edit']);
+        Route::put('/{id}/update', [CourseController::class, 'update']);
+        Route::get('/{id}/delete', [CourseController::class, 'confirm']);
+        Route::delete('/{id}/delete', [CourseController::class, 'delete']);
+        Route::get('/import', [CourseController::class, 'import']);
+        Route::post('/import_excel', [CourseController::class, 'import_excel']);
+        Route::get('/export_excel', [CourseController::class, 'export_excel']);
+        Route::get('/export_pdf', [CourseController::class, 'export_pdf']);
+        });
+    }); //middleware admin
+    
+    Route::middleware(['authorize:DSN'])->group(function(){
+        Route::group(['prefix' => 'certification_input'], function() {
+            Route::get('/', [CertificationInputController::class, 'index']);
+            Route::post('/{id}/store', [CertificationInputController::class, 'store']);
+        });
+    });
+
+    Route::middleware(['authorize:PMP'])->group(function(){
+        Route::group(['prefix' => 'training_approval'], function() {
+            Route::get('/', [TrainingApprovalController::class, 'index']);
+            Route::get('/{id}/show', [TrainingApprovalController::class, 'show']);
+            Route::post('/{id}/show_member', [TrainingApprovalController::class, 'show_member']);
+            Route::post('/list', [TrainingApprovalController::class, 'list']);
+            Route::put('/{id}/approve', [TrainingApprovalController::class, 'approve']);
+            Route::put('/{id}/reject', [TrainingApprovalController::class, 'reject']);
+        });
+    });
+    
     
     // Route Permintaan Surat Tugas
     Route::group(['prefix' => 'envelope'], function() {

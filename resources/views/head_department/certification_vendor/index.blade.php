@@ -3,15 +3,15 @@
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
-        <h3 class="card-title">Manajemen Vendor Pelatihan</h3>
+        <h3 class="card-title">Manajemen Vendor Sertifikasi</h3>
         <div class="card-tools">
-            {{-- <button onclick="modalAction('{{ url('/training_vendor/import') }}')" class="btn btn-info">
+            {{-- <button onclick="modalAction('{{ url('/certification_vendor/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button> --}}
-            <a href="{{ url('/training_vendor/export_excel') }}" class="btn btn-primary">
+            <a href="{{ url('/certification_vendor/export_excel') }}" class="btn btn-primary">
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
-            <a href="{{ url('/training_vendor/export_pdf') }}" class="btn btn-warning">
+            <a href="{{ url('/certification_vendor/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
-            {{-- <button onclick="modalAction('{{ url('/training_vendor/create') }}')" class="btn btn-success"><i
+            {{-- <button onclick="modalAction('{{ url('/certification_vendor/create') }}')" class="btn btn-success"><i
                     class="bi bi-plus-circle"></i> Tambah Data</button> --}}
         </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
         <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
-            id="table_training_vendor" style="width: 100%;">
+            id="table_certification_vendor" style="width: 100%;">
             <thead>
                 <tr>
                     <th>No</th>
@@ -69,14 +69,14 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    #table_training th, tbody {
+    #table_certification th, tbody {
         font-size: 0.875rem;
         padding: 0.5rem;
     }
 
     @media (max-width: 768px) {
-        #table_training th,
-        #table_training td {
+        #table_certification th,
+        #table_certification td {
             font-size: 0.75rem;
             padding: 0.3rem;
         }
@@ -92,45 +92,45 @@
         });
     }
 
-    var dataTrainingVendor;
+    var dataCertificationVendor;
     $(document).ready(function() {
-        dataTrainingVendor = $('#table_training_vendor').DataTable({
+        dataCertificationVendor = $('#table_certification_vendor').DataTable({
             serverSide: true,
             responsive: true,
             paging: false, // Disable pagination if you want to use custom pagination
             lengthChange: false,
             info: false,
             ajax: {
-                url: "{{ url('training_vendor/list') }}",
+                url: "{{ url('certification_vendor/list') }}",
                 dataType: "json",
                 type: "POST",
                 data: function(d) {
-                    d.training_vendor_id = $('#training_vendor_id').val();
+                    d.certification_vendor_id = $('#certification_vendor_id').val();
                 }
             },
             columns: [
                 { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
-                { data: "training_vendor_name", className: "", orderable: true, searchable: true },
-                { data: "training_vendor_address", className: "", orderable: true, searchable: true },
-                { data: "training_vendor_city", className: "", orderable: true, searchable: true },
-                { data: "training_vendor_phone", className: "", orderable: true, searchable: true },
-                { data: "training_vendor_web", className: "", orderable: true, searchable: true },
+                { data: "certification_vendor_name", className: "", orderable: true, searchable: true },
+                { data: "certification_vendor_address", className: "", orderable: true, searchable: true },
+                { data: "certification_vendor_city", className: "", orderable: true, searchable: true },
+                { data: "certification_vendor_phone", className: "", orderable: true, searchable: true },
+                { data: "certification_vendor_web", className: "", orderable: true, searchable: true },
                 { data: "aksi", className: "", orderable: false, searchable: false }
             ]
         });
 
-        $('#training_vendor_id').on('change', function() {
-            dataTrainingVendor.ajax.reload();
+        $('#certification_vendor_id').on('change', function() {
+            dataCertificationVendor.ajax.reload();
         });
 
         // Adjust DataTables on window resize and when sidebar toggle is clicked
         $(window).on('resize', function() {
-            dataTrainingVendor.columns.adjust().responsive.recalc();
+            dataCertificationVendor.columns.adjust().responsive.recalc();
         });
 
         $('.sidebar-toggle').on('click', function() {
             setTimeout(function() {
-                dataTrainingVendor.columns.adjust().responsive.recalc();
+                dataCertificationVendor.columns.adjust().responsive.recalc();
             }, 300); // Timeout to wait for sidebar animation
         });
     });

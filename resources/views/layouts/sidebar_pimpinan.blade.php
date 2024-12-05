@@ -124,7 +124,7 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'trainingVendor' || ($activeMenu == 'training_input')) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'training_vendor' || ($activeMenu == 'training_input')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-journal-text"></i>
                     <p> Pelatihan

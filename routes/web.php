@@ -10,6 +10,7 @@ use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\CertificationVendorController;
+use App\Http\Controllers\CertificationVendorHeadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrainingApprovalController;
 use App\Http\Controllers\TrainingVendorController;
@@ -201,6 +202,14 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/{id}/show', [TrainingVendorHeadController::class, 'show']);
             Route::get('/export_excel', [TrainingVendorHeadController::class, 'export_excel']);
             Route::get('/export_pdf', [TrainingVendorHeadController::class, 'export_pdf']);
+        });
+        
+        Route::group(['prefix' => 'certification_vendor'], function(){
+            Route::get('/', [CertificationVendorHeadController::class, 'index']);
+            Route::post('/list', [CertificationVendorHeadController::class, 'list']);
+            Route::get('/{id}/show', [CertificationVendorHeadController::class, 'show']);
+            Route::get('/export_excel', [CertificationVendorHeadController::class, 'export_excel']);
+            Route::get('/export_pdf', [CertificationVendorHeadController::class, 'export_pdf']);
         });
     });
     

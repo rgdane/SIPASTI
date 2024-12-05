@@ -142,17 +142,19 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         });
 
         // Route Bidang Minat
+    // Route Bidang Minat
     Route::group(['prefix' => 'interest'], function() {
         Route::get('/', [InterestController::class, 'index']);
         Route::post('/list', [InterestController::class, 'list']);
         Route::get('/create', [InterestController::class, 'create']);
-        Route::post('/ajax', [InterestController::class, 'store']);
+        Route::post('/store', [InterestController::class, 'store']);
         Route::get('/{id}/show', [InterestController::class, 'show']);
         Route::get('/{id}/edit', [InterestController::class, 'edit']);
         Route::put('/{id}/update', [InterestController::class, 'update']);
         Route::get('/{id}/delete', [InterestController::class, 'confirm']);
         Route::delete('/{id}/delete', [InterestController::class, 'delete']);
-        Route::post('/import', [InterestController::class, 'import']);
+        Route::get('/import', [InterestController::class, 'import']);
+        Route::post('/import_excel', [InterestController::class, 'import_excel']);
         Route::get('/export_excel', [InterestController::class, 'export_excel']);
         Route::get('/export_pdf', [InterestController::class, 'export_pdf']);
     });

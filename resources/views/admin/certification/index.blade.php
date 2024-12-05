@@ -11,8 +11,7 @@
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
             <a href="{{ url('/certification/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a> --}}
-            <button onclick="modalAction('{{ url('/certification/create') }}')" class="btn btn-success"><i
-                    class="bi bi-plus"></i> Tambah Data</button>
+            <button onclick="modalAction('{{ url('/certification/create') }}')" class="btn btn-success"><i class="bi bi-plus"></i> Tambah Data</button>
         </div>
     </div>
     <div class="card-body">

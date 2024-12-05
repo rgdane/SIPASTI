@@ -11,29 +11,23 @@
                 <h5><i class="bi bi-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/training') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/training_approval') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/training/' . $training->training_id . '/delete') }}" method="POST" id="form-delete">
-    @csrf
-    @method('DELETE')
+
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Pelatihan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Pelatihan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <div class="alert alert-warning">
-                    <h5><i class="bi bi-exclamation-triangle-fill"></i> Konfirmasi !!!</h5> <!-- Updated icon -->
-                    Apakah Anda ingin menghapus data seperti dibawah ini?
-                </div>
                 <table class="table table-sm table-bordered table-striped table-rounded">
-                    
+                    <div class="alert alert-info">
+                        <h5><i class="bi bi-info-circle"></i> Detail Data </h5>
+                    </div>
                     <tr>
                         <th class="text-right col-3">Nama Pelatihan:</th>
                         <td class="col-9">{{ $training->training_name }}</td>
@@ -52,7 +46,7 @@
                     </tr>
                     <tr>
                         <th class="text-right col-3">Tanggal Pelatihan:</th>
-                        <td class="col-9">{{ $training->training_date }}</td>
+                        <td class="col-9">{{ date('d-m-Y', strtotime($training->training_date ?? '')) }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Durasi Pelatihan:</th>
@@ -122,12 +116,22 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+                @if ($training->training_status == 'Pengajuan')
+                <form action="{{ url('/training_approval/' . $training->training_id . '/approve') }}" method="POST" id="form-approve" style="display: inline;">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="btn btn-success">Setujui</button>
+                </form>
+                <form action="{{ url('/training_approval/' . $training->training_id . '/reject') }}" method="POST" id="form-reject" style="display: inline;">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="btn btn-danger">Tolak</button>
+                </form>
+                @endif
             </div>
         </div>
     </div>
-</form>
 
 <script>
     $(document).ready(function() {
@@ -137,7 +141,7 @@
             lengthChange: false,
             info: false,
             ajax: {
-                url: "{{ url('training/'.$training->training_id.'/show_member') }}",
+                url: "{{ url('training_approval/'.$training->training_id.'/show_member') }}",
                 dataType: "json",
                 type: "POST",
             },
@@ -147,51 +151,113 @@
             ]
         });
     });
-    $(document).ready(function() {
-            $("#form-delete").validate({
-                rules: {},
-                submitHandler: function(form) {
-                    $.ajax({
-                        url: form.action,
-                        type: form.method,
-                        data: $(form).serialize(),
-                        success: function(response) {
-                            if (response.status) {
-                                $('#myModal').modal('hide');
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Berhasil',
-                                    text: response.message
-                                });
-                                dataTraining.ajax.reload();
-                            } else {
-                                $('.error-text').text('');
-                                $.each(response.msgField, function(prefix, val) {
-                                    $('#error-'+prefix).text(val[0]);
-                                });
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Terjadi Kesalahan',
-                                    text: response.message
-                                });
-                            }
-                        }
+
+    // Form submission handling
+    $('#form-approve').on('submit', function(e) {
+        
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.status) {
+                    // Tampilkan pesan sukses
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response.message
                     });
-                    return false;
-                },
-                errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass("invalid-feedback");
-                    elemtnt.closest('.form-group').append(error);
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
+
+                    // Tutup modal
+                    $('#myModal').modal('hide');
+
+                    // Refresh data table (jika ada)
+                    if (typeof dataTraining !== 'undefined') {
+                        dataTraining.ajax.reload();
+                    }
+                } else {
+                    // Tampilkan pesan kesalahan
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: response.message
+                    });
+
+                    // Tampilkan error field
+                    $('.error-text').text('');
+                    $.each(response.msgField, function(prefix, val) {
+                        $('#error-' + prefix).text(val[0]);
+                    });
                 }
-            });
+            },
+            error: function(xhr) {
+                // Tangani error server
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: 'Silakan coba lagi nanti.'
+                });
+                console.error(xhr.responseText);
+            }
         });
+    });
+    // Form submission handling
+    $('#form-reject').on('submit', function(e) {
+        
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.status) {
+                    // Tampilkan pesan sukses
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response.message
+                    });
+
+                    // Tutup modal
+                    $('#myModal').modal('hide');
+
+                    // Refresh data table (jika ada)
+                    if (typeof dataTraining !== 'undefined') {
+                        dataTraining.ajax.reload();
+                    }
+                } else {
+                    // Tampilkan pesan kesalahan
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: response.message
+                    });
+
+                    // Tampilkan error field
+                    $('.error-text').text('');
+                    $.each(response.msgField, function(prefix, val) {
+                        $('#error-' + prefix).text(val[0]);
+                    });
+                }
+            },
+            error: function(xhr) {
+                // Tangani error server
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: 'Silakan coba lagi nanti.'
+                });
+                console.error(xhr.responseText);
+            }
+        });
+    });
+    
 </script>
 @endempty
-

@@ -11,8 +11,8 @@
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
             <a href="{{ url('/training/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a> --}}
-            <button onclick="modalAction('{{ url('/training/create/true') }}')" class="btn btn-success">
-                <i class="bi bi-plus"></i> Tambah Data</button>
+            {{-- <button onclick="modalAction('{{ url('/training/create/true') }}')" class="btn btn-success">
+                <i class="bi bi-plus"></i> Tambah Data</button> --}}
         </div>
     </div>
     <div class="card-body">
@@ -110,7 +110,7 @@
             lengthChange: false,
             info: false,
             ajax: {
-                url: "{{ url('training/list') }}",
+                url: "{{ url('training_approval/list') }}",
                 dataType: "json",
                 type: "POST",
                 data: function(d) {

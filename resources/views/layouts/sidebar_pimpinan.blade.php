@@ -133,10 +133,10 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/training') }}"
-                            class="nav-link {{ ($activeMenu == 'training') ? 'active' : '' }}">
+                        <a href="{{ url('/training_approval') }}"
+                            class="nav-link {{ ($activeMenu == 'training_approval') ? 'active' : '' }}">
                             <i class="bi bi-card-list"></i>
-                            <p>Data Pelatihan</p>
+                            <p>Data Pengajuan Pelatihan</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -149,7 +149,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="{{ url('/interest') }}" class="nav-link {{ ($activeMenu == 'interest') ? 'active' : '' }}">
                     <i class="bi bi-star"></i>
                     <p>Bidang Minat</p>
@@ -161,7 +161,7 @@
                     <i class="bi bi-journal-bookmark-fill"></i>
                     <p>Mata Kuliah</p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </nav>
 </div>

@@ -18,8 +18,7 @@
     <div class="card-body">
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
-        <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
-            id="table_certification_type" style="width: 100%;">
+        <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center" id="table_certification_type" style="width: 100%;">
             <thead>
                 <tr>
                     <th>No</th>

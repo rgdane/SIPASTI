@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\CertificationHistoryController;
 use App\Http\Controllers\CertificationInputController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InterestController;
@@ -107,10 +108,6 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         });
     }); //middleware admin
     
-    Route::group(['prefix' => 'certification_input'], function() {
-        Route::get('/', [CertificationInputController::class, 'index']);
-        Route::post('/{id}/store', [CertificationInputController::class, 'store']);
-    });
     
     // Route Data Pelatihan
     Route::group(['prefix' => 'training'], function() {
@@ -197,8 +194,17 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     // Route Profile
     
     // Dosen
-    // Route Pengajuan Sertifikasi
+    // Route Input Sertifikasi
+    Route::group(['prefix' => 'certification_input'], function() {
+        Route::get('/', [CertificationInputController::class, 'index']);
+        Route::post('/{id}/store', [CertificationInputController::class, 'store']);
+    });
+
     // Route Riwayat Sertifikasi
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/certification_history', [CertificationHistoryController::class, 'index'])->name('certification.history');
+        Route::get('/certification_history/show/{id}', [CertificationHistoryController::class, 'show'])->name('certification.show');
+    });
     // Route Pengajuan Pelatihan
     // Route Status Pengajuan Pelatihan
     // Route Riwayat Pelatihan

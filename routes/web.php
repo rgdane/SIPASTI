@@ -13,6 +13,7 @@ use App\Http\Controllers\CertificationVendorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrainingApprovalController;
 use App\Http\Controllers\TrainingVendorController;
+use App\Http\Controllers\TrainingVendorHeadController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -142,22 +143,21 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         });
 
         // Route Bidang Minat
-    // Route Bidang Minat
-    Route::group(['prefix' => 'interest'], function() {
-        Route::get('/', [InterestController::class, 'index']);
-        Route::post('/list', [InterestController::class, 'list']);
-        Route::get('/create', [InterestController::class, 'create']);
-        Route::post('/store', [InterestController::class, 'store']);
-        Route::get('/{id}/show', [InterestController::class, 'show']);
-        Route::get('/{id}/edit', [InterestController::class, 'edit']);
-        Route::put('/{id}/update', [InterestController::class, 'update']);
-        Route::get('/{id}/delete', [InterestController::class, 'confirm']);
-        Route::delete('/{id}/delete', [InterestController::class, 'delete']);
-        Route::get('/import', [InterestController::class, 'import']);
-        Route::post('/import_excel', [InterestController::class, 'import_excel']);
-        Route::get('/export_excel', [InterestController::class, 'export_excel']);
-        Route::get('/export_pdf', [InterestController::class, 'export_pdf']);
-    });
+        Route::group(['prefix' => 'interest'], function() {
+            Route::get('/', [InterestController::class, 'index']);
+            Route::post('/list', [InterestController::class, 'list']);
+            Route::get('/create', [InterestController::class, 'create']);
+            Route::post('/store', [InterestController::class, 'store']);
+            Route::get('/{id}/show', [InterestController::class, 'show']);
+            Route::get('/{id}/edit', [InterestController::class, 'edit']);
+            Route::put('/{id}/update', [InterestController::class, 'update']);
+            Route::get('/{id}/delete', [InterestController::class, 'confirm']);
+            Route::delete('/{id}/delete', [InterestController::class, 'delete']);
+            Route::get('/import', [InterestController::class, 'import']);
+            Route::post('/import_excel', [InterestController::class, 'import_excel']);
+            Route::get('/export_excel', [InterestController::class, 'export_excel']);
+            Route::get('/export_pdf', [InterestController::class, 'export_pdf']);
+        });
     
         // Route Mata Kuliah
         Route::group(['prefix' => 'course'], function() {
@@ -192,6 +192,15 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::post('/list', [TrainingApprovalController::class, 'list']);
             Route::put('/{id}/approve', [TrainingApprovalController::class, 'approve']);
             Route::put('/{id}/reject', [TrainingApprovalController::class, 'reject']);
+        });
+
+        // Route Vendor Pelatihan
+        Route::group(['prefix' => 'training_vendor'], function(){
+            Route::get('/', [TrainingVendorHeadController::class, 'index']);
+            Route::post('/list', [TrainingVendorHeadController::class, 'list']);
+            Route::get('/{id}/show', [TrainingVendorHeadController::class, 'show']);
+            Route::get('/export_excel', [TrainingVendorHeadController::class, 'export_excel']);
+            Route::get('/export_pdf', [TrainingVendorHeadController::class, 'export_pdf']);
         });
     });
     

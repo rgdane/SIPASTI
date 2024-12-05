@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\CertificationHeadController;
 use App\Http\Controllers\CertificationInputController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InterestController;
@@ -210,6 +211,13 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/{id}/show', [CertificationVendorHeadController::class, 'show']);
             Route::get('/export_excel', [CertificationVendorHeadController::class, 'export_excel']);
             Route::get('/export_pdf', [CertificationVendorHeadController::class, 'export_pdf']);
+        });
+        
+        Route::group(['prefix' => 'certification'], function(){
+            Route::get('/', [CertificationHeadController::class, 'index']);
+            Route::post('/list', [CertificationHeadController::class, 'list']);
+            Route::get('/{id}/show', [CertificationHeadController::class, 'show']);
+            Route::get('/{id}/file', [CertificationHeadController::class, 'file']);
         });
     });
     

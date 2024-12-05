@@ -16,7 +16,7 @@
     </div>
 </div>
 @else
-<form action="{{ url('/certification_vendor/' . $certification_vendor['certification_vendor_id'] . '/show') }}" method="POST" id="form-show">
+<form action="{{ url('/certification_vendor_head/' . $certification_vendor['certification_vendor_id'] . '/show') }}" method="POST" id="form-show">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

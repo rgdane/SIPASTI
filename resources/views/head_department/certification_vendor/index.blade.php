@@ -7,9 +7,9 @@
         <div class="card-tools">
             {{-- <button onclick="modalAction('{{ url('/certification_vendor/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button> --}}
-            <a href="{{ url('/certification_vendor/export_excel') }}" class="btn btn-primary">
+            <a href="{{ url('/certification_vendor_head/export_excel') }}" class="btn btn-primary">
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
-            <a href="{{ url('/certification_vendor/export_pdf') }}" class="btn btn-warning">
+            <a href="{{ url('/certification_vendor_head/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
             {{-- <button onclick="modalAction('{{ url('/certification_vendor/create') }}')" class="btn btn-success"><i
                     class="bi bi-plus-circle"></i> Tambah Data</button> --}}
@@ -101,7 +101,7 @@
             lengthChange: false,
             info: false,
             ajax: {
-                url: "{{ url('certification_vendor/list') }}",
+                url: "{{ url('certification_vendor_head/list') }}",
                 dataType: "json",
                 type: "POST",
                 data: function(d) {

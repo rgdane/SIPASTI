@@ -33,6 +33,10 @@ class UserModel extends Authenticatable
     public function certification(): BelongsTo{
         return $this->belongsTo(CertificationModel :: class);
     }
+    
+    public function trainingMember(): BelongsTo{
+        return $this->belongsTo(TrainingMemberModel :: class);
+    }
 
     public function getRoleName(): string{
         return $this->user_type->user_type_name;

@@ -16,7 +16,7 @@
     </div>
 </div>
 @else
-<form action="{{ url('/training/' . $training['training_id'] . '/show') }}" method="POST" id="form-show">
+<form id="form-show">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -31,41 +31,90 @@
                     </div>
                     <tr>
                         <th class="text-right col-3">Nama Pelatihan:</th>
-                        <td class="col-9">{{ $training['training_name'] }}</td>
+                        <td class="col-9">{{ $training->training_name }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Tanggal Pelatihan:</th>
-                        <td class="col-9">{{ $training['training_date'] }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right col-3">Lokasi Pelatihan:</th>
-                        <td class="col-9">{{ $training['training_location'] }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right col-3">Biaya Pelatihan:</th>
-                        <td class="col-9">{{ $training['training_cost'] }}</td>
+                        <th class="text-right col-3">Level Pelatihan:</th>
+                        <td class="col-9">{{ $training->training_level }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Vendor Pelatihan:</th>
-                        <td class="col-9">{{ $training['vendor']['training_vendor_name'] }}</td>
+                        <td class="col-9">{{ $training->training_vendor_name }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Tipe Pelatihan:</th>
-                        <td class="col-9">{{ $training['type']['training_type_name'] }}</td>
+                        <th class="text-right col-3">Periode:</th>
+                        <td class="col-9">{{ $training->period_year }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Tanggal Pelatihan:</th>
+                        <td class="col-9">{{ $training->training_date }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Durasi Pelatihan:</th>
+                        <td class="col-9">{{ $training->training_hours }} jam</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Lokasi Pelatihan:</th>
+                        <td class="col-9">{{ $training->training_location }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Biaya Pelatihan:</th>
+                        <td class="col-9">Rp {{ number_format($training->training_cost, 0, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Kuota Pelatihan:</th>
-                        <td class="col-9">{{ $training['training_quota'] }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right col-3">Mata Kuliah:</th>
-                        <td class="col-9">{{ $training['course']['course_name'] }}</td>
+                        <td class="col-9">{{ $training->training_quota }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Bidang Minat:</th>
-                        <td class="col-9">{{ $training['interest']['interest_name'] }}</td>
+                        <td class="col-9">
+                            @php $interestCount = is_countable($interest) ? count($interest) : 0; @endphp
+
+                            @if (is_iterable($interest))
+                            @foreach ($interest as $index => $item)
+                                {{ $item->interest_name }}@if ($index < count($interest) - 1), @endif
+                            @endforeach
+                            @else
+                                Tidak ada data minat.
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Mata Kuliah:</th>
+                        <td class="col-9">
+                            @php $courseCount = is_countable($course) ? count($course) : 0; @endphp
+
+                            @if (is_iterable($course))
+                            @foreach ($course as $index => $item)
+                                {{ $item->course_name }}@if ($index < count($course) - 1), @endif
+                            @endforeach
+                            @else
+                                Tidak ada data mata kuliah.
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Status Pelatihan:</th>
+                        <td class="col-9">{{ $training->training_status }}</td>
                     </tr>
                 </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
+                        id="table_user" style="width: 100%;">
+                        <div class="alert alert-info">
+                            <h5> Peserta Pelatihan </h5>
+                        </div>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Peserta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data from AJAX will populate here -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
@@ -75,54 +124,22 @@
 </form>
 @endempty
 
-@push('js')
 <script>
-$(document).ready(function() {
-        $("#form-show").validate({
-            submitHandler: function(form) {
-                $.ajax({
-                    url: form.action,
-                    type: form.method,
-                    data: $(form).serialize(),
-                    success: function(response) {
-                        if (response.status) {
-                            $('#modal-master').modal('hide');
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil',
-                                text: response.message
-                            });
-                            dataTraining.ajax.reload(); // Reload datatable
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Terjadi Kesalahan',
-                                text: response.message
-                            });
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Terjadi Kesalahan',
-                            text: 'Gagal memproses permintaan.'
-                        });
-                    }
-                });
-                return false;
+    $(document).ready(function() {
+        $('#table_user').DataTable({
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            info: false,
+            ajax: {
+                url: "{{ url('training/'.$training->training_id.'/show_member') }}",
+                dataType: "json",
+                type: "POST",
             },
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass("invalid-feedback");
-                element.closest('.form-group').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
+            columns: [
+                { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
+                { data: "user_fullname", className: "", orderable: true, searchable: true },
+            ]
         });
     });
 </script>
-@endpush

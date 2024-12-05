@@ -147,12 +147,12 @@
                             <p>Vendor Sertifikasi</p>
                         </a>
                     </li>
-                   <li class="nav-item">
-                      <a href="{{ url('/certification_type') }}" class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
-                            <i class="bi bi-list-nested"></i>
-                           <p>Jenis Sertifikasi</p>
-                        </a>
-                   </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/certification_type') }}" class="nav-link {{ ($activeMenu == 'certification_type') ? 'active' : '' }}">
+                                <i class="bi bi-list-nested"></i>
+                            <p>Jenis Sertifikasi</p>
+                            </a>
+                    </li>
                 </ul>
             </li>
 
@@ -169,7 +169,7 @@
                         <a href="{{ url('/training') }}"
                             class="nav-link {{ ($activeMenu == 'training') ? 'active' : '' }}">
                             <i class="bi bi-card-list"></i>
-                            <p>Data Pelatihan</p>
+                            <p>Data Pengajuan Pelatihan</p>
                         </a>
                     </li>
                     <li class="nav-item">

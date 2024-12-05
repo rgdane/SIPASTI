@@ -27,7 +27,7 @@ class UserModel extends Authenticatable
 
     public function user_detail()
     {
-        return $this->hasOne(UserDetailModel::class);
+        return $this->hasOne(UserDetailModel::class, 'user_id', 'user_id');
     }
 
     public function certification(): BelongsTo{

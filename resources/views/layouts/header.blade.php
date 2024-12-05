@@ -66,8 +66,13 @@
     <li class="nav-item dropdown user-menu">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         <!-- Placeholder for user profile image -->
-        <img id="userImage" src="adminlte/dist/img/avatar.png" class="user-image rounded-circle shadow" alt="User Image"
-          style="height: 35px; width: 35px;">
+        <img id="userImage" @if (auth()->check() && auth()->user()->user_detail)
+        src="{{ asset(auth()->user()->user_detail->user_detail_image) }}"
+        @else
+        src="{{ asset('default/path/to/default_profile.png') }}"
+        @endif class="user-image rounded-circle shadow" alt="User Image"
+        style="height: 35px; width: 35px;">
+
 
         <!-- Placeholder for username -->
         <span id="username" class="d-none d-md-inline">{{ auth()->user()->username }}</span>

@@ -124,7 +124,7 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'trainingVendor' || ($activeMenu == 'training_input')) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'training_vendor' || ($activeMenu == 'training_input')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-journal-text"></i>
                     <p> Pelatihan
@@ -140,8 +140,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/trainingVendor') }}"
-                            class="nav-link {{ ($activeMenu == 'trainingVendor') ? 'active' : '' }}">
+                        <a href="{{ url('/training_vendor') }}"
+                            class="nav-link {{ ($activeMenu == 'training_vendor') ? 'active' : '' }}">
                             <i class="bi bi-building-gear"></i>
                             <p>Vendor Pelatihan</p>
                         </a>

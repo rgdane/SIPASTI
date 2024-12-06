@@ -15,6 +15,7 @@ use App\Http\Controllers\CertificationVendorController;
 use App\Http\Controllers\CertificationVendorHeadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrainingApprovalController;
+use App\Http\Controllers\TrainingHistoryController;
 use App\Http\Controllers\TrainingInputController;
 use App\Http\Controllers\TrainingVendorController;
 use App\Http\Controllers\TrainingVendorHeadController;
@@ -193,6 +194,19 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/list', [CertificationHistoryController::class, 'list']);
             Route::get('/show/{id}', [CertificationHistoryController::class, 'show'])->name('certification.show');
         });
+
+        // Route Input Pelatihan
+        Route::group(['prefix' => 'training_input'], function() {
+            Route::get('/', [TrainingInputController::class, 'index']);
+            Route::post('/{id}/store', [TrainingInputController::class, 'store']);
+        });
+
+        //Route Riwayat Pelatihan
+        Route::group(['prefix' => 'training_history'], function() {
+            Route::get('/', [TrainingHistoryController::class, 'index']);
+            Route::post('/list', [TrainingHistoryController::class, 'list']);
+            Route::get('/{id}/show', [TrainingHistoryController::class, 'show']);
+        });
     });
 
     Route::middleware(['authorize:PMP'])->group(function(){
@@ -248,11 +262,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     });
     
     
-    // Route Pengajuan Pelatihan
-    Route::group(['prefix' => 'training_input'], function() {
-        Route::get('/', [TrainingInputController::class, 'index']);
-        Route::post('/{id}/store', [TrainingInputController::class, 'store']);
-    });
+    
     // Route Status Pengajuan Pelatihan
     // Route Riwayat Pelatihan
     // Route Pengajuan Surat Tugas
@@ -264,5 +274,5 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     // Route Pemberian Tugas Pelatihan & Sertifikasi Dosen
     
     // Route Jenis Sertifikasi
- 
+
 });

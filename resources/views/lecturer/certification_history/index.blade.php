@@ -7,61 +7,46 @@
             <h5 class="card-title mb-0 text-primary fw-bold">Riwayat Sertifikasi</h5>
             <a href="{{ url('/certification_input') }}" class="btn btn-success ml-auto text-white">
                 <i class="bi bi-plus"></i> Tambah Data
-            </a>          
+            </a>
         </div>
         <div class="card-body">
-            @if($certifications->isEmpty())
-                <div class="text-center py-5">
-                    <img src="{{ asset('image/folder.png') }}" alt="Belum Ada Sertifikasi" class="mb-3" style="max-width: 200px; opacity: 0.8;">
-                    <h5 class="text-muted">Belum Ada Sertifikasi</h5>
-                    <p class="text-muted">Anda belum menambahkan sertifikasi apapun. Yuk, tambahkan sertifikasimu!</p>
-                </div>
-            @else
-                <div class="table-responsive">
-                    <table class="table table-borderless align-middle" id="certification-table">
-                        <thead class="text-uppercase text-muted small bg-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Sertifikasi</th>
-                                <th>Jenis</th>
-                                <th>Level</th>
-                                <th>Periode</th>
-                                <th>Status</th>
-                                <th class="text-end">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($certifications as $key => $certification)
-                                <tr class="border-bottom">
-                                    <td class="fw-bold">{{ $key + 1 }}</td>
-                                    <td>{{ $certification->certification_name }}</td>
-                                    <td>{{ $certification->certification_type == 0 ? 'Nasional' : 'Internasional' }}</td>
-                                    <td>{{ $certification->certification_level == 0 ? 'Profesi' : 'Keahlian' }}</td>
-                                    <td>{{ $certification->period->period_year }}</td>
-                                    <td>
-                                        @php
-                                            $now = now();
-                                            $expired = \Carbon\Carbon::parse($certification->certification_date_expired);
-                                        @endphp
-                                        @if($now > $expired)
-                                            <span class="badge bg-danger-light text-danger">Kadaluarsa</span>
-                                        @else
-                                            <span class="badge bg-success-light text-success">Aktif</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="{{ url('/certification_history/show/' . $certification->certification_id) }}" 
-                                           class="btn btn-sm btn-light border me-2" 
-                                           title="Lihat Detail">
-                                            <i class="fas fa-eye text-primary"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+            @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
             @endif
+            @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
+                        <div class="col-3">
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="">- Semua -</option>
+                                <option value="Aktif">Aktif</option>
+                                <option value="Kadaluarsa">Kadaluarsa</option>
+                            </select>
+                            <small class="form-text text-muted">Status</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover align-middle" id="certification-table"
+                    style="width: 100%;">
+                    <thead class="text-uppercase text-muted small bg-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Sertifikasi</th>
+                            <th>Jenis</th>
+                            <th>Level</th>
+                            <th>Periode</th>
+                            <th>Status</th>
+                            <th class="text-end">Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -72,6 +57,20 @@
     .table-borderless th,
     .table-borderless td {
         vertical-align: middle;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 768px) {
+
+        #certification-table th,
+        #certification-table td {
+            font-size: 0.75rem;
+            padding: 0.3rem;
+        }
     }
 
     .badge {
@@ -105,26 +104,86 @@
 
 @push('js')
 <script>
+var certificationTable;
+$(document).ready(function() {
+        certificationTable = $('#certification-table').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        lengthChange: true,
+        info: false,
+        language: {
+            processing: `
+                <div class="d-flex flex-column align-items-center">
+                    <div class="spinner-grow text-primary mb-2" role="status" style="width: 3rem; height: 3rem;"></div>
+                    <div class="text-muted">Memuat..</div>
+                </div>
+            `
+        },
+        ajax: {
+            url: '{{ url("certification_hisory/list") }}',
+            method: 'GET',
+            data: function (d) {
+                d.status = $('#status').val();   
+            }
+        },
+        columns: [
+            { 
+                data: 'DT_RowIndex', 
+                name: 'DT_RowIndex', 
+                orderable: false, 
+                searchable: false 
+            },{ 
+                data: 'certification_name', 
+                name: 'certification_name' 
+            },{ 
+                data: 'certification_level', 
+                name: 'certification_level',
+                render: function(data) {
+                    return data === 'Nasional' ? 'Nasional' : 'Internasional';
+                }
+            },{ 
+                data: 'certification_type', 
+                name: 'certification_type',
+                render: function(data) {
+                    return data === 'Profesi' ? 'Profesi' : 'Keahlian';
+                }
+            },{ 
+                data: 'period_year', 
+                name: 'period_year' 
+            },{ 
+                data: 'status', 
+                name: 'status',
+                render: function(data) {
+                    // Parse the JSON data for status
+                    var statusData = JSON.parse(data);
+                    return '<span class="badge ' + statusData.class + '">' + statusData.text + '</span>';
+                }
+            },{ 
+                data: 'aksi', 
+                name: 'aksi', 
+                orderable: false, 
+                searchable: false,
+                className: 'text-end'
+            }
+        ],
+    });
 
-// $(document).ready(function() {
-//     // DataTable initialization
-//     $('#certification-table').DataTable({
-//         responsive: true,
-//         language: {
-//             search: "Cari:",
-//             lengthMenu: "Tampilkan _MENU_ data",
-//             info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-//             infoEmpty: "Tidak ada data yang ditampilkan",
-//             infoFiltered: "(disaring dari _MAX_ total data)",
-//             zeroRecords: "Tidak ada data yang cocok",
-//             paginate: {
-//                 first: "Pertama",
-//                 last: "Terakhir",
-//                 next: "Selanjutnya",
-//                 previous: "Sebelumnya"
-//             }
-//         }
-//     });
-// });
+    $('#status').on('change', function() {
+        certificationTable.ajax.reload();
+    });
+
+    // Adjust DataTables on window resize and when sidebar toggle is clicked
+    $(window).on('resize', function() {
+        certificationTable.columns.adjust().responsive.recalc();
+    });
+
+    // Adjust DataTable columns when sidebar is toggled
+    $('.sidebar-toggle').on('click', function() {
+        setTimeout(function() {
+            certificationTable.columns.adjust().responsive.recalc();
+        }, 300); // Adjust delay based on sidebar animation duration
+    });
+});
 </script>
 @endpush

@@ -15,6 +15,7 @@ use App\Http\Controllers\CertificationVendorController;
 use App\Http\Controllers\CertificationVendorHeadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrainingApprovalController;
+use App\Http\Controllers\TrainingInputController;
 use App\Http\Controllers\TrainingVendorController;
 use App\Http\Controllers\TrainingVendorHeadController;
 use App\Http\Controllers\WelcomeController;
@@ -189,6 +190,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         // Route Riwayat Sertifikasi
         Route::group(['prefix' => 'certification_history'], function() {
             Route::get('/', [CertificationHistoryController::class, 'index'])->name('certification.history');
+            Route::get('/list', [CertificationHistoryController::class, 'list']);
             Route::get('/show/{id}', [CertificationHistoryController::class, 'show'])->name('certification.show');
         });
     });
@@ -245,11 +247,12 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         Route::get('/export_pdf', [EnvelopeController::class, 'export_pdf']);
     });
     
-    // Route Profile
-    
-    // Dosen
     
     // Route Pengajuan Pelatihan
+    Route::group(['prefix' => 'training_input'], function() {
+        Route::get('/', [TrainingInputController::class, 'index']);
+        Route::post('/{id}/store', [TrainingInputController::class, 'store']);
+    });
     // Route Status Pengajuan Pelatihan
     // Route Riwayat Pelatihan
     // Route Pengajuan Surat Tugas
@@ -261,7 +264,5 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     // Route Pemberian Tugas Pelatihan & Sertifikasi Dosen
     
     // Route Jenis Sertifikasi
-    
-
+ 
 });
-

@@ -179,7 +179,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         });
     }); //middleware admin
     
-    Route::middleware(['authorize:DSN'])->group(function(){
+    Route::middleware(['authorize:DSN,TDK'])->group(function(){
         // Route Input Sertifikasi
         Route::group(['prefix' => 'certification_input'], function() {
             Route::get('/', [CertificationInputController::class, 'index']);

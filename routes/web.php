@@ -13,6 +13,7 @@ use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\CertificationVendorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrainingApprovalController;
+use App\Http\Controllers\TrainingInputController;
 use App\Http\Controllers\TrainingVendorController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -225,9 +226,13 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     // Route Riwayat Sertifikasi
     Route::middleware(['auth'])->group(function () {
         Route::get('/certification_history', [CertificationHistoryController::class, 'index'])->name('certification.history');
-        Route::get('/certification_history/show/{id}', [CertificationHistoryController::class, 'show'])->name('certification.show');
+        Route::get('/certification_hisory/list', [CertificationHistoryController::class, 'list']);
     });
     // Route Pengajuan Pelatihan
+    Route::group(['prefix' => 'training_input'], function() {
+        Route::get('/', [TrainingInputController::class, 'index']);
+        Route::post('/{id}/store', [TrainingInputController::class, 'store']);
+    });
     // Route Status Pengajuan Pelatihan
     // Route Riwayat Pelatihan
     // Route Pengajuan Surat Tugas
@@ -239,7 +244,5 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     // Route Pemberian Tugas Pelatihan & Sertifikasi Dosen
     
     // Route Jenis Sertifikasi
-    
-
+ 
 });
-

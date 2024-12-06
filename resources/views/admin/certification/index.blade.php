@@ -19,8 +19,7 @@
         <div class="alert alert-danger" style="display: none;">Error message</div>
         <!-- Tambahkan div dengan class table-responsive -->
         <div class="table-responsive">
-            <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
-                id="table_certification" style="width: 100%;">
+            <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center" id="table_certification" style="width: 100%;">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -131,16 +130,16 @@
             dataCertification.ajax.reload();
         });
 
-        // Adjust DataTables on window resize and when sidebar toggle is clicked
-        // $(window).on('resize', function() {
-        //     dataCertification.columns.adjust().responsive.recalc();
-        // });
+        //Adjust DataTables on window resize and when sidebar toggle is clicked
+        $(window).on('resize', function() {
+            dataCertification.columns.adjust().responsive.recalc();
+        });
 
-        // $('.sidebar-toggle').on('click', function() {
-        //     setTimeout(function() {
-        //         dataCertification.columns.adjust().responsive.recalc();
-        //     }, 300); // Timeout to wait for sidebar animation
-        // });
+        $('.sidebar-toggle').on('click', function() {
+            setTimeout(function() {
+                dataCertification.columns.adjust().responsive.recalc();
+            }, 300); // Timeout to wait for sidebar animation
+        });
     });
 </script>
 @endpush

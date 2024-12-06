@@ -77,7 +77,6 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/', [CertificationController::class, 'index']);
             Route::post('/list', [CertificationController::class, 'list']);
             Route::get('/create', [CertificationController::class, 'create']);
-            Route::get('/create_training', [CertificationController::class, 'create_training']);
             Route::post('/store', [CertificationController::class, 'store']);
             Route::get('/{id}/course', [CertificationController::class, 'course']);
             Route::get('/{id}/interest', [CertificationController::class, 'interest']);
@@ -165,26 +164,34 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
     
         // Route Mata Kuliah
         Route::group(['prefix' => 'course'], function() {
-        Route::get('/', [CourseController::class, 'index']);
-        Route::post('/list', [CourseController::class, 'list']);
-        Route::get('/create', [CourseController::class, 'create']);
-        Route::post('/store', [CourseController::class, 'store']);
-        Route::get('/{id}/show', [CourseController::class, 'show']);
-        Route::get('/{id}/edit', [CourseController::class, 'edit']);
-        Route::put('/{id}/update', [CourseController::class, 'update']);
-        Route::get('/{id}/delete', [CourseController::class, 'confirm']);
-        Route::delete('/{id}/delete', [CourseController::class, 'delete']);
-        Route::get('/import', [CourseController::class, 'import']);
-        Route::post('/import_excel', [CourseController::class, 'import_excel']);
-        Route::get('/export_excel', [CourseController::class, 'export_excel']);
-        Route::get('/export_pdf', [CourseController::class, 'export_pdf']);
+            Route::get('/', [CourseController::class, 'index']);
+            Route::post('/list', [CourseController::class, 'list']);
+            Route::get('/create', [CourseController::class, 'create']);
+            Route::post('/store', [CourseController::class, 'store']);
+            Route::get('/{id}/show', [CourseController::class, 'show']);
+            Route::get('/{id}/edit', [CourseController::class, 'edit']);
+            Route::put('/{id}/update', [CourseController::class, 'update']);
+            Route::get('/{id}/delete', [CourseController::class, 'confirm']);
+            Route::delete('/{id}/delete', [CourseController::class, 'delete']);
+            Route::get('/import', [CourseController::class, 'import']);
+            Route::post('/import_excel', [CourseController::class, 'import_excel']);
+            Route::get('/export_excel', [CourseController::class, 'export_excel']);
+            Route::get('/export_pdf', [CourseController::class, 'export_pdf']);
         });
     }); //middleware admin
     
-    Route::middleware(['authorize:DSN'])->group(function(){
+    Route::middleware(['authorize:DSN,TDK'])->group(function(){
+        // Route Input Sertifikasi
         Route::group(['prefix' => 'certification_input'], function() {
             Route::get('/', [CertificationInputController::class, 'index']);
             Route::post('/{id}/store', [CertificationInputController::class, 'store']);
+        });
+
+        // Route Riwayat Sertifikasi
+        Route::group(['prefix' => 'certification_history'], function() {
+            Route::get('/', [CertificationHistoryController::class, 'index'])->name('certification.history');
+            Route::get('/list', [CertificationHistoryController::class, 'list']);
+            Route::get('/show/{id}', [CertificationHistoryController::class, 'show'])->name('certification.show');
         });
     });
 
@@ -199,7 +206,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         });
 
         // Route Vendor Pelatihan
-        Route::group(['prefix' => 'training_vendor'], function(){
+        Route::group(['prefix' => 'training_vendor_head'], function(){
             Route::get('/', [TrainingVendorHeadController::class, 'index']);
             Route::post('/list', [TrainingVendorHeadController::class, 'list']);
             Route::get('/{id}/show', [TrainingVendorHeadController::class, 'show']);
@@ -207,7 +214,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/export_pdf', [TrainingVendorHeadController::class, 'export_pdf']);
         });
         
-        Route::group(['prefix' => 'certification_vendor'], function(){
+        Route::group(['prefix' => 'certification_vendor_head'], function(){
             Route::get('/', [CertificationVendorHeadController::class, 'index']);
             Route::post('/list', [CertificationVendorHeadController::class, 'list']);
             Route::get('/{id}/show', [CertificationVendorHeadController::class, 'show']);
@@ -215,7 +222,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/export_pdf', [CertificationVendorHeadController::class, 'export_pdf']);
         });
         
-        Route::group(['prefix' => 'certification'], function(){
+        Route::group(['prefix' => 'certification_head'], function(){
             Route::get('/', [CertificationHeadController::class, 'index']);
             Route::post('/list', [CertificationHeadController::class, 'list']);
             Route::get('/{id}/show', [CertificationHeadController::class, 'show']);
@@ -240,20 +247,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         Route::get('/export_pdf', [EnvelopeController::class, 'export_pdf']);
     });
     
-    // Route Profile
     
-    // Dosen
-    // Route Input Sertifikasi
-    Route::group(['prefix' => 'certification_input'], function() {
-        Route::get('/', [CertificationInputController::class, 'index']);
-        Route::post('/{id}/store', [CertificationInputController::class, 'store']);
-    });
-
-    // Route Riwayat Sertifikasi
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/certification_history', [CertificationHistoryController::class, 'index'])->name('certification.history');
-        Route::get('/certification_hisory/list', [CertificationHistoryController::class, 'list']);
-    });
     // Route Pengajuan Pelatihan
     Route::group(['prefix' => 'training_input'], function() {
         Route::get('/', [TrainingInputController::class, 'index']);

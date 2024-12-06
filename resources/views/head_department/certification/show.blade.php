@@ -11,7 +11,7 @@
                 <h5><i class="bi bi-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/certification') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/certification_head') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>

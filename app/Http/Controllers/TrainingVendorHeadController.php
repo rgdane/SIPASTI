@@ -20,7 +20,7 @@ class TrainingVendorHeadController extends Controller
             'title' => 'Daftar vendor pelatihan yang terdaftar dalam sistem'
         ];
     
-        $activeMenu = 'training_vendor'; //set menu yang sedang aktif
+        $activeMenu = 'training_vendor_head'; //set menu yang sedang aktif
     
         return view('head_department.training_vendor.index',['breadcrumb'=>$breadcrumb, 'page' => $page, 'activeMenu'=>$activeMenu]);
     }
@@ -40,7 +40,7 @@ class TrainingVendorHeadController extends Controller
         // menambahkan kolom index / no urut (default training_vendor_name kolom: DT_RowIndex)
         ->addIndexColumn()
         ->addColumn('aksi', function ($training_vendors) { // menambahkan kolom aksi
-            $btn  = '<button onclick="modalAction(\''.url('/training_vendor/' . $training_vendors->training_vendor_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
+            $btn  = '<button onclick="modalAction(\''.url('/training_vendor_head/' . $training_vendors->training_vendor_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
             // $btn .= '<button onclick="modalAction(\''.url('/training_vendor/' . $training_vendors->training_vendor_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
             // $btn .= '<button onclick="modalAction(\''.url('/training_vendor/' . $training_vendors->training_vendor_id . '/delete').'\')"  class="btn btn-danger btn-sm">Hapus</button> ';
             return $btn;

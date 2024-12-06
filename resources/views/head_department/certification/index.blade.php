@@ -110,7 +110,7 @@
             lengthChange: false,
             info: false,
             ajax: {
-                url: "{{ url('certification/list') }}",
+                url: "{{ url('certification_head/list') }}",
                 dataType: "json",
                 type: "POST",
                 data: function(d) {

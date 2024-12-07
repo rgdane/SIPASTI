@@ -71,8 +71,6 @@ class TrainingInputController extends Controller
             'training_location' => 'required|string',
             'training_cost' => 'required|integer',
             'training_vendor_id' => 'required|string',
-            'training_level' => 'required|integer',
-            'training_quota' => 'required|integer',
             'course_id' => 'required|array', // Pastikan input adalah array
             'course_id.*' => 'exists:m_course,course_id', // Validasi setiap elemen array
             'interest_id' => 'required|array', // Pastikan input adalah array
@@ -100,7 +98,8 @@ class TrainingInputController extends Controller
                 'training_cost' => $request->training_cost,
                 'training_vendor_id' => $request->training_vendor_id,
                 'training_level' => $request->training_level,
-                'training_quota' => $request->training_quota,
+                'training_quota' => 1,
+                'training_status' => '4',
             ]);
 
             foreach ($request->course_id as $courseId) {
@@ -118,6 +117,11 @@ class TrainingInputController extends Controller
                     'training_id' => TrainingModel::latest()->first()->training_id,
                 ]);
             }
+
+            TrainingMemberModel::create([
+                'user_id' => $userId,
+                'training_id' => TrainingModel::latest()->first()->training_id,
+            ]);
 
             return response()->json([
                 'status' => true,

@@ -20,22 +20,25 @@
                 {{-- Tanggal Pelatihan --}}
                 <div class="col-md-6 mb-4">
                     <label class="form-label mb-2">Tanggal Pelatihan</label>
-                    <input type="date" class="form-control" id="training_date" name="training_date"
-                        placeholder="Masukkan tanggal pelatihan" required>
+                    <input type="date" class="form-control" id="training_date" name="training_date" required>
                 </div>
 
                 {{-- Durasi Pelatihan --}}
                 <div class="col-md-6 mb-4">
-                    <label class="form-label mb-2">Durasi Pelatihan</label>
+                    <label class="form-label mb-2">Durasi Pelatihan (jam)</label>
                     <input type="number" class="form-control" id="training_hours" name="training_hours"
                         placeholder="Masukkan durasi pelatihan" required>
                 </div>
 
-                {{-- Lokasi Pelatihan --}}
+                <!-- Tahun Periode -->
                 <div class="col-md-6 mb-4">
-                    <label class="form-label mb-2">Lokasi Pelatihan</label>
-                    <input type="text" class="form-control" id="training_location" name="training_location"
-                        placeholder="Masukkan lokasi pelatihan" required>
+                    <label for="period">Tahun Periode</label>
+                    <select name="period_id" id="period_id" class="form-control" required>
+                        <option value="">- Pilih Periode -</option>
+                        @foreach($periode as $l) <option value="{{ $l->period_id }}">{{ $l->period_year }}</option>
+                        @endforeach
+                    </select>
+                    <small id="error-period" class="error-text form-text text-danger"></small>
                 </div>
 
                 {{-- Biaya Pelatihan --}}
@@ -45,11 +48,11 @@
                         placeholder="Masukkan biaya pelatihan" required>
                 </div>
 
-                {{-- Kuota Pelatihan --}}
+                {{-- Lokasi Pelatihan --}}
                 <div class="col-md-6 mb-4">
-                    <label class="form-label mb-2">Kuota Pelatihan</label>
-                    <input type="number" class="form-control" id="training_quota" name="training_quota"
-                        placeholder="Masukkan kuota pelatihan" required>
+                    <label class="form-label mb-2">Lokasi Pelatihan</label>
+                    <input type="text" class="form-control" id="training_location" name="training_location"
+                        placeholder="Masukkan lokasi pelatihan" required>
                 </div>
 
                 {{-- Level Pelatihan --}}
@@ -96,16 +99,7 @@
                     <small id="error-interest_id" class="error-text form-text text-danger"></small>
                 </div>
 
-                <!-- Tahun Periode -->
-                <div class="col-md-6 mb-4">
-                    <label for="period">Tahun Periode</label>
-                    <select name="period_id" id="period_id" class="form-control" required>
-                        <option value="">- Pilih Periode -</option>
-                        @foreach($periode as $l) <option value="{{ $l->period_id }}">{{ $l->period_year }}</option>
-                        @endforeach
-                    </select>
-                    <small id="error-period" class="error-text form-text text-danger"></small>
-                </div>
+                
 
                 <!-- Submit Button -->
                 <div class="col-12 mt-2">
@@ -227,37 +221,6 @@
             }
         });
 
-        $('#user_id').select2({
-            placeholder: "Pilih Peserta Pelatihan",
-            allowClear: true,
-            minimumResultsForSearch: 5,
-            width: '100%',
-            templateResult: function(state) {
-                if (!state.id) { return state.text; }
-                return $('<span>' + state.text + '</span>');
-            },
-            templateSelection: function(state) {
-                if (!state.id) { return state.text; }
-                return $('<span>' + state.text + '</span>');
-            }
-        });
-
-        // Event listener untuk perubahan pada input kuota
-        $('#training_quota').on('change', function () {
-            let quota = parseInt($(this).val()) || 0;
-            let currentCount = $('.user-item').length;
-
-            if (quota > currentCount) {
-                for (let i = currentCount; i < quota; i++) {
-                    tambahKolomPeserta();
-                }
-            } else if (quota < currentCount) {
-                for (let i = currentCount; i > quota; i--) {
-                    hapusKolomPeserta();
-                }
-            }
-        });
-
         // Event listener untuk perubahan pilihan dropdown
         $(document).on('change', '.user-select', function () {
             let selectedValue = $(this).val();
@@ -272,5 +235,61 @@
             updateDropdownOptions(); // Perbarui semua dropdown
         });
     });
+
+    // Form submission handling
+    $('#form-input').on('submit', function(e) {
+        e.preventDefault();
+
+        // Simpan referensi form
+        let form = this;
+
+        $.ajax({
+            url: $(form).attr('action'),
+            type: $(form).attr('method'),
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.status) {
+                    // Tampilkan pesan sukses
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response.message
+                    });
+
+                    // Reset form
+                    form.reset();
+
+                    // Reset Select2
+                    $('#course_id').val(null).trigger('change');
+                    $('#interest_id').val(null).trigger('change');
+                } else {
+                    // Tampilkan pesan kesalahan
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: response.message
+                    });
+
+                    // Tampilkan error field
+                    $('.error-text').text(''); // Bersihkan error sebelumnya
+                    $.each(response.msgField, function(prefix, val) {
+                        $('#error-' + prefix).text(val[0]);
+                    });
+                }
+            },
+            error: function(xhr) {
+                // Tangani error server
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: 'Silakan coba lagi nanti.'
+                });
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
 </script>
 @endpush

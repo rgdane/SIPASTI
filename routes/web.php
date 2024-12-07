@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\CertificationVendorController;
 use App\Http\Controllers\CertificationVendorHeadController;
+use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrainingApprovalController;
 use App\Http\Controllers\TrainingHistoryController;
@@ -178,6 +179,19 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::post('/import_excel', [CourseController::class, 'import_excel']);
             Route::get('/export_excel', [CourseController::class, 'export_excel']);
             Route::get('/export_pdf', [CourseController::class, 'export_pdf']);
+        });
+
+        // Route Tahun Periode
+        Route::group(['prefix' => 'period'], function() {
+            Route::get('/', [PeriodController::class, 'index']);
+            Route::post('/list', [PeriodController::class, 'list']);
+            Route::get('/create', [PeriodController::class, 'create']);
+            Route::post('/store', [PeriodController::class, 'store']);
+            Route::get('/{id}/show', [PeriodController::class, 'show']);
+            Route::get('/{id}/edit', [PeriodController::class, 'edit']);
+            Route::put('/{id}/update', [PeriodController::class, 'update']);
+            Route::get('/{id}/delete', [PeriodController::class, 'confirm']);
+            Route::delete('/{id}/delete', [PeriodController::class, 'delete']);
         });
     }); //middleware admin
     

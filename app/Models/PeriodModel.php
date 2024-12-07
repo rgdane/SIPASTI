@@ -11,10 +11,14 @@ class PeriodModel extends Model
     use HasFactory;
     protected $table = 'm_period';
     protected $primaryKey = 'period_id';
-    protected $fillable = ['period_name'];
+    protected $fillable = ['period_year'];
     protected $casts = ['period_id' => 'string'];
 
     public function certification(): BelongsTo{
         return $this->belongsTo(CertificationModel :: class);
+    }
+    
+    public function training(): BelongsTo{
+        return $this->belongsTo(TrainingModel :: class);
     }
 }

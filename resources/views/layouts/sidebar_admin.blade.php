@@ -183,6 +183,13 @@
                     <p>Mata Kuliah</p>
                 </a>
             </li>
+            
+            <li class="nav-item">
+                <a href="{{ url('/period') }}" class="nav-link {{ ($activeMenu == 'period') ? 'active' : '' }}">
+                    <i class="bi bi-calendar-date"></i>
+                    <p>Tahun Periode</p>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a href="{{ url('/envelope') }}" class="nav-link {{ ($activeMenu == 'envelope') ? 'active' : '' }}">

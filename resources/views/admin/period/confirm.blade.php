@@ -1,4 +1,4 @@
-@empty($course)
+@empty($period)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,18 +12,18 @@
                 <h5><i class="bi bi-x-circle-fill"></i> Kesalahan!!!</h5> <!-- Updated icon -->
                 Data yang anda cari tidak ditemukan
             </div>
-            <a href="{{ url('/course') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/period') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
 @else
-<form action="{{ url('/course/' . $course['course_id'] . '/delete') }}" method="POST" id="form-delete">
+<form action="{{ url('/period/' . $period['period_id'] . '/delete') }}" method="POST" id="form-delete">
     @csrf
     @method('DELETE')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Mata Kuliah</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Tahun Periode</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -35,12 +35,8 @@
                 </div>
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
-                        <th class="text-right col-3">Kode Mata Kuliah:</th>
-                        <td class="col-9">{{ $course['course_code'] }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-right col-3">Nama Mata Kuliah:</th>
-                        <td class="col-9">{{ $course['course_name'] }}</td>
+                        <th class="text-right col-3">Tahun Periode:</th>
+                        <td class="col-9">{{ $period['period_year'] }}</td>
                     </tr>
                 </table>
             </div>
@@ -68,7 +64,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataCourse.ajax.reload();
+                                dataPeriod.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

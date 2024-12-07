@@ -121,7 +121,7 @@ $(document).ready(function() {
             `
         },
         ajax: {
-            url: '{{ url("certification_hisory/list") }}',
+            url: '{{ url("certification_history/list") }}',
             method: 'GET',
             data: function (d) {
                 d.status = $('#status').val();   

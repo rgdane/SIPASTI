@@ -37,7 +37,7 @@ class CertificationHistoryController extends Controller
         ]);
     }
 
-    public function list(Request $request)
+    public function list()
     {
         // Ensure the user is authenticated
         if (!Auth::check()) {

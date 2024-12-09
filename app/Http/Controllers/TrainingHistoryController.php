@@ -28,7 +28,7 @@ class TrainingHistoryController extends Controller
 
         $activeMenu = 'training_history';
 
-        return view('lecturer.training-history.index', [
+        return view('lecturer.training_history.index', [
             'breadcrumb' => $breadcrumb,
             'page' => $page,
             'activeMenu' => $activeMenu,
@@ -174,7 +174,7 @@ class TrainingHistoryController extends Controller
         );
         // dd($training->training_id);
         // Kembalikan view dengan data
-        return view('lecturer.training-history.show', [
+        return view('lecturer.training_history.show', [
             'training' => $training,
             'interest' => $interest,
             'course' => $course,

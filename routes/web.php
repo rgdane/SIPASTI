@@ -15,6 +15,7 @@ use App\Http\Controllers\CertificationVendorController;
 use App\Http\Controllers\CertificationVendorHeadController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TrainingApprovalController;
 use App\Http\Controllers\TrainingHistoryController;
 use App\Http\Controllers\TrainingInputController;
@@ -258,7 +259,13 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         });
     });
     
-    
+    Route::middleware(['authorize:ADM,PMP'])->group(function(){
+        // Route Statistik Dosen
+        Route::group(['prefix' => 'statistic'], function() {
+            Route::get('/', [StatisticController::class, 'index']);
+            Route::post('/list', [StatisticController::class, 'list']);
+        });
+    });
     // Route Permintaan Surat Tugas
     Route::group(['prefix' => 'envelope'], function() {
         Route::get('/', [EnvelopeController::class, 'index']);

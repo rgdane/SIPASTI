@@ -82,7 +82,7 @@
                 <div class="form-group">
                     <label for="training_date">Tanggal Pelatihan</label>
                     <input type="date" class="form-control" id="training_date" name="training_date" 
-                    value="{{ old('training_date', date('Y-m-d', strtotime($training->training_date_start ?? ''))) }}">
+                    value="{{ old('training_date', $training->training_date ?? '') }}">
                     <small id="error-training_date" class="error-text form-text text-danger"></small>
                 </div>
 

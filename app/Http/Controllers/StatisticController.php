@@ -31,11 +31,12 @@ class StatisticController extends Controller
                 a.user_id,
                 a.user_fullname,
                 COUNT(b.user_id) AS certification_count,
-                COUNT(c.user_id) AS training_count
+                COUNT(d.training_id) AS training_count
             FROM
                 m_user a
                 LEFT JOIN m_certification b ON a.user_id = b.user_id
                 LEFT JOIN t_training_member c ON a.user_id = c.user_id
+                LEFT JOIN m_training d ON c.training_id = d.training_id AND d.training_status = '4'
             GROUP BY
                 a.user_id
                 ;"

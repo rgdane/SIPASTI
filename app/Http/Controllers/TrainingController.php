@@ -42,7 +42,7 @@ class TrainingController extends Controller
                 a.training_id,
                 a.training_name,
                 d.period_year,
-                a.training_date,
+                DATE_FORMAT(a.training_date, '%d-%m-%Y') as training_date,
                 CASE
                     WHEN a.training_level = '0' THEN 'Nasional'
                         ELSE 'Internasional'
@@ -261,7 +261,27 @@ class TrainingController extends Controller
 
     public function edit(string $id)
     {
-        $training = TrainingModel::where('training_id', $id)->first();
+        $training = DB::selectOne(
+            "SELECT
+                a.training_id,
+                a.training_name,
+                d.period_id,
+                a.training_date,
+                a.training_hours,
+                a.training_location,
+                a.training_cost,
+                a.training_quota,
+                a.training_vendor_id,
+                b.training_vendor_name,
+                a.training_level,
+                a.training_status
+            FROM
+                m_training a
+                INNER JOIN m_training_vendor b ON a.training_vendor_id = b.training_vendor_id
+                INNER JOIN m_period d ON a.period_id = d.period_id
+            WHERE
+                a.training_id = :id", ['id' => $id]
+        );
         
         $interestTraining = DB::select(
             "SELECT

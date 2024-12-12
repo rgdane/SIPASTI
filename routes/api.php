@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\CertificationHistoryController;
 use App\Http\Controllers\Api\UserTypeController;
 use App\Http\Controllers\Api\TrainingHistoryController;
 use Illuminate\Http\Request;
@@ -23,7 +24,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout');
 
 //Route Riwayat Pelatihan
-    Route::get('/training_history', [TrainingHistoryController::class, 'index']);
-    Route::post('/training_history/list', [TrainingHistoryController::class, 'list']);
-    Route::get('/training_history/{id}/show', [TrainingHistoryController::class, 'show']);
+Route::get('/training_history/{user}', [TrainingHistoryController::class, 'index']);
+Route::get('/training_history/show/{id}', [TrainingHistoryController::class, 'show']);
+
+//Route Riwayat Sertifikasi
+Route::get('/certification/{user}', [CertificationHistoryController::class, 'index']);
+Route::get('/certification/show/{id}', [CertificationHistoryController::class, 'show']);
 

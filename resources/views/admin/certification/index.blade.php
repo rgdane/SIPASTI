@@ -17,6 +17,21 @@
     <div class="card-body">
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-3">
+                        <select class="form-control" name="certification_level" id="certification_level" required>
+                            <option value="">- Semua -</option>
+                            <option value="0">Nasional</option>
+                            <option value="1">Internasional</option>
+                        </select>
+                        <small class="form-text text-muted">Level Sertifikasi</small>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Tambahkan div dengan class table-responsive -->
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center" id="table_certification" style="width: 100%;">
@@ -35,25 +50,6 @@
                     <!-- Data from AJAX will populate here -->
                 </tbody>
             </table>
-        </div>
-        <!-- Pagination -->
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <div>Show
-                <select class="custom-select custom-select-sm form-control form-control-sm w-auto">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select> entries
-            </div>
-            <div>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination pagination-sm mb-0">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
-            </div>
         </div>
     </div>
 </div>
@@ -104,8 +100,6 @@
         dataCertification = $('#table_certification').DataTable({
             serverSide: true,
             responsive: false,
-            paging: false, // Disable pagination if you want to use custom pagination
-            lengthChange: false,
             info: false,
             ajax: {
                 url: "{{ url('certification/list') }}",
@@ -113,6 +107,7 @@
                 type: "POST",
                 data: function(d) {
                     d.certification_vendor_id = $('#certification_vendor_id').val();
+                    d.certification_level = $('#certification_level').val();
                 }
             },
             columns: [
@@ -127,6 +122,10 @@
         });
 
         $('#certification_vendor_id').on('change', function() {
+            dataCertification.ajax.reload();
+        });
+
+        $('#certification_level').on('change', function () {
             dataCertification.ajax.reload();
         });
 

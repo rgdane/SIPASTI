@@ -35,46 +35,51 @@ class TrainingController extends Controller
         return view('admin.training.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
-    public function list()
+    public function list(Request $request)
     {
-        $trainings = DB::select(
-            "SELECT
-                a.training_id,
-                a.training_name,
-                d.period_year,
-                DATE_FORMAT(a.training_date, '%d-%m-%Y') as training_date,
-                CASE
-                    WHEN a.training_level = '0' THEN 'Nasional'
-                        ELSE 'Internasional'
-                END AS training_level,
-                CASE
-                    WHEN a.training_status = '0' THEN 'Pending'
-                    WHEN a.training_status = '1' THEN 'Pengajuan'
-                    WHEN a.training_status = '2' THEN 'Ditolak'
-                    WHEN a.training_status = '3' THEN 'Disetujui'
-                    WHEN a.training_status = '4' THEN 'Selesai'
-                END AS training_status
-            FROM
-                m_training a
-                INNER JOIN m_period d ON a.period_id = d.period_id
-            WHERE
-                a.training_status <> '0'
-                ;"
-        );
+        $query = "SELECT
+        a.training_id,
+        a.training_name,
+        d.period_year,
+        DATE_FORMAT(a.training_date, '%d-%m-%Y') as training_date,
+        CASE
+            WHEN a.training_level = '0' THEN 'Nasional'
+            ELSE 'Internasional'
+        END AS training_level,
+        CASE
+            WHEN a.training_status = '0' THEN 'Pending'
+            WHEN a.training_status = '1' THEN 'Pengajuan'
+            WHEN a.training_status = '2' THEN 'Ditolak'
+            WHEN a.training_status = '3' THEN 'Disetujui'
+            WHEN a.training_status = '4' THEN 'Selesai'
+        END AS training_status
+    FROM
+        m_training a
+        INNER JOIN m_period d ON a.period_id = d.period_id
+    WHERE
+        a.training_status <> '0'";
+
+        // Tambahkan filter training_level jika dipilih
+        if ($request->has('training_level') && $request->training_level != '') {
+            $query .= " AND a.training_level = '" . $request->training_level . "'";
+        }
+
+        $trainings = DB::select($query);
+
         return DataTables::of($trainings)
-        // menambahkan kolom index / no urut (default training_name kolom: DT_RowIndex)
-        ->addIndexColumn()
-        ->addColumn('aksi', function ($trainings) { // menambahkan kolom aksi
-            $btn = '<button onclick="modalAction(\''.url('/training/' . $trainings->training_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
-            $btn .= '<button onclick="modalAction(\''.url('/training/' . $trainings->training_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
-            $btn .= '<button onclick="modalAction(\''.url('/training/' . $trainings->training_id . '/delete').'\')"  class="btn btn-danger btn-sm">Hapus</button> ';
-            return $btn;
-        })
-        ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
-        ->make(true);
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($training) {
+                $btn = '<button onclick="modalAction(\'' . url('/training/' . $training->training_id . '/show') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/training/' . $training->training_id . '/edit') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/training/' . $training->training_id . '/delete') . '\')"  class="btn btn-danger btn-sm">Hapus</button> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
     }
 
-    public function create_training(){
+    public function create_training()
+    {
         $training_vendor = TrainingVendorModel::select('training_vendor_id', 'training_vendor_name')->get();
         $period = PeriodModel::select('period_id', 'period_year')->get();
         $course = CourseModel::select('course_id', 'course_name')->get();
@@ -87,7 +92,8 @@ class TrainingController extends Controller
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
         $training_vendor = TrainingVendorModel::select('training_vendor_id', 'training_vendor_name')->get();
         $period = PeriodModel::select('period_id', 'period_year')->get();
         $course = CourseModel::select('course_id', 'course_name')->get();
@@ -123,7 +129,7 @@ class TrainingController extends Controller
             'user_id.*' => 'exists:m_user,user_id', // Validasi setiap elemen array
         ];
         $validator = Validator::make($request->all(), $rules);
-        
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
@@ -215,7 +221,8 @@ class TrainingController extends Controller
                 INNER JOIN m_training_vendor b ON a.training_vendor_id = b.training_vendor_id
                 INNER JOIN m_period d ON a.period_id = d.period_id
             WHERE
-                a.training_id = :id", ['id' => $id]
+                a.training_id = :id",
+            ['id' => $id]
         );
 
         $interest = DB::select(
@@ -244,7 +251,8 @@ class TrainingController extends Controller
         ]);
     }
 
-    public function show_member($id){
+    public function show_member($id)
+    {
         $user = DB::select(
             "SELECT
         b.`user_fullname`
@@ -280,9 +288,10 @@ class TrainingController extends Controller
                 INNER JOIN m_training_vendor b ON a.training_vendor_id = b.training_vendor_id
                 INNER JOIN m_period d ON a.period_id = d.period_id
             WHERE
-                a.training_id = :id", ['id' => $id]
+                a.training_id = :id",
+            ['id' => $id]
         );
-        
+
         $interestTraining = DB::select(
             "SELECT
                 a.*,
@@ -352,7 +361,7 @@ class TrainingController extends Controller
             'user_id.*' => 'exists:m_user,user_id', // Validasi setiap elemen array
         ];
         $validator = Validator::make($request->all(), $rules);
-        
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
@@ -360,7 +369,7 @@ class TrainingController extends Controller
                 'msgField' => $validator->errors(),
             ]);
         }
-        
+
         $check = TrainingModel::find($id);
         if ($check) {
             $check->training_name = $request->training_name;
@@ -377,7 +386,7 @@ class TrainingController extends Controller
             CourseTrainingModel::where('training_id', $id)->delete();
             interestTrainingModel::where('training_id', $id)->delete();
             TrainingMemberModel::where('training_id', $id)->delete();
-            
+
 
             foreach ($request->course_id as $courseId) {
                 // Simpan ke database
@@ -445,7 +454,8 @@ class TrainingController extends Controller
                 INNER JOIN m_training_vendor b ON a.training_vendor_id = b.training_vendor_id
                 INNER JOIN m_period d ON a.period_id = d.period_id
             WHERE
-                a.training_id = :id", ['id' => $id]
+                a.training_id = :id",
+            ['id' => $id]
         );
 
         $interest = DB::select(

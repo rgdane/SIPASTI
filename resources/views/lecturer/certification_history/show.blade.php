@@ -11,7 +11,7 @@
                 <h5><i class="bi bi-ban"></i> Kesalahan!</h5>
                 Data yang Anda cari tidak ditemukan.
             </div>
-            <a href="{{ url('/certification') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('/certification_history') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
@@ -93,7 +93,7 @@
                                 {{ $item->course_name }}@if ($index < count($course) - 1), @endif
                             @endforeach
                             @else
-                                Tidak ada data minat.
+                                Tidak ada data mata kuliah.
                             @endif
                         </td>
                     </tr>
@@ -108,7 +108,7 @@
 @endempty
 
 @push('js')
-<script>
+{{-- <script>
 $(document).ready(function() {
         $("#form-show").validate({
             submitHandler: function(form) {
@@ -156,5 +156,5 @@ $(document).ready(function() {
             }
         });
     });
-</script>
+</script> --}}
 @endpush

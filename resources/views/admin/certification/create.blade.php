@@ -1,106 +1,3 @@
-
-@stack('css')
-
-@push('css')
-<style>
-/* Minimalist Header Styling */
-.header-nav {
-    display: flex;
-    gap: 32px;
-    padding: 8px 0;
-}
-
-.nav-link {
-    color: #666;
-    text-decoration: none;
-    position: relative;
-}
-
-.nav-link.active {
-    color: #000;
-    font-weight: 500;
-}
-
-.nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #000;
-}
-
-.header-border {
-    width: 100%;
-    height: 1px;
-    background-color: #e0e0e0;
-    margin-bottom: 16px;
-}
-
-/* Form Styling */
-.form-label {
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.form-control {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-}
-
-.form-control::placeholder {
-    color: #999;
-    font-size: 0.9rem;
-}
-
-/* Submit Button Styling */
-.btn-primary {
-    padding: 0.5rem 2rem;
-    font-weight: 500;
-}
-
-/* Upload Area Styling */
-.upload-container {
-    max-width: 600px;
-    margin: 2rem auto;
-}
-
-.upload-area {
-    padding: 2rem;
-}
-
-.upload-box {
-    border: 2px dashed #dee2e6;
-    border-radius: 8px;
-    padding: 3rem 2rem;
-    text-align: center;
-    background-color: #f8f9fa;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-}
-
-.upload-box:hover {
-    border-color: #0d6efd;
-}
-
-.upload-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.upload-icon {
-    width: 64px;
-    height: 64px;
-    opacity: 0.6;
-}
-</style>
-@endpush
-
 <form action="{{ url('/certification/store') }}" method="POST" id="form-tambah" enctype="multipart/form-data">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -199,7 +96,7 @@
                 <!-- Mata Kuliah -->
                 <div class="form-group">
                     <label for="course_id">Mata Kuliah</label><br>
-                    <select name="course_id[]" id="course_id" class="form-control" multiple required>
+                    <select name="course_id[]" id="course_id" class="form-control " multiple required>
                         @foreach($course as $l) 
                             <option value="{{ $l->course_id }}">{{ $l->course_name }}</option> 
                         @endforeach
@@ -207,11 +104,9 @@
                     <small id="error-course_id" class="error-text form-text text-danger"></small>
                 </div>
 
-
-                <!-- Bidang Minat -->
                 <div class="form-group">
-                    <label for="interest_id">Bidang Minat</label><br>
-                    <select name="interest_id[]" id="interest_id" class="form-control" multiple required>
+                    <label for="interest_id">Bidang Minat</label>
+                    <select name="interest_id[]" id="interest_id" class="form-control select2-multiple" multiple required>
                         @foreach($interest as $l) 
                             <option value="{{ $l->interest_id }}">{{ $l->interest_name }}</option> 
                         @endforeach
@@ -237,17 +132,49 @@
     </div>
 </form>
 
-
+<style>
+    /* Ensure selected items have black text */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #2C3941;
+        border: 1px solid #ddd;
+        color: #000 !important; /* Force black text color */
+    }
+    
+    /* Ensure the selection text is black */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+        color: #ffffff !important; /* Force black text color */
+    }
+</style>
 
 <script>
     $(document).ready(function() {
         $('#course_id').select2({
-            placeholder: "- Pilih Mata Kuliah -",
-            allowClear: true
-        });
+        placeholder: "Pilih Bidang Minat",
+        allowClear: true,
+        minimumResultsForSearch: 5, // Only show search box if more than 5 options
+        width: '100%', // Ensure full width
+        templateResult: function(state) {
+            if (!state.id) { return state.text; }
+            return $('<span>' + state.text + '</span>');
+        },
+        templateSelection: function(state) {
+            if (!state.id) { return state.text; }
+            return $('<span>' + state.text + '</span>');
+        }
+    });
         $('#interest_id').select2({
-            placeholder: "- Pilih Bidang Minat -",
-            allowClear: true
+            placeholder: "Pilih Bidang Minat",
+            allowClear: true,
+            minimumResultsForSearch: 5, // Only show search box if more than 5 options
+            width: '100%', // Ensure full width
+            templateResult: function(state) {
+                if (!state.id) { return state.text; }
+                return $('<span>' + state.text + '</span>');
+            },
+            templateSelection: function(state) {
+                if (!state.id) { return state.text; }
+                return $('<span>' + state.text + '</span>');
+            }
         });
     });
     // Form submission handling

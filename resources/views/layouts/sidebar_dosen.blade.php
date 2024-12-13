@@ -120,7 +120,7 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'training_history') ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'training_input' || $activeMenu == 'training_history') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-journal-text"></i>
                     <p> Pelatihan
@@ -145,7 +145,7 @@
             </li>
 
             {{-- Sidebar Untuk Dosen --}}
-            <li class="nav-item has-treeview {{ ($activeMenu == 'envelope_submission' || $activeMenu == 'history_envelope') ? 'menu-open' : '' }}">
+            {{-- <li class="nav-item has-treeview {{ ($activeMenu == 'envelope_submission' || $activeMenu == 'history_envelope') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-envelope"></i>
                     <p> Surat <i class="right bi bi-caret-left-fill"></i></p>
@@ -166,7 +166,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </nav>
 </div>

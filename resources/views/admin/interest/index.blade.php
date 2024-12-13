@@ -10,7 +10,7 @@
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
             <a href="{{ url('/interest/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
-            <button onclick="modalAction('{{ url('/interest/create_ajax') }}')" class="btn btn-success"><i
+            <button onclick="modalAction('{{ url('/interest/create') }}')" class="btn btn-success"><i
                     class="bi bi-plus-circle"></i> Tambah Data</button>
         </div>
     </div>
@@ -90,7 +90,7 @@
 
     var dataInterest;
     $(document).ready(function() {
-        interest = $('#table_interest').DataTable({
+        dataInterest = $('#table_interest').DataTable({
             serverSide: true,
             responsive: true,
             paging: false, // Disable pagination if you want to use custom pagination

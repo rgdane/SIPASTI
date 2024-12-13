@@ -62,7 +62,7 @@
 
       @if (auth()->user()->user_type->user_type_code === 'ADM')
         @include('layouts.sidebar_admin')
-      @elseif (auth()->user()->user_type->user_type_code === 'DSN')
+      @elseif (auth()->user()->user_type->user_type_code === 'DSN' || auth()->user()->user_type->user_type_code === 'TDK')
         @include('layouts.sidebar_dosen')
       @elseif(auth()->user()->user_type->user_type_code === 'PMP')
         @include('layouts.sidebar_pimpinan')

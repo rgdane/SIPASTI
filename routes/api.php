@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\api\CertificationHistoryController;
 use App\Http\Controllers\Api\UserTypeController;
+use App\Http\Controllers\Api\TrainingHistoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout');
 
-Route::get('/user_type', [UserTypeController::class, 'index']);
-Route::post('/user_type', [UserTypeController::class, 'store']);
-Route::get('/user_type/{user_type}', [UserTypeController::class, 'show']);
-Route::put('/user_type/{user_type}', [UserTypeController::class, 'update']);
-Route::delete('/user_type/{user_type}', [UserTypeController::class, 'destroy']);
+//Route Riwayat Pelatihan
+Route::get('/training_history/{user}', [TrainingHistoryController::class, 'index']);
+Route::get('/training_history/show/{id}', [TrainingHistoryController::class, 'show']);
+
+//Route Riwayat Sertifikasi
+Route::get('/certification/{user}', [CertificationHistoryController::class, 'index']);
+Route::get('/certification/show/{id}', [CertificationHistoryController::class, 'show']);
+

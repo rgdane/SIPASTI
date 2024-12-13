@@ -5,13 +5,13 @@
     <div class="card-header">
         <h3 class="card-title">Manajemen Vendor Pelatihan</h3>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('/trainingVendor/import') }}')" class="btn btn-info">
+            <button onclick="modalAction('{{ url('/training_vendor/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button>
-            <a href="{{ url('/trainingVendor/export_excel') }}" class="btn btn-primary">
+            <a href="{{ url('/training_vendor/export_excel') }}" class="btn btn-primary">
                 <i class="bi bi-file-earmark-excel"></i> Export XLSX</a>
-            <a href="{{ url('/trainingVendor/export_pdf') }}" class="btn btn-warning">
+            <a href="{{ url('/training_vendor/export_pdf') }}" class="btn btn-warning">
                 <i class="bi bi-file-earmark-pdf"></i>Export PDF</a>
-            <button onclick="modalAction('{{ url('/trainingVendor/create_ajax') }}')" class="btn btn-success"><i
+            <button onclick="modalAction('{{ url('/training_vendor/create') }}')" class="btn btn-success"><i
                     class="bi bi-plus-circle"></i> Tambah Data</button>
         </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
         <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
-            id="table_trainingVendor" style="width: 100%;">
+            id="table_training_vendor" style="width: 100%;">
             <thead>
                 <tr>
                     <th>No</th>
@@ -69,14 +69,14 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    #table_trainingVendor th, tbody {
+    #table_training th, tbody {
         font-size: 0.875rem;
         padding: 0.5rem;
     }
 
     @media (max-width: 768px) {
-        #table_trainingVendor th,
-        #table_trainingVendor td {
+        #table_training th,
+        #table_training td {
             font-size: 0.75rem;
             padding: 0.3rem;
         }
@@ -94,14 +94,14 @@
 
     var dataTrainingVendor;
     $(document).ready(function() {
-        dataTrainingVendor = $('#table_trainingVendor').DataTable({
+        dataTrainingVendor = $('#table_training_vendor').DataTable({
             serverSide: true,
             responsive: true,
             paging: false, // Disable pagination if you want to use custom pagination
             lengthChange: false,
             info: false,
             ajax: {
-                url: "{{ url('trainingVendor/list') }}",
+                url: "{{ url('training_vendor/list') }}",
                 dataType: "json",
                 type: "POST",
                 data: function(d) {

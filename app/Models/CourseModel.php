@@ -17,4 +17,7 @@ class CourseModel extends Model
     public function courseCertification(): BelongsTo{
         return $this->belongsTo(CourseCertificationModel :: class);
     }
+    public function courseTraining(): BelongsTo{
+        return $this->belongsTo(CourseTrainingModel :: class);
+    }
 }

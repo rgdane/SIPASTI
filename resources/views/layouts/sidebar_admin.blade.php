@@ -157,12 +157,12 @@
                         <a href="{{ url('/training') }}"
                             class="nav-link {{ ($activeMenu == 'training') ? 'active' : '' }}">
                             <i class="bi bi-card-list"></i>
-                            <p>Data Pelatihan</p>
+                            <p>Data Pengajuan Pelatihan</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/trainingVendor') }}"
-                            class="nav-link {{ ($activeMenu == 'trainingVendor') ? 'active' : '' }}">
+                        <a href="{{ url('/training_vendor') }}"
+                            class="nav-link {{ ($activeMenu == 'training_vendor') ? 'active' : '' }}">
                             <i class="bi bi-building-gear"></i>
                             <p>Vendor Pelatihan</p>
                         </a>
@@ -170,6 +170,13 @@
                 </ul>
             </li>
 
+            <li class="nav-item">
+                <a href="{{ url('/statistic') }}" class="nav-link {{ ($activeMenu == 'statistic') ? 'active' : '' }}">
+                    <i class="bi bi-bar-chart-line"></i>
+                    <p>Statistik</p>
+                </a>
+            </li>
+            
             <li class="nav-item">
                 <a href="{{ url('/interest') }}" class="nav-link {{ ($activeMenu == 'interest') ? 'active' : '' }}">
                     <i class="bi bi-star"></i>
@@ -181,6 +188,13 @@
                 <a href="{{ url('/course') }}" class="nav-link {{ ($activeMenu == 'course') ? 'active' : '' }}">
                     <i class="bi bi-journal-bookmark-fill"></i>
                     <p>Mata Kuliah</p>
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a href="{{ url('/period') }}" class="nav-link {{ ($activeMenu == 'period') ? 'active' : '' }}">
+                    <i class="bi bi-calendar-date"></i>
+                    <p>Tahun Periode</p>
                 </a>
             </li>
 

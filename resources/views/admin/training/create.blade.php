@@ -1,70 +1,3 @@
-
-@stack('css')
-
-@push('css')
-<style>
-/* Minimalist Header Styling */
-.header-nav {
-    display: flex;
-    gap: 32px;
-    padding: 8px 0;
-}
-
-.nav-link {
-    color: #666;
-    text-decoration: none;
-    position: relative;
-}
-
-.nav-link.active {
-    color: #000;
-    font-weight: 500;
-}
-
-.nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #000;
-}
-
-.header-border {
-    width: 100%;
-    height: 1px;
-    background-color: #e0e0e0;
-    margin-bottom: 16px;
-}
-
-/* Form Styling */
-.form-label {
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.form-control {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-}
-
-.form-control::placeholder {
-    color: #999;
-    font-size: 0.9rem;
-}
-
-/* Submit Button Styling */
-.btn-primary {
-    padding: 0.5rem 2rem;
-    font-weight: 500;
-}
-
-</style>
-@endpush
-
 <form action="{{ url('/training/store') }}" method="POST" id="form-tambah" enctype="multipart/form-data">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -214,6 +147,20 @@
         </div>
     </div>
 </form>
+
+<style>
+    /* Ensure selected items have black text */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #2C3941;
+        border: 1px solid #ddd;
+        color: #000 !important; /* Force black text color */
+    }
+    
+    /* Ensure the selection text is black */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+        color: #ffffff !important; /* Force black text color */
+    }
+</style>
 
 <script>
     $(document).ready(function () {

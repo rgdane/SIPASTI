@@ -2,12 +2,6 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <!-- Header Navigation - Styled as pills instead of tabs -->
-    <!-- Minimalist Header Navigation -->
-    {{-- <div class="header-nav">
-        <a href="{{ url('/certification_input') }}" class="nav-link active">Sertifikasi Mandiri</a>
-        <a href="{{ url('/certification_upload')}}" class="nav-link">Upload Sertifikasi</a>
-    </div> --}}
     <div class="header-border"></div> <br><br>
 
     <!-- Form tanpa card, langsung di container -->
@@ -290,6 +284,61 @@
         }
     });
 });
+
+// Form submission handling
+$('#form-input').on('submit', function(e) {
+        e.preventDefault();
+
+        // Simpan referensi form
+        let form = this;
+
+        $.ajax({
+            url: $(form).attr('action'),
+            type: $(form).attr('method'),
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.status) {
+                    // Tampilkan pesan sukses
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response.message
+                    });
+
+                    // Reset form
+                    form.reset();
+
+                    // Reset Select2
+                    $('#course_id').val(null).trigger('change');
+                    $('#interest_id').val(null).trigger('change');
+                } else {
+                    // Tampilkan pesan kesalahan
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: response.message
+                    });
+
+                    // Tampilkan error field
+                    $('.error-text').text(''); // Bersihkan error sebelumnya
+                    $.each(response.msgField, function(prefix, val) {
+                        $('#error-' + prefix).text(val[0]);
+                    });
+                }
+            },
+            error: function(xhr) {
+                // Tangani error server
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: 'Silakan coba lagi nanti.'
+                });
+                console.error(xhr.responseText);
+            }
+        });
+    });
 
 document.addEventListener('DOMContentLoaded', function() {
     const uploadBox = document.querySelector('.upload-box');

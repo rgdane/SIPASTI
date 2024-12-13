@@ -99,8 +99,6 @@
                     <small id="error-interest_id" class="error-text form-text text-danger"></small>
                 </div>
 
-                
-
                 <!-- Submit Button -->
                 <div class="col-12 mt-2">
                     <button type="submit" class="btn btn-primary px-4">Simpan</button>

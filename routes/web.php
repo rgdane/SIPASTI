@@ -207,7 +207,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
         Route::group(['prefix' => 'certification_history'], function() {
             Route::get('/', [CertificationHistoryController::class, 'index'])->name('certification.history');
             Route::get('/list', [CertificationHistoryController::class, 'list']);
-            Route::get('/show/{id}', [CertificationHistoryController::class, 'show'])->name('certification.show');
+            Route::get('/{id}/show', [CertificationHistoryController::class, 'show']);
         });
 
         // Route Input Pelatihan

@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\api\CertificationHistoryController;
-use App\Http\Controllers\api\LoginController;
-use App\Http\Controllers\api\LogoutController;
+use App\Http\Controllers\Api\CertificationHistoryController;
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\LogoutController;
 use App\Http\Controllers\Api\UserTypeController;
 use App\Http\Controllers\Api\TrainingHistoryController;
 use Illuminate\Http\Request;

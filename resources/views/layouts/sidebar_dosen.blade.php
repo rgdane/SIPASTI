@@ -144,6 +144,13 @@
                 </ul>
             </li>
 
+            <li class="nav-item">
+                <a href="{{ url('/envelope') }}" class="nav-link {{ ($activeMenu == 'envelope') ? 'active' : '' }}">
+                    <i class="bi bi-envelope"></i>
+                    <p>Surat Tugas</p>
+                </a>
+            </li>
+
             {{-- Sidebar Untuk Dosen --}}
             {{-- <li class="nav-item has-treeview {{ ($activeMenu == 'envelope_submission' || $activeMenu == 'history_envelope') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">

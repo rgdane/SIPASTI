@@ -266,20 +266,14 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::post('/list', [StatisticController::class, 'list']);
         });
     });
-    // Route Permintaan Surat Tugas
-    Route::group(['prefix' => 'envelope'], function() {
-        Route::get('/', [EnvelopeController::class, 'index']);
-        Route::post('/list', [EnvelopeController::class, 'list']);
-        Route::get('/create', [EnvelopeController::class, 'create']);
-        Route::post('/ajax', [EnvelopeController::class, 'store']);
-        Route::get('/{id}/show', [EnvelopeController::class, 'show']);
-        Route::get('/{id}/edit', [EnvelopeController::class, 'edit']);
-        Route::put('/{id}/update', [EnvelopeController::class, 'update']);
-        Route::get('/{id}/delete', [EnvelopeController::class, 'confirm']);
-        Route::delete('/{id}/delete', [EnvelopeController::class, 'delete']);
-        Route::post('/import', [EnvelopeController::class, 'import']);
-        Route::get('/export_excel', [EnvelopeController::class, 'export_excel']);
-        Route::get('/export_pdf', [EnvelopeController::class, 'export_pdf']);
+
+    Route::middleware(['authorize:ADM,DSN'])->group(function(){
+        // Route Permintaan Surat Tugas
+        Route::group(['prefix' => 'envelope'], function() {
+            Route::get('/', [EnvelopeController::class, 'index']);
+            Route::post('/list', [EnvelopeController::class, 'list']);
+            Route::get('/{id}/download', [EnvelopeController::class, 'download']);
+        });
     });
     
     

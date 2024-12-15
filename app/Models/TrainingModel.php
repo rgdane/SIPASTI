@@ -46,4 +46,8 @@ class TrainingModel extends Model
     public function trainingMember(): BelongsTo{
         return $this->belongsTo(TrainingMemberModel :: class);
     }
+    
+    public function envelope(): BelongsTo{
+        return $this->belongsTo(EnvelopeModel :: class);
+    }
 }

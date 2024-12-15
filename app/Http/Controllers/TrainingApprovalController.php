@@ -242,7 +242,7 @@ class TrainingApprovalController extends Controller
         }
 
         // Simpan dokumen
-        $path = 'storage/uploads/envelope/ST_'.$training->training_name.'.docx';
+        $path = 'storage/uploads/envelope/ST_'.time() . '_' .$training->training_name.'.docx';
         $outputPath = public_path($path);
         $templateProcessor->saveAs($outputPath);
 

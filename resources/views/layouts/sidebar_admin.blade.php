@@ -157,7 +157,7 @@
                         <a href="{{ url('/training') }}"
                             class="nav-link {{ ($activeMenu == 'training') ? 'active' : '' }}">
                             <i class="bi bi-card-list"></i>
-                            <p>Data Pengajuan Pelatihan</p>
+                            <p>Data Pelatihan</p>
                         </a>
                     </li>
                     <li class="nav-item">

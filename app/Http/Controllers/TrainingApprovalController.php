@@ -18,12 +18,12 @@ class TrainingApprovalController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Pengajuan Pelatihan',
-            'list' => ['Home', 'Pengajuan Pelatihan']
+            'title' => 'Daftar Pelatihan',
+            'list' => ['Home', 'Pelatihan']
         ];
 
         $page = (object) [
-            'title' => 'Manajemen Pengajuan Pelatihan',
+            'title' => 'Pengajuan Pelatihan',
         ];
 
         $activeMenu = 'training_approval';

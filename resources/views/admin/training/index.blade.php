@@ -3,7 +3,7 @@
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
-        <h3 class="card-title">Manajemen Pengajuan Pelatihan</h3>
+        <h3 class="card-title">Manajemen Pelatihan</h3>
         <div class="card-tools">
             {{-- <button onclick="modalAction('{{ url('/training/import') }}')" class="btn btn-info">
                 <i class="bi bi-file-earmark-excel"></i> Import XLSX</button>

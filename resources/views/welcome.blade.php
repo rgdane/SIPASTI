@@ -123,7 +123,7 @@
 @if (auth()->user()->user_type->user_type_code === "ADM" || auth()->user()->user_type->user_type_code === "PMP")
 <div class="container-fluid">
     <div class="row">
-        <!-- Dashboard Cards with Modern Minimalist Style -->
+        {{-- <!-- Dashboard Cards with Modern Minimalist Style -->
         <div class="col-lg-3 col-md-6">
             <div class="card dashboard-card">
                 <div class="card-body d-flex align-items-center">
@@ -138,18 +138,18 @@
                     <i class="bi bi-people-fill card-icon"></i>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="col-lg-3 col-md-6">
             <div class="card dashboard-card">
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6>Total Sertifikasi</h6>
-                        <h4>75</h4>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60"
+                        <h4>{{ $totalCertification }}</h4>
+                        {{-- <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="100"
                                 aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        </div> --}}
                     </div>
                     <i class="bi bi-award-fill card-icon"></i>
                 </div>
@@ -161,11 +161,11 @@
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6>Total Pelatihan</h6>
-                        <h4>45</h4>
-                        <div class="progress">
+                        <h4>{{ $totalTraining }}</h4>
+                        {{-- <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50"
                                 aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        </div> --}}
                     </div>
                     <i class="bi bi-journal-text card-icon"></i>
                 </div>
@@ -177,11 +177,11 @@
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6>Total Vendor</h6>
-                        <h4>20</h4>
-                        <div class="progress">
+                        <h4>{{ $totalVendorCertification + $totalVendorTraining }}</h4>
+                        {{-- <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40"
                                 aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        </div> --}}
                     </div>
                     <i class="bi bi-building card-icon"></i>
                 </div>
@@ -190,7 +190,7 @@
     </div>
     <hr>
 
-    <!-- Lecturer Statistics -->
+    {{-- <!-- Lecturer Statistics -->
     <div class="row mt-4">
         <div class="col-12">
             <h5>Statistik Dosen</h5>
@@ -297,11 +297,10 @@
         </div>
     </div>
     <hr>
-    <br>
+    <br> --}}
 
     <!-- Main Content Area with Bar Chart and Upcoming Events -->
     <div class="row">
-
         <!-- Bar Chart Section -->
         <div class="col-lg-8 col-md-6">
             <div class="card shadow-sm">
@@ -343,11 +342,11 @@
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6>Total Sertifikasi</h6>
-                        <h4>75</h4>
-                        <div class="progress">
+                        <h4>{{ $userCertificationTotal }}</h4>
+                        {{-- <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60"
                                 aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        </div> --}}
                     </div>
                     <i class="bi bi-award-fill card-icon"></i>
                 </div>
@@ -359,11 +358,11 @@
                 <div class="card-body d-flex align-items-center">
                     <div>
                         <h6>Total Pelatihan</h6>
-                        <h4>45</h4>
-                        <div class="progress">
+                        <h4>{{ $userTrainingTotal }}</h4>
+                        {{-- <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50"
                                 aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        </div> --}}
                     </div>
                     <i class="bi bi-journal-text card-icon"></i>
                 </div>
@@ -371,7 +370,7 @@
         </div>
     </div>
     <hr>
-
+{{-- 
     <div class="row">
         <div class="col-md-6">
             <h5 class="mb-3">Riwayat Pelatihan</h5>
@@ -405,7 +404,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 @endif
 
@@ -414,7 +413,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
      // Data untuk chart
-     const monthlyData = [10, 20, 15, 25, 30, 50, 20, 25, 15, 20, 25, 18];
+     const monthlyData = @json($monthlyChartData);
      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
  
      // Konfigurasi bar chart
@@ -518,21 +517,5 @@
      // Opsional: Resize saat window diubah ukurannya
      window.addEventListener("resize", resizeChart);
  });
-</script>
-<script>
-    document.getElementById("toggleLecturers").addEventListener("click", function() {
-        const extras = document.querySelectorAll(".lecturer-card-extra");
-        const button = document.getElementById("toggleLecturers");
-        
-        extras.forEach(card => {
-            card.classList.toggle("hidden");
-        });
-        
-        if (button.textContent === "Lihat Semua") {
-            button.textContent = "Lihat Lebih Sedikit";
-        } else {
-            button.textContent = "Lihat Semua";
-        }
-    });
 </script>
 @endsection

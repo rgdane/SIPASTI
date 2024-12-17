@@ -320,7 +320,12 @@
                     <ul class="event-list">
                         <h4>Event Mendatang</h4>
                         <hr>
-                        <li>
+                        @foreach ($nearestEvents as $event)
+                            <li>
+                                <span class="event-date">{{ \Carbon\Carbon::parse($event->training_date)->format('d-m-Y') }}</span> - {{ $event->training_name }}
+                            </li>
+                        @endforeach
+                        {{-- <li>
                             <span class="event-date">Nov 15, 2024</span> - Sertifikasi Java Programming
                         </li>
                         <li>
@@ -328,7 +333,7 @@
                         </li>
                         <li>
                             <span class="event-date">Dec 10, 2024</span> - Workshop on AI in Education
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>

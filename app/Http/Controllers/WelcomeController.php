@@ -10,6 +10,7 @@ use App\Models\TrainingVendorModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller
 {
@@ -31,11 +32,14 @@ class WelcomeController extends Controller
         // Get monthly data
         $monthlyData = $this->getMonthlyChartData();
 
+        // Get nearest event
+        $nearestEvents = $this->getNearestEvents();
+
         $userCertificationTotal = $this->getUserCertificationTotal();
         $userTrainingTotal = $this->getUserTrainingTotal();
 
         return view('welcome', [
-            'breadcrumb' => $breadcrumb, 
+            'breadcrumb' => $breadcrumb,
             'activeMenu' => $activeMenu,
             'totalCertification' => $totalCertification,
             'totalTraining' => $totalTraining,
@@ -44,6 +48,7 @@ class WelcomeController extends Controller
             'monthlyChartData' => $monthlyData,
             'userCertificationTotal' => $userCertificationTotal,
             'userTrainingTotal' => $userTrainingTotal,
+            'nearestEvents' => $nearestEvents
         ]);
     }
 
@@ -84,5 +89,17 @@ class WelcomeController extends Controller
             return TrainingMemberModel::where('user_id', $user->user_id)->count();
         }
         return 0;
+    }
+
+    public function getNearestEvents()
+    {
+        return DB::select(
+            "SELECT *
+                FROM m_training
+                WHERE training_date >= NOW()
+                AND training_date <= DATE_ADD(NOW(), INTERVAL 7 DAY)
+                ORDER BY training_date ASC
+                LIMIT 3;"
+        );
     }
 }

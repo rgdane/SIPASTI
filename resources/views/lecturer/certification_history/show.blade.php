@@ -66,7 +66,7 @@
                         <td class="col-9">
                             {{ basename($certification->certification_file) }}
                             <br>
-                            <button type="button" onclick="window.open('{{ url('/certification/' . $certification->certification_id . '/file') }}', '_blank')" class="btn btn-info btn-sm">Lihat Dokumen</button>
+                            <button type="button" onclick="window.open('{{ url('/certification_history/' . $certification->certification_id . '/file') }}', '_blank')" class="btn btn-info btn-sm">Lihat Dokumen</button>
                         </td>
                     </tr>
                     <tr>

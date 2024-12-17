@@ -32,4 +32,5 @@ Route::get('/training_history/show/{id}', [TrainingHistoryController::class, 'sh
 //Route Riwayat Sertifikasi
 Route::get('/certification/{user}', [CertificationHistoryController::class, 'index']);
 Route::get('/certification/show/{id}', [CertificationHistoryController::class, 'show']);
+Route::get('/certification/file/{id}', [CertificationHistoryController::class, 'file']);
 

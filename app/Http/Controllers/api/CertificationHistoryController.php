@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\CertificationModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -84,5 +85,36 @@ class CertificationHistoryController extends Controller
         );
 
         return response()->json([$certification, $interest, $course]);
+    }
+
+    public function file(String $id)
+    {
+        try {
+            $certification = CertificationModel::find($id);
+
+            if (!$certification) {
+                return response()->json(['error' => 'Certification not found'], 404);
+            }
+
+            // Bangun path absolut
+            $absolutePath = 'storage/'.$certification->certification_file;
+
+            // Cek apakah file ada
+            if (!file_exists($absolutePath)) {
+                return response()->json(['error' => 'File not found'], 404);
+            }
+
+            // Header untuk file PDF
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="' . basename($absolutePath) . '"');
+            header('Content-Length: ' . filesize($absolutePath));
+
+            // Baca dan kirim file
+            readfile($absolutePath);
+            exit; // Pastikan tidak ada output lain
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+        }
     }
 }

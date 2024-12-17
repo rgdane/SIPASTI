@@ -41,8 +41,8 @@ class CertificationVendorController extends Controller
         // menambahkan kolom index / no urut (default certification_vendor_name kolom: DT_RowIndex)
         ->addIndexColumn()
         ->addColumn('aksi', function ($certification_vendors) { // menambahkan kolom aksi
-            $btn  = '<button onclick="modalAction(\''.url('/certification_vendor/' . $certification_vendors->certification_vendor_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
-            $btn .= '<button onclick="modalAction(\''.url('/certification_vendor/' . $certification_vendors->certification_vendor_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
+            //$btn  = '<button onclick="modalAction(\''.url('/certification_vendor/' . $certification_vendors->certification_vendor_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
+            $btn = '<button onclick="modalAction(\''.url('/certification_vendor/' . $certification_vendors->certification_vendor_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
             $btn .= '<button onclick="modalAction(\''.url('/certification_vendor/' . $certification_vendors->certification_vendor_id . '/delete').'\')"  class="btn btn-danger btn-sm">Hapus</button> ';
             return $btn;
         })

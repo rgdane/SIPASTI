@@ -64,7 +64,7 @@ class PeriodController extends Controller
             PeriodModel::create($request->all());
             return response()->json([
                 'status' => true,
-                'message' => 'Data vendor sertifikasi berhasil disimpan'
+                'message' => 'Data periode berhasil disimpan'
             ]);
         }
         redirect('/');

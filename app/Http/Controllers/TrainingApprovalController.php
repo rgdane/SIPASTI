@@ -31,9 +31,9 @@ class TrainingApprovalController extends Controller
         return view('head_department.training_approval.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
-    public function list()
+    public function list(Request $request)
     {
-        $trainings = DB::select(
+        $query =
             "SELECT
                 a.training_id,
                 a.training_name,
@@ -54,9 +54,19 @@ class TrainingApprovalController extends Controller
                 m_training a
                 INNER JOIN m_period d ON a.period_id = d.period_id
             WHERE
-                a.training_status <> '0'
-                ;"
-        );
+                a.training_status <> '0'";
+
+            // Tambahkan filter training_level jika dipilih
+            if ($request->has('training_level') && $request->training_level != '') {
+                $query .= " AND a.training_level = '" . $request->training_level . "'";
+            }
+            
+            // Tambahkan filter training_status jika dipilih
+            if ($request->has('training_status') && $request->training_status != '') {
+                $query .= " AND a.training_status = '" . $request->training_status . "'";
+            }
+            
+            $trainings = DB::select($query);
         return DataTables::of($trainings)
         // menambahkan kolom index / no urut (default training_name kolom: DT_RowIndex)
         ->addIndexColumn()

@@ -30,6 +30,16 @@
                         </select>
                         <small class="form-text text-muted">Level Pelatihan</small>
                     </div>
+                    <div class="col-3">
+                        <select class="form-control" name="training_status" id="training_status" required>
+                            <option value="">- Semua -</option>
+                            <option value="1">Pengajuan</option>
+                            <option value="2">Ditolak</option>
+                            <option value="3">Disetujui</option>
+                            <option value="4">Selesai</option>
+                        </select>
+                        <small class="form-text text-muted">Status Pelatihan</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,6 +120,7 @@
             data: function(d) {
                 d.training_vendor_id = $('#training_vendor_id').val();
                 d.training_level = $('#training_level').val(); // Tambahkan baris ini
+                d.training_status = $('#training_status').val(); // Tambahkan baris ini
             }
         },
             columns: [
@@ -128,6 +139,10 @@
         });
 
         $('#training_level').on('change', function() {
+            dataTraining.ajax.reload();
+        });
+        
+        $('#training_status').on('change', function() {
             dataTraining.ajax.reload();
         });
 

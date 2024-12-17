@@ -64,6 +64,11 @@ class TrainingController extends Controller
             $query .= " AND a.training_level = '" . $request->training_level . "'";
         }
 
+         // Tambahkan filter training_status jika dipilih
+        if ($request->has('training_status') && $request->training_status != '') {
+            $query .= " AND a.training_status = '" . $request->training_status . "'";
+        }
+
         $trainings = DB::select($query);
 
         return DataTables::of($trainings)

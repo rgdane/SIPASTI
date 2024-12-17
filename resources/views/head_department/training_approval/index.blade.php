@@ -15,9 +15,35 @@
                 <i class="bi bi-plus"></i> Tambah Data</button> --}}
         </div>
     </div>
+    
     <div class="card-body">
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-3">
+                        <select class="form-control" name="training_level" id="training_level" required>
+                            <option value="">- Semua -</option>
+                            <option value="0">Nasional</option>
+                            <option value="1">Internasional</option>
+                        </select>
+                        <small class="form-text text-muted">Level Pelatihan</small>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-control" name="training_status" id="training_status" required>
+                            <option value="">- Semua -</option>
+                            <option value="1">Pengajuan</option>
+                            <option value="2">Ditolak</option>
+                            <option value="3">Disetujui</option>
+                            <option value="4">Selesai</option>
+                        </select>
+                        <small class="form-text text-muted">Status Pelatihan</small>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Tambahkan div dengan class table-responsive -->
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
@@ -115,6 +141,8 @@
                 type: "POST",
                 data: function(d) {
                     d.training_vendor_id = $('#training_vendor_id').val();
+                    d.training_level = $('#training_level').val();
+                    d.training_status = $('#training_status').val();
                 }
             },
             columns: [
@@ -129,6 +157,14 @@
         });
 
         $('#training_vendor_id').on('change', function() {
+            dataTraining.ajax.reload();
+        });
+
+        $('#training_level').on('change', function() {
+            dataTraining.ajax.reload();
+        });
+        
+        $('#training_status').on('change', function() {
             dataTraining.ajax.reload();
         });
 

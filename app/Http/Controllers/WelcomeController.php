@@ -26,6 +26,7 @@ class WelcomeController extends Controller
 
         $totalCertification = CertificationModel::count();
         $totalTraining = TrainingModel::count();
+        $totalTrainingApproval = TrainingModel::where('training_status','1')->count();
         $totalVendorCertification = CertificationVendorModel::count();
         $totalVendorTraining = TrainingVendorModel::count();
 
@@ -43,6 +44,7 @@ class WelcomeController extends Controller
             'activeMenu' => $activeMenu,
             'totalCertification' => $totalCertification,
             'totalTraining' => $totalTraining,
+            'totalTrainingApproval' => $totalTrainingApproval,
             'totalVendorCertification' => $totalVendorCertification,
             'totalVendorTraining' => $totalVendorTraining,
             'monthlyChartData' => $monthlyData,

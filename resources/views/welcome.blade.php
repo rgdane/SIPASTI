@@ -151,7 +151,7 @@
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div> --}}
                     </div>
-                    <i class="bi bi-award-fill card-icon"></i>
+                    <i class="bi bi-award card-icon"></i>
                 </div>
             </div>
         </div>
@@ -168,6 +168,22 @@
                         </div> --}}
                     </div>
                     <i class="bi bi-journal-text card-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+            <div class="card dashboard-card">
+                <div class="card-body d-flex align-items-center">
+                    <div>
+                        <h6>Pengajuan Pelatihan</h6>
+                        <h4>{{ $totalTrainingApproval }}</h4>
+                        {{-- <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div> --}}
+                    </div>
+                    <i class="bi bi-cloud-arrow-up card-icon"></i>
                 </div>
             </div>
         </div>

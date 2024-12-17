@@ -38,8 +38,8 @@ class InterestController extends Controller
         // menambahkan kolom index / no urut (default interest_code kolom: DT_RowIndex)
         ->addIndexColumn()
         ->addColumn('aksi', function ($interests) { // menambahkan kolom aksi
-            $btn  = '<button onclick="modalAction(\''.url('/interest/' . $interests->interest_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
-            $btn .= '<button onclick="modalAction(\''.url('/interest/' . $interests->interest_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
+            // $btn  = '<button onclick="modalAction(\''.url('/interest/' . $interests->interest_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
+            $btn = '<button onclick="modalAction(\''.url('/interest/' . $interests->interest_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
             $btn .= '<button onclick="modalAction(\''.url('/interest/' . $interests->interest_id . '/delete').'\')"  class="btn btn-danger btn-sm">Hapus</button> ';
             return $btn;
         })

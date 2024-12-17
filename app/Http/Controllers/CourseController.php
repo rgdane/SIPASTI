@@ -39,8 +39,8 @@ class CourseController extends Controller
         // menambahkan kolom index / no urut (default course_code kolom: DT_RowIndex)
         ->addIndexColumn()
         ->addColumn('aksi', function ($courses) { // menambahkan kolom aksi
-            $btn  = '<button onclick="modalAction(\''.url('/course/' . $courses->course_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
-            $btn .= '<button onclick="modalAction(\''.url('/course/' . $courses->course_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
+            //$btn  = '<button onclick="modalAction(\''.url('/course/' . $courses->course_id . '/show').'\')" class="btn btn-info btn-sm">Detail</button> '; 
+            $btn = '<button onclick="modalAction(\''.url('/course/' . $courses->course_id . '/edit').'\')" class="btn btn-warning btn-sm">Edit</button> '; 
             $btn .= '<button onclick="modalAction(\''.url('/course/' . $courses->course_id . '/delete').'\')"  class="btn btn-danger btn-sm">Hapus</button> ';
             return $btn;
         })

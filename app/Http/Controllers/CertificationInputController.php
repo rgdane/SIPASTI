@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\CertificationModel;
 use App\Models\CertificationVendorModel;
+use App\Models\CourseCertificationModel;
 use App\Models\CourseModel;
+use App\Models\InterestCertificationModel;
 use App\Models\InterestModel;
 use App\Models\PeriodModel;
 use Illuminate\Support\Facades\Validator;
@@ -118,6 +120,22 @@ class CertificationInputController extends Controller
                 'interest_id' => json_encode($request->interest_id), // Store as JSON
                 'user_id' => $userId, // Use authenticated user's ID
             ]);
+
+            foreach ($request->course_id as $courseId) {
+                // Simpan ke database
+                CourseCertificationModel::create([
+                    'course_id' => $courseId,
+                    'certification_id' => CertificationModel::latest()->first()->certification_id,
+                ]);
+            }
+
+            foreach ($request->interest_id as $interestId) {
+                // Simpan ke database
+                InterestCertificationModel::create([
+                    'interest_id' => $interestId,
+                    'certification_id' => CertificationModel::latest()->first()->certification_id,
+                ]);
+            }
 
             return response()->json([
                 'status' => true,

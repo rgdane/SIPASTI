@@ -28,7 +28,6 @@
                     <th>Kota</th>
                     <th>PIC Vendor</th>
                     <th>Website</th>
-                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,7 +114,6 @@
                 { data: "certification_vendor_city", className: "", orderable: true, searchable: true },
                 { data: "certification_vendor_phone", className: "", orderable: true, searchable: true },
                 { data: "certification_vendor_web", className: "", orderable: true, searchable: true },
-                { data: "aksi", className: "", orderable: false, searchable: false }
             ]
         });
 

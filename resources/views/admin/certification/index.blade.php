@@ -29,6 +29,14 @@
                         </select>
                         <small class="form-text text-muted">Level Sertifikasi</small>
                     </div>
+                    <div class="col-3">
+                        <select class="form-control" name="certification_type" id="certification_type" required>
+                            <option value="">- Semua -</option>
+                            <option value="0">Profesi</option>
+                            <option value="1">Keahlian</option>
+                        </select>
+                        <small class="form-text text-muted">Jenis Sertifikasi</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,6 +116,7 @@
                 data: function(d) {
                     d.certification_vendor_id = $('#certification_vendor_id').val();
                     d.certification_level = $('#certification_level').val();
+                    d.certification_type = $('#certification_type').val();
                 }
             },
             columns: [
@@ -126,6 +135,10 @@
         });
 
         $('#certification_level').on('change', function () {
+            dataCertification.ajax.reload();
+        });
+
+        $('#certification_type').on('change', function () {
             dataCertification.ajax.reload();
         });
 

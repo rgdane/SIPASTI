@@ -171,6 +171,13 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ url('/statistic') }}" class="nav-link {{ ($activeMenu == 'statistic') ? 'active' : '' }}">
+                    <i class="bi bi-bar-chart-line"></i>
+                    <p>Statistik</p>
+                </a>
+            </li>
+            
+            <li class="nav-item">
                 <a href="{{ url('/interest') }}" class="nav-link {{ ($activeMenu == 'interest') ? 'active' : '' }}">
                     <i class="bi bi-star"></i>
                     <p>Bidang Minat</p>
@@ -181,6 +188,13 @@
                 <a href="{{ url('/course') }}" class="nav-link {{ ($activeMenu == 'course') ? 'active' : '' }}">
                     <i class="bi bi-journal-bookmark-fill"></i>
                     <p>Mata Kuliah</p>
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a href="{{ url('/period') }}" class="nav-link {{ ($activeMenu == 'period') ? 'active' : '' }}">
+                    <i class="bi bi-calendar-date"></i>
+                    <p>Tahun Periode</p>
                 </a>
             </li>
 

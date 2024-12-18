@@ -3,10 +3,10 @@
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
-        <h3 class="card-title">Manajemen Surat Tugas</h3>
+        <h3 class="card-title">Daftar Surat Tugas</h3>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('/envelope/create') }}')" class="btn btn-success"><i
-                    class="bi bi-file-earmark-arrow-up"></i> Upload File</button>
+            {{-- <button onclick="modalAction('{{ url('/envelope/create') }}')" class="btn btn-success"><i
+                    class="bi bi-file-earmark-arrow-up"></i> Upload File</button> --}}
         </div>
     </div>
     <div class="card-body">
@@ -17,11 +17,8 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>NIDN</th>
-                    <th>Nama</th>
-                    <th>Jenis Surat</th>
-                    <th>Catatan</th>
-                    <th>File</th>
+                    <th>Nama Pelatihan</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,8 +100,8 @@
             },
             columns: [
                 { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
-                { data: "certification_type_code", className: "", orderable: true, searchable: true },
-                { data: "certification_type_name", className: "", orderable: true, searchable: true },
+                { data: "training_name", className: "", orderable: true, searchable: true },
+                { data: "aksi", className: "", orderable: false, searchable: false }
             ]
         });
 

@@ -99,7 +99,7 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'certification' || $activeMenu == 'certification_vendor' || ($activeMenu == 'certification_type') || ($activeMenu == 'certification_input') || ($activeMenu == 'certification_upload')) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'certification_head' || $activeMenu == 'certification_vendor_head' || ($activeMenu == 'certification_type') || ($activeMenu == 'certification_input') || ($activeMenu == 'certification_upload')) ? 'menu-open' : '' }}">
 
                 <a href="#" class="nav-link">
                     <i class="bi bi-award"></i>
@@ -107,15 +107,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/certification') }}"
-                            class="nav-link {{ ($activeMenu == 'certification') ? 'active' : '' }}">
+                        <a href="{{ url('/certification_head') }}"
+                            class="nav-link {{ ($activeMenu == 'certification_head') ? 'active' : '' }}">
                             <i class="bi bi-card-list"></i>
                             <p>Data Sertifikasi</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/certification_vendor') }}"
-                            class="nav-link {{ ($activeMenu == 'certification_vendor') ? 'active' : '' }}">
+                        <a href="{{ url('/certification_vendor_head') }}"
+                            class="nav-link {{ ($activeMenu == 'certification_vendor_head') ? 'active' : '' }}">
                             <i class="bi bi-building-gear"></i>
                             <p>Vendor Sertifikasi</p>
                         </a>
@@ -124,7 +124,7 @@
             </li>
 
             <li
-                class="nav-item has-treeview {{ ($activeMenu == 'training' || $activeMenu == 'trainingVendor' || ($activeMenu == 'training_input')) ? 'menu-open' : '' }}">
+                class="nav-item has-treeview {{ ($activeMenu == 'training_approval' || $activeMenu == 'training_vendor_head' || ($activeMenu == 'training_input')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-journal-text"></i>
                     <p> Pelatihan
@@ -133,15 +133,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('/training') }}"
-                            class="nav-link {{ ($activeMenu == 'training') ? 'active' : '' }}">
+                        <a href="{{ url('/training_approval') }}"
+                            class="nav-link {{ ($activeMenu == 'training_approval') ? 'active' : '' }}">
                             <i class="bi bi-card-list"></i>
                             <p>Data Pelatihan</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/trainingVendor') }}"
-                            class="nav-link {{ ($activeMenu == 'trainingVendor') ? 'active' : '' }}">
+                        <a href="{{ url('/training_vendor_head') }}"
+                            class="nav-link {{ ($activeMenu == 'training_vendor_head') ? 'active' : '' }}">
                             <i class="bi bi-building-gear"></i>
                             <p>Vendor Pelatihan</p>
                         </a>
@@ -150,6 +150,13 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ url('/statistic') }}" class="nav-link {{ ($activeMenu == 'statistic') ? 'active' : '' }}">
+                    <i class="bi bi-bar-chart-line"></i>
+                    <p>Statistik</p>
+                </a>
+            </li>
+
+            {{-- <li class="nav-item">
                 <a href="{{ url('/interest') }}" class="nav-link {{ ($activeMenu == 'interest') ? 'active' : '' }}">
                     <i class="bi bi-star"></i>
                     <p>Bidang Minat</p>
@@ -161,7 +168,7 @@
                     <i class="bi bi-journal-bookmark-fill"></i>
                     <p>Mata Kuliah</p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </nav>
 </div>

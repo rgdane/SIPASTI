@@ -39,11 +39,11 @@
                     </tr>
                     <tr>
                         <th class="text-right col-3">Berlaku Mulai:</th>
-                        <td class="col-9">{{ $certification->certification_date_start }}</td>
+                        <td class="col-9">{{ date('d-m-Y', strtotime($certification->certification_date_start ?? '')) }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Berakhir Pada:</th>
-                        <td class="col-9">{{ $certification->certification_date_expired }}</td>
+                        <td class="col-9">{{ date('d-m-Y', strtotime($certification->certification_date_expired ?? '')) }}</td>
                     </tr>
                     <tr>
                         <th class="text-right col-3">Periode:</th>

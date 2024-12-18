@@ -2,90 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CertificationModel;
+use App\Models\CertificationVendorModel;
+use App\Models\TrainingMemberModel;
+use App\Models\TrainingModel;
+use App\Models\TrainingVendorModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller
 {
-    private $trainings;
-
-    public function __construct()
-    {
-        // Initialize static data in constructor
-        $this->trainings = collect([
-            [
-                'training_id' => 1,
-                'training_name' => 'Pelatihan Artificial Intellegent',
-                'training_date' => '2024-12-02 08:00:00',
-                'training_location' => 'JL. Soekarno Hatta, Graha Polinema',
-                'training_cost' => '1500000',
-                'training_vendor_id' => 1,
-                'vendor' => [
-                    'training_vendor_name' => 'Google'
-                ],
-                'training_type_id' => 1,
-                'type' => [
-                    'training_type_name' => 'Mandiri'
-                ],
-                'training_quota' => 50,
-                'course_id' => 1,
-                'course' => [
-                    'course_name' => 'Artificial Intellegent'
-                ],
-                'interest_id' => 3,
-                'interest' => [
-                    'interest_name' => 'Teknologi Informasi'
-                ],
-            ],
-            [
-                'training_id' => 2,
-                'training_name' => 'Pelatihan Data Science',
-                'training_date' => '2024-12-03 08:00:00',
-                'training_location' => 'Universitas Brawijaya',
-                'training_cost' => '2000000',
-                'training_vendor_id' => 2,
-                'vendor' => [
-                    'training_vendor_name' => 'IBM'
-                ],
-                'training_type_id' => 2,
-                'type' => [
-                    'training_type_name' => 'Non-Mandiri'
-                ],
-                'training_quota' => 100,
-                'course_id' => 2,
-                'course' => [
-                    'course_name' => 'Data Science'
-                ],
-                'interest_id' => 3,
-                'interest' => [
-                    'interest_name' => 'Teknologi Informasi'
-                ]
-            ],
-            [
-                'training_id' => 3,
-                'training_name' => 'Pelatihan Java Development',
-                'training_date' => '2024-12-04 08:00:00',
-                'training_location' => 'Dome Universitas Muhammadiyah Malang',
-                'training_cost' => '2000000',
-                'training_vendor_id' => 3,
-                'vendor' => [
-                    'training_vendor_name' => 'Microsoft'
-                ],
-                'training_type_id' => 2,
-                'type' => [
-                    'training_type_name' => 'Non-Mandiri'
-                ],
-                'training_quota' => 100,
-                'course_id' => 3,
-                'course' => [
-                    'course_name' => 'Pemrograman Dasar'
-                ],
-                'interest_id' => 3,
-                'interest' => [
-                    'interest_name' => 'Teknologi Informasi'
-                ]
-            ],
-        ]);
-    }
 
     public function index()
     {
@@ -96,43 +24,84 @@ class WelcomeController extends Controller
 
         $activeMenu = 'dashboard';
 
-        return view('welcome', [
-            'breadcrumb' => $breadcrumb, 
-            'activeMenu' => $activeMenu,
-            'trainings' => $this->trainings
-        ]);
-    }
+        $totalCertification = CertificationModel::count();
+        $totalTraining = TrainingModel::count();
+        $totalTrainingApproval = TrainingModel::where('training_status','1')->count();
+        $totalVendorCertification = CertificationVendorModel::count();
+        $totalVendorTraining = TrainingVendorModel::count();
 
-    public function show(string $id)
-    {
-        $training = $this->trainings->firstWhere('training_id', (int)$id);
+        // Get monthly data
+        $monthlyData = $this->getMonthlyChartData();
 
-        if (!$training) {
-            abort(404, 'Training not found');
-        }
+        // Get nearest event
+        $nearestEvents = $this->getNearestEvents();
 
-        $breadcrumb = (object) [
-            'title' => 'Detail Pelatihan',
-            'list' => ['Beranda', 'Detail Pelatihan']
-        ];
-
-        $activeMenu = 'dashboard';
+        $userCertificationTotal = $this->getUserCertificationTotal();
+        $userTrainingTotal = $this->getUserTrainingTotal();
 
         return view('welcome', [
-            'training' => $training,
             'breadcrumb' => $breadcrumb,
-            'activeMenu' => $activeMenu
+            'activeMenu' => $activeMenu,
+            'totalCertification' => $totalCertification,
+            'totalTraining' => $totalTraining,
+            'totalTrainingApproval' => $totalTrainingApproval,
+            'totalVendorCertification' => $totalVendorCertification,
+            'totalVendorTraining' => $totalVendorTraining,
+            'monthlyChartData' => $monthlyData,
+            'userCertificationTotal' => $userCertificationTotal,
+            'userTrainingTotal' => $userTrainingTotal,
+            'nearestEvents' => $nearestEvents
         ]);
     }
 
-    public function getTrainingDetails(string $id)
+    private function getMonthlyChartData()
     {
-        $training = $this->trainings->firstWhere('training_id', (int)$id);
+        // Get certifications and trainings for the last 12 months
+        $now = Carbon::now();
+        $monthlyData = [];
 
-        if (!$training) {
-            return response()->json(['error' => 'Training not found'], 404);
+        for ($i = 11; $i >= 0; $i--) {
+            $monthStart = $now->copy()->subMonths($i)->startOfMonth();
+            $monthEnd = $now->copy()->subMonths($i)->endOfMonth();
+
+            $certCount = CertificationModel::whereBetween('created_at', [$monthStart, $monthEnd])->count();
+            $trainingCount = TrainingModel::whereBetween('created_at', [$monthStart, $monthEnd])->count();
+
+            $monthlyData[] = $certCount + $trainingCount;
         }
 
-        return view('admin.training.show', ['training' => $training])->render();
+        return $monthlyData;
+    }
+
+    private function getUserCertificationTotal()
+    {
+        // Only for Dosen (lecturer) user type
+        $user = Auth::user();
+        if ($user->user_type->user_type_code === 'DSN') {
+            return CertificationModel::where('user_id', $user->user_id)->count();
+        }
+        return 0;
+    }
+
+    private function getUserTrainingTotal()
+    {
+        // Only for Dosen (lecturer) user type
+        $user = Auth::user();
+        if ($user->user_type->user_type_code === 'DSN') {
+            return TrainingMemberModel::where('user_id', $user->user_id)->count();
+        }
+        return 0;
+    }
+
+    public function getNearestEvents()
+    {
+        return DB::select(
+            "SELECT *
+                FROM m_training
+                WHERE training_date >= NOW()
+                AND training_date <= DATE_ADD(NOW(), INTERVAL 7 DAY)
+                ORDER BY training_date ASC
+                LIMIT 3;"
+        );
     }
 }

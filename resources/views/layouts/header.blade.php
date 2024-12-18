@@ -13,7 +13,7 @@
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <!-- Navbar Search -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link" data-widget="navbar-search" href="#" role="button">
         <i class="bi bi-search"></i>
       </a>
@@ -32,10 +32,10 @@
           </div>
         </form>
       </div>
-    </li>
+    </li> --}}
 
     <!-- Notifications Dropdown Menu -->
-    <li class="nav-item dropdown">
+    {{-- <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="bi bi-bell"></i>
         <span class="badge badge-warning navbar-badge">15</span>
@@ -60,14 +60,19 @@
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
       </div>
-    </li>
+    </li> --}}
 
     <!-- Profile Dropdown Menu -->
     <li class="nav-item dropdown user-menu">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         <!-- Placeholder for user profile image -->
-        <img id="userImage" src="adminlte/dist/img/avatar.png" class="user-image rounded-circle shadow" alt="User Image"
-          style="height: 35px; width: 35px;">
+        <img id="userImage" @if (auth()->check() && auth()->user()->user_detail)
+        src="{{ asset(auth()->user()->user_detail->user_detail_image) }}"
+        @else
+        src="{{ asset('default/path/to/default_profile.png') }}"
+        @endif class="user-image rounded-circle shadow" alt="User Image"
+        style="height: 35px; width: 35px;">
+
 
         <!-- Placeholder for username -->
         <span id="username" class="d-none d-md-inline">{{ auth()->user()->username }}</span>

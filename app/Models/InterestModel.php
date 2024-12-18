@@ -17,4 +17,7 @@ class InterestModel extends Model
     public function interestCertification(): BelongsTo{
         return $this->belongsTo(InterestCertificationModel :: class);
     }
+    public function interestTraining(): BelongsTo{
+        return $this->belongsTo(InterestTrainingModel :: class);
+    }
 }

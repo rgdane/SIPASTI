@@ -225,13 +225,26 @@ class UserController extends Controller
             $data = $sheet->toArray(null, false, true, true);
             $insert = [];
 
+            // Dictionary (key-value)
+            $userType = [
+                "ADM" => "UTP202401300001",
+                "PMP" => "UTP202411100002",
+                "DSN" => "UTP202411100001",
+                "TDK" => "UTP202411150001"
+            ];
             // Jika data lebih dari 1 baris
             if (count($data) > 1) {
                 foreach ($data as $baris => $value) {
                     // Baris pertama adalah header, maka lewati
                     if ($baris > 1) {
+                        $code = $value['A'];
+                        if (array_key_exists($code, $userType)) {
+                            $code = $userType[$code];
+                        } else {
+                            $code = 'UTP202411100001';
+                        }
                         $insert[] = [
-                            'user_type_id' => $value['A'],
+                            'user_type_id' => $code,
                             'username' => $value['B'],
                             'user_fullname' => $value['C'],
                             'password' => bcrypt($value['D']),

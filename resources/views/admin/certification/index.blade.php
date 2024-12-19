@@ -142,6 +142,10 @@
             dataCertification.ajax.reload();
         });
 
+        $('#certification_type').on('change', function () {
+            dataCertification.ajax.reload();
+        });
+
         //Adjust DataTables on window resize and when sidebar toggle is clicked
         $(window).on('resize', function() {
             dataCertification.columns.adjust().responsive.recalc();

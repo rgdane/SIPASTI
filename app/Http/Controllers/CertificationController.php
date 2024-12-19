@@ -66,7 +66,7 @@ class CertificationController extends Controller
             $query .= " AND a.certification_level = '" . $request->certification_level . "'";
         }
         
-        // Tambahkan filter training_type jika dipilih
+        // Tambahkan filter training_level jika dipilih
         if ($request->has('certification_type') && $request->certification_type != '') {
             $query .= " AND a.certification_type = '" . $request->certification_type . "'";
         }

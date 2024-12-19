@@ -18,6 +18,29 @@
     <div class="card-body">
         <div class="alert alert-success" style="display: none;">Success message</div>
         <div class="alert alert-danger" style="display: none;">Error message</div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-3">
+                        <select class="form-control" name="certification_level" id="certification_level" required>
+                            <option value="">- Semua -</option>
+                            <option value="0">Nasional</option>
+                            <option value="1">Internasional</option>
+                        </select>
+                        <small class="form-text text-muted">Level Sertifikasi</small>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-control" name="certification_type" id="certification_type" required>
+                            <option value="">- Semua -</option>
+                            <option value="0">Profesi</option>
+                            <option value="1">Keahlian</option>
+                        </select>
+                        <small class="form-text text-muted">Jenis Sertifikasi</small>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Tambahkan div dengan class table-responsive -->
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-rounded table-hover table-sm text-center"
@@ -115,6 +138,8 @@
                 type: "POST",
                 data: function(d) {
                     d.certification_vendor_id = $('#certification_vendor_id').val();
+                    d.certification_level = $('#certification_level').val();
+                    d.certification_type = $('#certification_type').val();
                 }
             },
             columns: [
@@ -132,6 +157,13 @@
             dataCertification.ajax.reload();
         });
 
+        $('#certification_level').on('change', function () {
+            dataCertification.ajax.reload();
+        });
+
+        $('#certification_type').on('change', function () {
+            dataCertification.ajax.reload();
+        });
         // Adjust DataTables on window resize and when sidebar toggle is clicked
         // $(window).on('resize', function() {
         //     dataCertification.columns.adjust().responsive.recalc();

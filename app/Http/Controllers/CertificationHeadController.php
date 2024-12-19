@@ -25,9 +25,9 @@ class CertificationHeadController extends Controller
     }
     
     // Ambil data certification dalam bentuk json untuk datatables
-    public function list()
+    public function list(Request $request)
     {
-        $certifications = DB::select(
+        $query =
             "SELECT
                 a.certification_id,
                 a.certification_name,
@@ -46,8 +46,19 @@ class CertificationHeadController extends Controller
                 m_certification a
                 INNER JOIN m_certification_vendor b ON a.certification_vendor_id = b.certification_vendor_id
                 INNER JOIN m_user c ON a.user_id = c.user_id
-                INNER JOIN m_period d ON a.period_id = d.period_id;"
-        );
+                INNER JOIN m_period d ON a.period_id = d.period_id";
+            
+        // Tambahkan filter training_level jika dipilih
+        if ($request->has('certification_level') && $request->certification_level != '') {
+            $query .= " AND a.certification_level = '" . $request->certification_level . "'";
+        }
+        
+        // Tambahkan filter training_level jika dipilih
+        if ($request->has('certification_type') && $request->certification_type != '') {
+            $query .= " AND a.certification_type = '" . $request->certification_type . "'";
+        }
+
+        $certifications = DB::select($query);
         return DataTables::of($certifications)
         // menambahkan kolom index / no urut (default certification_name kolom: DT_RowIndex)
         ->addIndexColumn()

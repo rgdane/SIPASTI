@@ -292,9 +292,9 @@ class UserController extends Controller
         $baris = 2;
         foreach ($user as $key => $value){
             $sheet->setCellValue('A' .$baris, $no);
-            $sheet->setCellValue('B' .$baris, $value->username);
-            $sheet->setCellValue('C' .$baris, $value->user_fullname);
-            $sheet->setCellValue('D' .$baris, $value->user_type->user_type_name); //ambil nama user_type
+            $sheet->setCellValue('B' .$baris, $value->user_type->user_type_name); //ambil nama user_type
+            $sheet->setCellValue('C' .$baris, $value->username);
+            $sheet->setCellValue('D' .$baris, $value->user_fullname);
             $baris++;
             $no++;
         }

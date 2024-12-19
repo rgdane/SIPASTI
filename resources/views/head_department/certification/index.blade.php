@@ -144,7 +144,7 @@
             },
             columns: [
                 { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
-                { data: "user_fullname", className: "", orderable: false, searchable: false },
+                { data: "user_fullname", className: "", orderable: true, searchable: true },
                 { data: "certification_name", className: "", orderable: true, searchable: true },
                 { data: "certification_type", className: "", orderable: false, searchable: false },
                 { data: "certification_level", className: "", orderable: false, searchable: false },

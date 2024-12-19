@@ -67,7 +67,7 @@
         </tr>
     </table>
     
-    <h3 class="text-center">LAPORAN DATA VENDOR SERTIFIKASI</h4>
+    <h3 class="text-center">LAPORAN DATA VENDOR PELATIHAN</h4>
     <table class="border-all">
         <thead>
             <tr>

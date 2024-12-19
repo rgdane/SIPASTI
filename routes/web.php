@@ -192,7 +192,7 @@ Route::middleware (['auth'])->group(function(){ // artinya semua route di dalam 
             Route::get('/{id}/edit', [PeriodController::class, 'edit']);
             Route::put('/{id}/update', [PeriodController::class, 'update']);
             Route::get('/{id}/delete', [PeriodController::class, 'confirm']);
-            Route::delete('/{id}/delete', [PeriodController::class, 'delete']);
+            Route::put('/{id}/delete', [PeriodController::class, 'delete']);
         });
     }); //middleware admin
     

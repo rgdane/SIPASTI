@@ -28,7 +28,7 @@ class PeriodController extends Controller
 
     public function list()
     {
-        $periods = PeriodModel::select(
+        $periods = PeriodModel::where('deleted_at', null)->select(
             'period_id',
             'period_year'
         );
@@ -122,7 +122,8 @@ class PeriodController extends Controller
             if($request -> ajax() || $request -> wantsJson()){
                 $period = PeriodModel::find($id);
                 if($period){
-                    $period -> delete();
+                    $period -> deleted_at = now();
+                    $period -> save();
                     return response() -> json([
                         'status' => true,
                         'message' => 'Data berhasil dihapus'

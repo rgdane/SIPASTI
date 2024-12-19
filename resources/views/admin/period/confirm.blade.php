@@ -19,7 +19,7 @@
 @else
 <form action="{{ url('/period/' . $period['period_id'] . '/delete') }}" method="POST" id="form-delete">
     @csrf
-    @method('DELETE')
+    @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">

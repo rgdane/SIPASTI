@@ -33,25 +33,7 @@
                 </tbody>
             </table>
         </div>
-        <!-- Pagination -->
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <div>Show
-                <select class="custom-select custom-select-sm form-control form-control-sm w-auto">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select> entries
-            </div>
-            <div>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination pagination-sm mb-0">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        
     </div>
 </div>
 <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
@@ -101,8 +83,6 @@
         dataStatistic = $('#table_statistic').DataTable({
             serverSide: true,
             responsive: false,
-            paging: false, // Disable pagination if you want to use custom pagination
-            lengthChange: false,
             info: false,
             ajax: {
                 url: "{{ url('statistic/list') }}",
